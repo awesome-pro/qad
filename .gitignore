@@ -1,0 +1,24 @@
+# environment
+.venv/
+.uv-cache/
+.uv-python/
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# local research material (third-party papers etc.)
+.research/
+
+# experiment artifacts (never commit checkpoints or large logs)
+runs/
+outputs/
+checkpoints/
+*.pt
+*.safetensors
+
+# os
+.DS_Store
