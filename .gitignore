@@ -13,12 +13,22 @@ __pycache__/
 # local research material (third-party papers etc.)
 .research/
 
+# local data / model caches
+.hf-cache/
+data/cache/
+
 # experiment artifacts (never commit checkpoints or large logs)
 runs/
 outputs/
 checkpoints/
+experiments/runs/
 *.pt
 *.safetensors
+
+# local ssh keys
+.ssh/
+
+qad_gpu_bundle.tgz
 
 # os
 .DS_Store

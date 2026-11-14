@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** quantizer + 43 tests done (42 pass, 1 CUDA-only skipped); everything else is proposed. Nothing is claimed as validated beyond §6.4.
+- **Status:** Gate 0 and local Gate 1 done — 76 tests collected (75 pass, 1 CUDA-only skipped), checkpoint inventory, fixed data, chunked losses, T0/Q0 smoke. No GPU has been used. Everything from Gate 2 onward is proposed; see §6.4 for what is measured.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -280,16 +280,17 @@ attention projections are not square. Architecture-derived counts:
 | quantized linear parameters | 440,401,920 | 1,409,286,144 |
 | frozen (tied embedding + norms) | 155,648,000 | 311,288,832 |
 
-These are arithmetic from `config.json`, not measurements. **Gate 1 must
-generate the authoritative inventory from the loaded checkpoint** — per-module
-shape, parameter count, dtype and device, plus totals — and reconcile it with
-these numbers; any mismatch is investigated before proceeding. The final report
-uses only the checkpoint-derived table.
+**Confirmed at Gate 1 from the loaded checkpoint** (`Qwen/Qwen3-0.6B` @
+`c1899de289a04d12100db370d81485cdf75e47ca`): 596,049,920 parameters,
+440,401,920 quantizable, 155,648,000 frozen; **197 `nn.Linear` modules = 196
+quantizable projections + the tied `lm_head`**. The tokenizer vocabulary is
+151,643 while the embedding matrix is padded to 151,936 rows; the padded logits
+participate in the softmax and are never targets. The 1.7B column stays
+architecture-derived until its own inventory is taken.
 
-Qwen3 (both sizes) has 28 layers × 7 linear projections = **196 linear
-modules**. `lm_head.weight` is tied to `model.embed_tokens.weight`, so the
-unquantized "embeddings + LM head" is one tensor (155.6M / 311.2M parameters)
-and is counted once.
+Qwen3 (both sizes) has 28 layers × 7 quantizable projections. `lm_head.weight`
+is tied to `model.embed_tokens.weight`, so the unquantized "embeddings + LM
+head" is one tensor (155.6M / 311.2M parameters) and is counted once.
 
 ### 5.3 Memory accounting — three distinct numbers
 
@@ -345,13 +346,13 @@ qad/
 │   └── runlog.py                  # run manifest, JSONL metrics, git hash
 ├── scripts/                       # thin argparse CLIs per gate
 ├── tests/
-│   ├── test_quantizer.py          # DONE (43 tests)
-│   ├── test_ste_gradients.py      # to be folded into test_quantizer
-│   ├── test_masks_alignment.py
+│   ├── test_quantizer.py          # DONE (43 quantizer tests)
+│   ├── test_losses.py             # DONE (19 tests)
+│   ├── test_wrapping.py           # DONE (8 tests)
+│   ├── test_models.py             # DONE (6 tests)
 │   ├── test_teacher_freeze.py
 │   ├── test_checkpoint_roundtrip.py
 │   ├── test_online_rollout.py
-│   └── test_losses.py
 ├── experiments/index.md           # registry: run id -> config -> metrics
 └── reports/                       # findings template, figures
 ```
@@ -363,9 +364,9 @@ separate decisions after the primary result.
 
 | # | Increment | Acceptance criteria | Where | GPU-h (ESTIMATE) |
 |---|---|---|---|---|
-| 0 | Reference quantizer + tests | **DONE**: 43 tests collected (42 pass, 1 CUDA-only skipped); hand-computed values; grouping/leakage; zero/constant groups; STE identity; no master overwrite; endpoint-vs-clipping; exact tail accounting; device preservation; cache invalidation | local CPU | 0 |
-| 1 | Model loading, checkpoint inventory, fixed eval sets, T0 baseline | revision + license recorded; inventory generated from the loaded checkpoint and reconciled with §5.2; logits `[B,T,V]`; 196 linears enumerated by role; teacher self-KL < 1e-5; deterministic teacher-forced eval; T0 metrics persisted | local MPS (smoke); official T0 in the Gate 2 session | 0 |
-| 2 | Fake-quant wrapping, Q0, diagnostics, bit accounting | same logits shape; Q0 loss finite; nonzero quant error only in selected weights; excluded modules byte-identical; every wrapped module on the same device as its source layer (CUDA assertion); Q0 evaluated on T0's exact set; reload reproduces Q0 | GPU 24 GB | 1–1.5 |
+| 0 | Reference quantizer + tests | **DONE**: 76 tests collected (75 pass, 1 CUDA-only skipped); quantizer, masks/alignment, chunked-loss equivalence, checkpoint inventory, wrapping, device preservation, cache invalidation | local CPU | 0 |
+| 1 | Model loading, checkpoint inventory, fixed eval sets, T0 baseline | **DONE (local)**: inventory confirmed (§5.2); FineWeb-Edu 256×1,024 tokens and 3,000 OpenThoughts prompts pinned by hash; chunked losses match naive to 1e-6; teacher self-KL = 0; local T0/Q0 smoke only, **not reportable**. Official T0 runs in Gate 2 | local MPS | 0 |
+| 2 | Official T0 + Q0, diagnostics, bit accounting | full 256-block T0/Q0 eval; same logits shape; nonzero quant error only in selected weights; excluded modules byte-identical; every wrapped module on the same device as its source (CUDA assertion); Q0 evaluated on T0's exact set; reload reproduces Q0; peak memory recorded | GPU 24 GB | 1–1.5 |
 | 3 | `losses.py` + offline QAD (Q1) + checkpointing | chunked-loss equivalence tests pass on a tiny model (loss and all gradients vs a naive reference); teacher byte-identical, `grad is None`; student grads finite; quantized forward active in train and eval; training objective finite and non-increasing on average over the first 20 steps (diagnostic; a flat curve is reported, not treated as failure); checkpoint reloads and reproduces | GPU 24 GB | 2–3 |
 | 4 | Rollouts + on-policy Q2 | index/mask tests pass; teacher and student score identical tokens; no gradient through sampling; cache invalidated between step and rollout; rollouts change after an update; Q2 completes at the matched response-token budget | GPU 24 GB | 2–3 |
 | 4b | Q3 sampled reverse KL (optional, separate decision) | same as Gate 4; estimator sign test; `KL_hat` and surrogate logged separately | GPU 24 GB | 1.5–2 |
@@ -437,15 +438,32 @@ improve a metric** — see §8.4.
    torch/transformers/CUDA versions, GPU model/VRAM, revisions, token counts,
    seed, exact command, artifact paths, warnings, GPU-seconds.
 
-### 6.4 Already measured (local, CPU)
+### 6.4 Already measured (local, no GPU)
 
-- 43 tests collected: 42 pass, 1 CUDA-only test skipped on macOS; Python 3.12,
+- 76 tests collected: 75 pass, 1 CUDA-only test skipped on macOS; Python 3.12,
   torch 2.15.0.
-- On `(3072, 1024)` `N(0, 0.02²)` weights: W3 MSE 3.0e-5, endpoint occupancy
-  2.4%, clipped 0.0%, zero-level 36.2%, 3.125 effective bits/weight.
-- Tail shape `(4, 130)`: 8 groups, 3.2462 bits/weight (exact accounting).
-- One 3072×1024 quantize-dequantize takes 1.7 ms.
-- These are microbenchmarks on synthetic weights, not model-quality results.
+- **Inventory** (from the loaded checkpoint): 596,049,920 parameters,
+  440,401,920 quantizable (73.9%), 155,648,000 frozen; 197 `nn.Linear` = 196
+  quantizable + tied `lm_head`; `q_proj` is `[2048, 1024]`; tokenizer vocab
+  151,643 vs 151,936 embedding rows.
+- **Data**: FineWeb-Edu `sample-10BT` 256 × 1,024 tokens
+  (`ids_sha256 8676a899…`); 3,000 OpenThoughts prompts (mean 683 prompt tokens,
+  max 1,024). **2,979 / 3,000 gold responses were truncated at 1,024 tokens**,
+  because the median response is ~7.3k tokens. Q1 is therefore "fixed,
+  length-capped gold prefixes", not full gold traces; this must be stated in the
+  report.
+- **Loss path**: chunked NLL / forward KL / sampled RKL match the naive
+  full-logits reference to 1e-6 for losses and gradients on a tiny Qwen3; on the
+  real model, chunked NLL matches naive to 1e-6 and teacher self-KL is exactly
+  0.
+- **Local MPS smoke** (8 batches, 32,736 tokens, bf16, `--limit-batches`):
+  T0 NLL 3.139 (ppl 23.1); Q0 NLL 6.589 (ppl 727.4), forward KL 3.854.
+  **Not reportable** (limited batches, MPS), but it establishes the size of the
+  recovery problem.
+- **Implication:** pure-RTN W3A16 is far more damaged than the paper's Stage-1
+  checkpoint. Q1/Q2 must recover from a severely degraded student, and Q0
+  rollouts may be low quality. Gate 2 measures this officially; if confirmed,
+  this is reported as a hard-recovery result rather than hidden.
 
 ---
 
@@ -568,7 +586,7 @@ outcome.
 ## 9. Compute and memory
 
 **ESTIMATE** unless stated; parameter counts are architecture-derived and are
-replaced by checkpoint-derived numbers at Gate 1.
+confirmed for 0.6B at Gate 1; the 1.7B column stays architecture-derived.
 
 | Item | 0.6B | 1.7B |
 |---|---|---|
@@ -598,7 +616,7 @@ No idle GPU, no unattended sweeps.
 
 | Risk | Mitigation |
 |---|---|
-| RTN W3 destroys 0.6B so badly that rollouts are incoherent | Report rollout quality (length, repetition, parse rate) alongside losses; the recovery question is still valid; if Q0 is unusable, Q1/Q2 deltas are interpreted as "recovery from a broken init" |
+| RTN W3 destroys 0.6B so badly that rollouts are incoherent | **Measured locally**: Q0 NLL 6.59 vs T0 3.14 (ppl 727 vs 23) on 32,736 tokens. Gate 2 confirms officially. Report rollout quality (length, repetition, parse rate); if Q0 is unusable, Q1/Q2 is framed as recovery from a broken init, and a W4A16 arm becomes a decision for the reviewer, not a silent substitution |
 | On-policy data from a bad student is low-information | Log per-step KL and response length; compare Q2 vs Q1 at matched tokens; note as a limitation |
 | Sampled RKL has high variance | Average over ≥4,096 response tokens per step; report `KL_hat` variance across steps; no single-run significance claims |
 | Single seed noise | Pre-registered thresholds, bootstrap CIs, "preliminary" label; second seed only for Q1/Q2 if budget allows |
@@ -644,7 +662,7 @@ guarantee is made.
 
 ---
 
-## 12. Test plan (beyond the 43 quantizer/accounting tests)
+## 12. Test plan (beyond the 76 collected tests)
 
 | Test | Failure it prevents | When |
 |---|---|---|
@@ -701,23 +719,21 @@ rule, not a correctness gate). Still open:
 
 ---
 
-## 14. Immediate next step
+## 14. Immediate next step (Gate 2, first paid session)
 
-Gate 1, entirely local and free:
+Local Gate 1 is complete (inventory, data, losses, smoke tests). The next step
+is one GPU session, no training:
 
-1. Load `Qwen/Qwen3-0.6B` at a pinned revision on MPS/CPU, record config,
-   license, tokenizer special tokens and chat-template hash.
-2. Enumerate all parameters and every linear module from the loaded checkpoint
-   (shape, count, dtype, device); reconcile with the architecture-derived table
-   in §5.2; emit the quantized / unquantized coverage table.
-3. Build and hash the fixed held-out NLL/KL set (FineWeb-Edu) and the eval
-   prompt set.
-4. Implement `losses.py` — NLL, forward KL, sampled reverse KL — with the
-   hidden-state chunked design in §6.3, plus the naive reference used by the
-   equivalence tests.
-5. Produce the T0 baseline (NLL, teacher self-KL, a few generations) locally as
-   a smoke test; the official T0 number runs on the GPU in the first paid
-   session.
+1. Rent 1× RTX 4090 24 GB (fallback L40S 48 GB), 50 GB container disk, 50 GB
+   network volume at `/workspace`; see `GPU_RUNBOOK.md`.
+2. Transfer the 7.6 MB bundle (`scripts/package_for_gpu.sh`), bootstrap the
+   environment (`scripts/bootstrap_gpu.sh`), verify `torch.cuda.is_available()`.
+3. Run `scripts/baseline.py` for T0 and Q0 on the full 256-block held-out set;
+   record NLL, forward KL, peak memory, GPU type and driver.
+4. Assert: inventory matches the local one; wrapped modules on CUDA; excluded
+   modules unchanged; chunked NLL matches a naive check on one batch.
+5. Save artifacts under `/workspace/artifacts/gate2`, copy them back, verify
+   checksums, terminate the pod.
 
-No GPU is needed for any of the above. Gate 2 is the first paid session
-(24 GB card, ~1–1.5 h, hard timeout).
+Expected duration ~1–1.5 h, hard timeout 3 h. No optimizer step runs in this
+session.

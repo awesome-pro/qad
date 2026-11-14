@@ -28,12 +28,16 @@ normalization layers, attention biases (none in Qwen3).
 
 | Increment | State |
 |---|---|
-| 0. Reference quantizer + STE wrapper + unit tests | **done** (43 collected, 42 pass + 1 CUDA-only skip) |
-| 1. Model loading, module inventory, fixed eval sets, T0 baseline | next |
-| 2. Fake-quant wrapping, Q0 evaluation, bit accounting | needs GPU |
+| 0. Reference quantizer, losses, wrapping + tests | **done locally** (76 collected, 75 pass + 1 CUDA-only skip) |
+| 1. Checkpoint inventory, fixed eval data, T0/Q0 smoke | **done locally** (not reportable) |
+| 2. Official T0 + Q0 on the held-out set, memory accounting | **next** (first GPU session) |
 | 3. Offline QAD, checkpoint round-trip | needs GPU |
-| 4. Rollouts + on-policy objectives | needs GPU |
+| 4. Rollouts + on-policy Q2 | needs GPU |
 | 5. Benchmark subsets, report | needs GPU |
+
+Local Gate 1 results and the one open concern (pure-RTN W3A16 is severely
+degraded: local smoke ppl 727 vs 23 for BF16) are recorded in `plan.md` §6.4.
+No model-quality number from the Mac is reportable.
 
 ## Environment
 
@@ -58,8 +62,10 @@ groups, no cross-row leakage, all-zero and constant groups, code ranges,
 reconstruction formulas, identity-STE gradients, fake-forward equality with
 explicit quantize-dequantize, and that the fp32 master weight is never
 overwritten. It also covers exact tail-group bit accounting, the distinction
-between endpoint occupancy and clipping, device-preserving conversion, and
-dequantized-weight cache invalidation after an in-place update.
+between endpoint occupancy and clipping, device-preserving conversion,
+dequantized-weight cache invalidation, checkpoint-derived inventories,
+quantization wrapping, causal token alignment, and chunked-loss equivalence
+(losses and gradients) against a naive full-logits reference.
 
 ## References
 

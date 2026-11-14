@@ -1,0 +1,41 @@
+{
+  "created_utc": "2026-11-14T19:13:09.026768+00:00",
+  "git_commit": "677c1d0addc2dc03bc6baf1ec5406efd54b413fd",
+  "variant": "Q0",
+  "model": "Qwen/Qwen3-0.6B",
+  "revision": null,
+  "tokenizer_revision": null,
+  "quantization": {
+    "bits": 3,
+    "group_size": 128,
+    "granularity": "per_group",
+    "scheme": "symmetric",
+    "scale_floor": 1e-08
+  },
+  "eval_set": {
+    "path": "data/cache/eval/fineweb_eval_ids.npy",
+    "blocks": 32,
+    "block_size": 1024,
+    "tokens_scored": 32736
+  },
+  "device": "mps",
+  "dtype": "bfloat16",
+  "metrics": {
+    "nll": 6.589424431324005,
+    "perplexity": 727.3621025533705,
+    "forward_kl_teacher_student": 3.8544704616069794
+  },
+  "elapsed_seconds": 51.4874627909885,
+  "tokens_per_second": 635.805266476047,
+  "peak_memory_bytes": 5075474432,
+  "versions": {
+    "python": "3.12.12",
+    "torch": "2.15.0",
+    "cuda": null,
+    "transformers": "5.23.0"
+  },
+  "gpu": null,
+  "warnings": [
+    "limited batches: not a reportable result"
+  ]
+}
