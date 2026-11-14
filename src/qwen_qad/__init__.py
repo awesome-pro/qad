@@ -6,9 +6,11 @@ from .quantization import (
     QuantDiagnostics,
     QuantResult,
     effective_bits_per_weight,
+    group_count,
     fake_quantize_weight,
     quant_diagnostics,
     quantize_weight,
+    storage_bits,
 )
 
 __all__ = [
@@ -17,7 +19,9 @@ __all__ = [
     "QuantDiagnostics",
     "QuantResult",
     "effective_bits_per_weight",
+    "group_count",
     "fake_quantize_weight",
     "quant_diagnostics",
     "quantize_weight",
+    "storage_bits",
 ]

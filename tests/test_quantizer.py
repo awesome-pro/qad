@@ -12,6 +12,7 @@ import math
 
 import pytest
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 
 from qwen_qad.quantization import (
@@ -19,8 +20,10 @@ from qwen_qad.quantization import (
     QuantConfig,
     effective_bits_per_weight,
     fake_quantize_weight,
+    group_count,
     quant_diagnostics,
     quantize_weight,
+    storage_bits,
 )
 
 W3 = QuantConfig(bits=3, group_size=4)
@@ -391,7 +394,197 @@ def test_diagnostics_are_finite_and_bounded():
 
     assert math.isfinite(result.mean_squared_error)
     assert result.mean_squared_error >= 0
-    assert 0.0 <= result.saturation_fraction <= 1.0
+    assert 0.0 <= result.endpoint_fraction <= 1.0
+    assert 0.0 <= result.clipped_fraction <= 1.0
     assert 0.0 <= result.zero_level_fraction <= 1.0
     assert result.min_scale <= result.mean_scale <= result.max_scale
     assert result.bits_per_weight == pytest.approx(3.125)
+
+# ---------------------------------------------------------------------------
+# diagnostics: endpoint occupancy vs clipping vs zero level
+# ---------------------------------------------------------------------------
+
+
+def test_diagnostics_zero_level_fraction_symmetric():
+    w = torch.tensor([[0.0, 0.0, 1.0, -1.0]])
+    cfg = QuantConfig(bits=3, group_size=4)
+    result = quant_diagnostics(w, cfg)
+
+    assert result.zero_level_fraction == pytest.approx(0.5)  # two exact zeros
+    assert result.endpoint_fraction == pytest.approx(0.5)  # +1 and -1 sit on 3 / -3
+    assert result.clipped_fraction == 0.0
+
+
+def test_diagnostics_endpoint_occupancy_is_not_clipping():
+    # max-abs scaling puts the group extreme exactly on an endpoint; that is
+    # structural, not clipping. 100 and -100 both round to +/-3, nothing is cut.
+    w = torch.tensor([[100.0, -100.0, 0.5, -0.5]])
+    cfg = QuantConfig(bits=3, group_size=4)
+    result = quant_diagnostics(w, cfg)
+
+    assert result.endpoint_fraction == pytest.approx(0.5)
+    assert result.clipped_fraction == 0.0
+
+
+def test_diagnostics_asymmetric_clipping_is_counted():
+    # b=2 -> codes 0..3; scale=0.6, zero_point=2; +0.9 maps to raw code 4 and
+    # is actually clipped, while -0.9 lands on code 0 (an endpoint, not a clip).
+    w = torch.tensor([[-0.9, 0.9]])
+    cfg = QuantConfig(bits=2, group_size=2, scheme="asymmetric")
+    result = quantize_weight(w, cfg, with_codes=True)
+
+    assert result.codes_raw is not None and result.clipped is not None
+    assert result.codes_raw[0].tolist() == [0.0, 4.0]
+    assert result.codes.tolist() == [[0.0, 3.0]]
+    assert result.clipped[0].tolist() == [False, True]
+
+    diag = quant_diagnostics(w, cfg)
+    assert diag.clipped_fraction == pytest.approx(0.5)
+    assert diag.endpoint_fraction == pytest.approx(1.0)
+    assert diag.zero_level_fraction == 0.0  # zero-point is code 2, unused here
+
+
+def test_diagnostics_all_zero_group_zero_level():
+    w = torch.zeros(1, 128)
+    cfg = QuantConfig(bits=3, group_size=128)
+    diag = quant_diagnostics(w, cfg)
+    assert diag.zero_level_fraction == pytest.approx(1.0)
+    assert diag.endpoint_fraction == 0.0
+    assert diag.clipped_fraction == 0.0
+
+
+# ---------------------------------------------------------------------------
+# exact storage accounting (tail groups included)
+# ---------------------------------------------------------------------------
+
+
+def test_group_count_exact_with_tail():
+    cfg = QuantConfig(bits=3, group_size=128)
+    assert group_count(cfg, (4, 384)) == 12
+    assert group_count(cfg, (4, 130)) == 8  # 1 full group + 1 tail group per row
+    assert group_count(cfg, (4, 64)) == 4  # group larger than in_features
+    assert group_count(QuantConfig(granularity="per_row"), (4, 130)) == 4
+    assert group_count(QuantConfig(granularity="per_tensor"), (4, 130)) == 1
+
+
+def test_tail_group_storage_accounting_exact():
+    cfg = QuantConfig(bits=3, group_size=128)
+    bits = storage_bits(cfg, (4, 130))
+
+    assert bits["weights"] == 4 * 130
+    assert bits["groups"] == 8
+    assert bits["payload_bits"] == 4 * 130 * 3
+    assert bits["scale_bits"] == 8 * 16
+    assert bits["total_bits"] == 4 * 130 * 3 + 8 * 16
+    assert bits["bits_per_weight"] == pytest.approx((4 * 130 * 3 + 8 * 16) / (4 * 130))
+
+    # the tail makes metadata more expensive per weight than a full group
+    assert effective_bits_per_weight(cfg, (4, 130)) > effective_bits_per_weight(cfg, (4, 256))
+
+
+def test_storage_bits_per_tensor_and_per_row():
+    row = storage_bits(QuantConfig(bits=3, granularity="per_row"), (4, 130))
+    assert row["groups"] == 4
+    assert row["bits_per_weight"] == pytest.approx(3 + 16 / 130)
+
+    tensor = storage_bits(QuantConfig(bits=3, granularity="per_tensor"), (4, 130))
+    assert tensor["groups"] == 1
+    assert tensor["bits_per_weight"] == pytest.approx(3 + 16 / (4 * 130))
+
+    asym = storage_bits(QuantConfig(bits=3, group_size=128, scheme="asymmetric"), (256, 2048))
+    assert asym["groups"] == 256 * 16
+    assert asym["scale_bits"] == asym["zero_point_bits"] == 256 * 16 * 16
+
+
+# ---------------------------------------------------------------------------
+# device placement and dequantized-weight cache
+# ---------------------------------------------------------------------------
+
+
+def test_from_linear_preserves_device_and_bias_dtype():
+    linear = nn.Linear(32, 8, bias=True).to(torch.device("cpu"))
+    module = FakeQuantLinear.from_linear(linear, QuantConfig(bits=3, group_size=32))
+
+    assert module.weight.device == linear.weight.device
+    assert module.weight.dtype == torch.float32
+    assert module.bias is not None
+    assert module.bias.device == linear.bias.device
+    assert module.bias.dtype == linear.bias.dtype
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA not available")
+def test_from_linear_preserves_cuda_device():
+    linear = nn.Linear(32, 8, bias=True).cuda()
+    module = FakeQuantLinear.from_linear(linear, QuantConfig(bits=3, group_size=32))
+    assert module.weight.device == linear.weight.device
+    assert module.bias is not None and module.bias.device == linear.bias.device
+
+
+def test_dequant_cache_invalidated_by_in_place_update():
+    torch.manual_seed(14)
+    module = FakeQuantLinear(32, 8, bias=False, config=QuantConfig(bits=3, group_size=32))
+    first = module.dequantized_weight().clone()
+    assert module._dequant_cache is not None
+
+    with torch.no_grad():
+        module.weight.add_(0.05)
+    second = module.dequantized_weight()
+
+    assert not torch.equal(first, second)
+    assert module._dequant_cache is not None
+    assert module._dequant_cache[0] == module.weight._version
+
+
+def test_invalidate_cache_after_data_assignment():
+    torch.manual_seed(15)
+    module = FakeQuantLinear(32, 8, bias=False, config=QuantConfig(bits=3, group_size=32))
+    first = module.dequantized_weight().clone()
+
+    with torch.no_grad():
+        module.weight.data = module.weight.data + 0.1
+    module.invalidate_cache()
+    second = module.dequantized_weight()
+
+    assert not torch.equal(first, second)
+
+
+def test_no_grad_forward_uses_cache_and_refreshes_after_update():
+    torch.manual_seed(16)
+    module = FakeQuantLinear(32, 8, bias=False, config=QuantConfig(bits=3, group_size=32))
+    x = torch.randn(2, 32)
+
+    with torch.no_grad():
+        out1 = module(x).clone()
+        out1b = module(x)
+        assert torch.equal(out1, out1b)
+
+        version_before = module.weight._version
+        module.weight.mul_(0.5)
+        assert module.weight._version != version_before
+        out2 = module(x)
+
+    assert not torch.allclose(out1, out2)
+
+
+def test_grad_enabled_forward_ignores_cache_and_keeps_ste():
+    torch.manual_seed(17)
+    module = FakeQuantLinear(32, 8, bias=False, config=QuantConfig(bits=3, group_size=32))
+    with torch.no_grad():
+        module(torch.randn(1, 32))
+    assert module._dequant_cache is not None
+
+    x = torch.randn(1, 32)
+    out = module(x)
+    assert out.requires_grad
+    out.sum().backward()
+    assert module.weight.grad is not None
+    assert torch.isfinite(module.weight.grad).all()
+
+
+def test_to_device_clears_cache():
+    module = FakeQuantLinear(32, 8, bias=False, config=QuantConfig(bits=3, group_size=32))
+    with torch.no_grad():
+        module(torch.randn(1, 32))
+    assert module._dequant_cache is not None
+    module.to(torch.device("cpu"))
+    assert module._dequant_cache is None

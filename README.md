@@ -13,11 +13,12 @@ wins**; the paper is reference material only, not a reproduction target.
 
 | Decision | Choice |
 |---|---|
-| Models | `Qwen/Qwen3-0.6B` for pipeline validation, then `Qwen/Qwen3-1.7B` for the headline run |
+| Models | `Qwen/Qwen3-0.6B` for pipeline validation, then `Qwen/Qwen3-1.7B` for the headline run (separate decision) |
 | Precision | W3A16 weight-only fake quantization (BF16 activations) |
 | Scheme | signed symmetric, `q in [-3, 3]` (one code unused), group size 128 along `in_features`, per output row, no zero-point; asymmetric affine available behind a flag |
 | Student init | copy pretrained weights, then fake-quantize (round-to-nearest Q0). **No block-wise QAT initialization** |
-| Stage 2 | offline forward KL on fixed prefixes (Q1) vs on-policy forward KL (Q2 control) vs on-policy sampled reverse KL (Q3 variant) |
+| Stage 2 | primary: offline forward KL on fixed prefixes (Q1) vs on-policy forward KL (Q2). Optional third arm: on-policy sampled reverse KL (Q3), decided after Q1/Q2 |
+| Trainable | only the wrapped linear masters; embeddings, LM head and norms frozen |
 | Evaluation | two tiers: NLL/teacher-KL on a fixed held-out set for every run, plus compact benchmark subsets for the headline variants |
 
 Unquantized: embeddings, LM head (tied in Qwen3, so one tensor), all
@@ -27,7 +28,7 @@ normalization layers, attention biases (none in Qwen3).
 
 | Increment | State |
 |---|---|
-| 0. Reference quantizer + STE wrapper + unit tests | **done** (28 tests, CPU) |
+| 0. Reference quantizer + STE wrapper + unit tests | **done** (43 collected, 42 pass + 1 CUDA-only skip) |
 | 1. Model loading, module inventory, fixed eval sets, T0 baseline | next |
 | 2. Fake-quant wrapping, Q0 evaluation, bit accounting | needs GPU |
 | 3. Offline QAD, checkpoint round-trip | needs GPU |
@@ -56,7 +57,9 @@ The suite checks hand-computed quantization values, group shapes and tail
 groups, no cross-row leakage, all-zero and constant groups, code ranges,
 reconstruction formulas, identity-STE gradients, fake-forward equality with
 explicit quantize-dequantize, and that the fp32 master weight is never
-overwritten.
+overwritten. It also covers exact tail-group bit accounting, the distinction
+between endpoint occupancy and clipping, device-preserving conversion, and
+dequantized-weight cache invalidation after an in-place update.
 
 ## References
 
