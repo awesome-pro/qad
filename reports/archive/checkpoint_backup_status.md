@@ -1,5 +1,9 @@
 # Seed-43 / W3 checkpoint backup status — BLOCKED
 
+> **Superseded for final status by `reports/checkpoint_inventory.md`.** The
+> 1.7B safetensors backup was later completed and verified; the seed-43/W3-G128
+> loss remains.
+
 Status: **not verified / incomplete.** Do not represent these checkpoints as
 durably backed up.
 

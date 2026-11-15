@@ -58,5 +58,5 @@ These are reported separately and are not interchangeable.
 - W3 failure cannot be causally attributed to quantization vs formatting.
 - Fake quantization does not imply deployed speed or memory savings.
 - Seed-43/W3-G128 weights are lost; only results remain.
-- The 1.7B checkpoint backup is incomplete as of this audit; see checkpoint
-  inventory before relying on it.
+- 1.7B safetensors is verified locally; its optimizer `.pt` is pod-only.
+- Seed-43 and W3-G128 weights are lost; results remain valid.
