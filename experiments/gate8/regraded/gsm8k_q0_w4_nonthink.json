@@ -1,0 +1,114 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_q0_w4_nonthink.generations.jsonl",
+  "source_sha256": "22f69cba1f3bb6e1a7577d4abef61cc1211a617cc47d3870b6e9ec869459171a",
+  "parser_version": "2",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.13,
+    "accuracy_ci95": [
+      0.07,
+      0.2
+    ],
+    "correct": 13,
+    "count": 100,
+    "marker_present_rate": 0.44,
+    "parsed_answer_rate": 0.39,
+    "completion_rate": 0.5,
+    "truncation_rate": 0.5,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 56,
+      "ok": 39,
+      "malformed": 2,
+      "ambiguous": 3
+    },
+    "mean_response_tokens": 210.6
+  },
+  "old_metrics": {
+    "accuracy": 0.13,
+    "accuracy_ci95": [
+      0.07,
+      0.2
+    ],
+    "correct": 13,
+    "count": 100,
+    "explicit_answer_rate": 0.49,
+    "completion_rate": 0.5,
+    "truncation_rate": 0.5,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "malformed": 6,
+      "missing": 51,
+      "ok": 43
+    },
+    "mean_response_tokens": 210.6,
+    "elapsed_seconds": 38.23217812599614
+  },
+  "changed_examples": [
+    {
+      "example_id": "gsm8k-test-0",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "- **"
+    },
+    {
+      "example_id": "gsm8k-test-13",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "\\text{Vacuum cleaners sold at the orange house} = \\frac{1}{2} \\left( \\frac{2}{3}x - 2 \\right)"
+    },
+    {
+      "example_id": "gsm8k-test-27",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "280",
+      "new_value": null,
+      "final_line": "#### $ \\boxed{280} $"
+    },
+    {
+      "example_id": "gsm8k-test-31",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "But since $ x $ is not given, we can't complete the problem. However, if we are to provide a specific numerical answer, we can take the average of the three guesses, which is $ 2x $, but we don\u2019t know"
+    },
+    {
+      "example_id": "gsm8k-test-63",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "- 10% less = $140 - (10% of $140) = $140 - $"
+    },
+    {
+      "example_id": "gsm8k-test-70",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "330",
+      "new_value": null,
+      "final_line": "#### $ \\boxed{330} $"
+    },
+    {
+      "example_id": "gsm8k-test-73",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "103",
+      "new_value": null,
+      "final_line": "#### $ \\boxed{103} $"
+    },
+    {
+      "example_id": "gsm8k-test-74",
+      "old_status": "ok",
+      "new_status": "missing",
+      "old_value": "85.69",
+      "new_value": null,
+      "final_line": "However, since we are asked"
+    }
+  ],
+  "changed_count": 8
+}

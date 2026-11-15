@@ -36,6 +36,7 @@ from qwen_qad.models import (
     set_trainable_quantized_only,
 )
 from qwen_qad.quantization import QuantConfig
+from qwen_qad.checkpoint import file_sha256, load_checkpoint_verified
 
 
 def parse_args() -> argparse.Namespace:
@@ -90,13 +91,19 @@ def main() -> None:
         for parameter in student.parameters():
             parameter.requires_grad_(False)
         if args.checkpoint:
-            from qwen_qad.checkpoint import load_checkpoint
-
-            payload = load_checkpoint(args.checkpoint, student, None, map_location="cpu")
+            checkpoint_sha256 = file_sha256(args.checkpoint)
+            meta = load_checkpoint_verified(
+                args.checkpoint,
+                student,
+                expected_model_sha=revisions["resolved_model_sha"],
+                expected_bits=args.bits,
+                expected_group_size=args.group_size,
+                expected_scheme="symmetric",
+            )
             checkpoint_info = {
                 "path": args.checkpoint,
-                "step": payload.get("step"),
-                "meta": payload.get("meta"),
+                "sha256": checkpoint_sha256,
+                "meta": meta,
             }
         print(f"wrapped {len(replaced)} quantizable linear modules")
 

@@ -18,7 +18,9 @@ from pathlib import Path
 
 import torch
 
-from qwen_qad.answer_parsing import normalize_number, parse_final_answer
+from qwen_qad.answer_parsing import PARSER_VERSION, normalize_number, parse_final_answer
+from qwen_qad.benchmark_metrics import summarize_records
+from qwen_qad.checkpoint import file_sha256, load_checkpoint_verified
 from qwen_qad.memory import MemorySampler, parameter_bytes
 from qwen_qad.models import (
     load_model,
@@ -101,6 +103,8 @@ def main() -> None:
 
     model = load_model(args.model, args.revision, device=device, dtype=dtype)
     quant_config = None
+    checkpoint_meta = None
+    checkpoint_sha256 = None
     if args.checkpoint or args.bits:
         bits = args.bits if args.bits is not None else 4
         quant_config = QuantConfig(bits=bits, group_size=args.group_size)
@@ -108,9 +112,15 @@ def main() -> None:
         set_trainable_quantized_only(model)
         set_quantization_enabled(model, True)
         if args.checkpoint:
-            from qwen_qad.checkpoint import load_checkpoint
-
-            load_checkpoint(args.checkpoint, model, None, map_location="cpu")
+            checkpoint_sha256 = file_sha256(args.checkpoint)
+            checkpoint_meta = load_checkpoint_verified(
+                args.checkpoint,
+                model,
+                expected_model_sha=revisions["resolved_model_sha"],
+                expected_bits=bits,
+                expected_group_size=args.group_size,
+                expected_scheme="symmetric",
+            )
 
     started = time.perf_counter()
     with MemorySampler(device) as sampler:
@@ -128,11 +138,6 @@ def main() -> None:
     elapsed = time.perf_counter() - started
 
     records = []
-    correct_flags = []
-    status_counts: dict[str, int] = {}
-    completed = 0
-    truncated = 0
-    thinking_closed_count = 0
     for index, (example, gold, prompt_ids, rollout) in enumerate(
         zip(examples, golds, prompt_ids_list, rollouts)
     ):
@@ -142,12 +147,7 @@ def main() -> None:
         full_text = tokenizer.decode(response_ids, skip_special_tokens=False)
         parse_text = tokenizer.decode(response_ids, skip_special_tokens=True)
         parsed = parse_final_answer(parse_text, thinking_mode=thinking)
-        status_counts[parsed.status] = status_counts.get(parsed.status, 0) + 1
-        completed += int(finished)
-        truncated += int(hit_cap)
-        thinking_closed_count += int(parsed.thinking_closed)
         is_correct = parsed.status == "ok" and parsed.value is not None and parsed.value == gold
-        correct_flags.append(is_correct)
         records.append(
             {
                 "example_id": f"gsm8k-test-{args.offset + index}",
@@ -166,11 +166,13 @@ def main() -> None:
                 "parsed_value": parsed.value,
                 "parse_marker": parsed.marker,
                 "answer_region": parsed.answer_region,
+                "final_line": parsed.final_line,
                 "correct": is_correct,
             }
         )
 
-    point, low, high = bootstrap_ci(correct_flags, n_boot=1000, seed=args.seed)
+    metrics = summarize_records(records, thinking=thinking, seed=args.seed)
+    metrics["elapsed_seconds"] = elapsed
     summary = {
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": git_commit(),
@@ -178,6 +180,8 @@ def main() -> None:
         "mode": args.mode,
         "model": {"id": args.model, "revisions": revisions},
         "checkpoint": args.checkpoint,
+        "checkpoint_sha256": checkpoint_sha256,
+        "checkpoint_meta": checkpoint_meta,
         "quantization": quant_config.to_dict() if quant_config else None,
         "dataset": {
             "name": "openai/gsm8k",
@@ -198,20 +202,7 @@ def main() -> None:
             "seed": args.seed,
             "instruction": INSTRUCTION.strip(),
         },
-        "metrics": {
-            "accuracy": point,
-            "accuracy_ci95": [low, high],
-            "correct": sum(correct_flags),
-            "count": len(examples),
-            "explicit_answer_rate": (len(examples) - status_counts.get("missing", 0)
-                                     - status_counts.get("incomplete_thinking", 0)) / len(examples),
-            "completion_rate": completed / len(examples),
-            "truncation_rate": truncated / len(examples),
-            "thinking_closed_rate": thinking_closed_count / len(examples),
-            "parse_status_counts": status_counts,
-            "mean_response_tokens": sum(len(r["response_ids"]) for r in records) / len(records),
-            "elapsed_seconds": elapsed,
-        },
+        "metrics": metrics,
         "memory": sampler.result(),
         "parameter_bytes": parameter_bytes(model),
         "environment": {
@@ -223,9 +214,11 @@ def main() -> None:
         },
         "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         "notes": [
-            "Strict grading: only explicit ####, \\boxed{}, or Answer: markers count.",
+            "Strict grading: only an explicit final-line ####, one-line \\boxed{}, or Answer: marker counts.",
+            "Marker-present, parsed-answer, completion and accuracy rates are separate.",
             "Thinking mode requires a closed </think>; unfinished reasoning is never graded.",
             "Full prompt/response token ids and decoded text are saved for regrading.",
+            f"Parser version: {PARSER_VERSION}.",
         ],
     }
 

@@ -1,0 +1,114 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q2_w4_s42_nonthink.generations.jsonl",
+  "source_sha256": "5f81a7cbe9b9de4e710b7e2c6a061e94ac4f725ffe9a279e7f9aa8519b20b8f2",
+  "parser_version": "2",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.31,
+    "accuracy_ci95": [
+      0.22,
+      0.41
+    ],
+    "correct": 31,
+    "count": 100,
+    "marker_present_rate": 0.7,
+    "parsed_answer_rate": 0.63,
+    "completion_rate": 0.72,
+    "truncation_rate": 0.28,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 63,
+      "missing": 30,
+      "ambiguous": 5,
+      "malformed": 2
+    },
+    "mean_response_tokens": 192.42
+  },
+  "old_metrics": {
+    "accuracy": 0.36,
+    "accuracy_ci95": [
+      0.27,
+      0.46
+    ],
+    "correct": 36,
+    "count": 100,
+    "explicit_answer_rate": 0.73,
+    "completion_rate": 0.72,
+    "truncation_rate": 0.28,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 70,
+      "missing": 27,
+      "malformed": 3
+    },
+    "mean_response_tokens": 192.42,
+    "elapsed_seconds": 35.12196340993978
+  },
+  "changed_examples": [
+    {
+      "example_id": "gsm8k-test-9",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "460",
+      "new_value": null,
+      "final_line": "Final answer: $ \\boxed{460} $ ####."
+    },
+    {
+      "example_id": "gsm8k-test-11",
+      "old_status": "ok",
+      "new_status": "missing",
+      "old_value": "694",
+      "new_value": null,
+      "final_line": "**Answer: $694**"
+    },
+    {
+      "example_id": "gsm8k-test-15",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "Profit = $8,096.80 - $8,000 = **"
+    },
+    {
+      "example_id": "gsm8k-test-23",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "8",
+      "new_value": null,
+      "final_line": "#### $\\boxed{8}$"
+    },
+    {
+      "example_id": "gsm8k-test-26",
+      "old_status": "ok",
+      "new_status": "missing",
+      "old_value": "233",
+      "new_value": null,
+      "final_line": "**Answer: $233.00**"
+    },
+    {
+      "example_id": "gsm8k-test-59",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "187",
+      "new_value": null,
+      "final_line": "#### $ \\boxed{187} $"
+    },
+    {
+      "example_id": "gsm8k-test-80",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "14",
+      "new_value": null,
+      "final_line": "#### $ \\boxed{14} $"
+    },
+    {
+      "example_id": "gsm8k-test-99",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "58",
+      "new_value": null,
+      "final_line": "#### $ \\boxed{58} $"
+    }
+  ],
+  "changed_count": 8
+}

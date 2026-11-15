@@ -1,0 +1,25 @@
+{
+  "count": 10,
+  "q1_accuracy": 0.1,
+  "q1_ci95": [
+    0.0,
+    0.3
+  ],
+  "q2_accuracy": 0.0,
+  "q2_ci95": [
+    0.0,
+    0.0
+  ],
+  "difference_q2_minus_q1": -0.1,
+  "difference_ci95": [
+    -0.3,
+    0.0
+  ],
+  "paired_counts": {
+    "q1_only": 1,
+    "q2_only": 0,
+    "both": 0,
+    "neither": 9
+  },
+  "mcnemar_p": 1.0
+}

@@ -1,0 +1,81 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_t0_nonthink.generations.jsonl",
+  "source_sha256": "f271abf0d5675e2cd40a260c8ce49ec3854fd1541ce5327ad0c9d6965705da1c",
+  "parser_version": "2",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.37,
+    "accuracy_ci95": [
+      0.28,
+      0.46
+    ],
+    "correct": 37,
+    "count": 100,
+    "marker_present_rate": 0.6,
+    "parsed_answer_rate": 0.57,
+    "completion_rate": 0.76,
+    "truncation_rate": 0.24,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 57,
+      "missing": 40,
+      "malformed": 3
+    },
+    "mean_response_tokens": 185.17
+  },
+  "old_metrics": {
+    "accuracy": 0.38,
+    "accuracy_ci95": [
+      0.29,
+      0.48
+    ],
+    "correct": 38,
+    "count": 100,
+    "explicit_answer_rate": 0.64,
+    "completion_rate": 0.76,
+    "truncation_rate": 0.24,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 59,
+      "missing": 36,
+      "malformed": 5
+    },
+    "mean_response_tokens": 185.17,
+    "elapsed_seconds": 32.72473341098521
+  },
+  "changed_examples": [
+    {
+      "example_id": "gsm8k-test-53",
+      "old_status": "ok",
+      "new_status": "missing",
+      "old_value": "40",
+      "new_value": null,
+      "final_line": "### \u2705 Final Answer: **40**"
+    },
+    {
+      "example_id": "gsm8k-test-76",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "### Step 3: Calculate the number of bags"
+    },
+    {
+      "example_id": "gsm8k-test-87",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "\\boxed{798"
+    },
+    {
+      "example_id": "gsm8k-test-94",
+      "old_status": "ok",
+      "new_status": "missing",
+      "old_value": "192",
+      "new_value": null,
+      "final_line": "### \u2705 Final Answer: **192** pets in total."
+    }
+  ],
+  "changed_count": 4
+}

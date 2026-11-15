@@ -169,3 +169,31 @@ def test_inference_weight_export_roundtrip(tmp_path):
     with torch.no_grad():
         after = fresh(ids).logits
     assert torch.allclose(before, after, atol=1e-6)
+
+
+def test_verified_checkpoint_rejects_wrong_metadata(tmp_path):
+    from qwen_qad.checkpoint import load_checkpoint_verified, save_checkpoint
+
+    model = tiny_model()
+    wrap_quantized_linears(model, CFG)
+    opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=1e-4)
+    meta = {
+        "revisions": {"resolved_model_sha": "abc"},
+        "quantization": {"bits": 3, "group_size": 32, "scheme": "symmetric"},
+    }
+    path = tmp_path / "ckpt.pt"
+    save_checkpoint(path, model, opt, step=3, meta=meta)
+
+    fresh = tiny_model()
+    wrap_quantized_linears(fresh, CFG)
+    got = load_checkpoint_verified(path, fresh, "abc", 3, 32)
+    assert got["quantization"]["bits"] == 3
+
+    for kwargs in (
+        {"expected_model_sha": "wrong"},
+        {"expected_model_sha": "abc", "expected_bits": 4, "expected_group_size": 32},
+        {"expected_model_sha": "abc", "expected_bits": 3, "expected_group_size": 128},
+    ):
+        kwargs.setdefault("expected_model_sha", "abc")
+        with pytest.raises(ValueError):
+            load_checkpoint_verified(path, tiny_model(), **kwargs)

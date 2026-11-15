@@ -85,3 +85,48 @@ def import_inference_weights(path: str | Path, model: nn.Module) -> list[str]:
     if unexpected:
         raise ValueError(f"unexpected weights: {unexpected}")
     return list(result.missing_keys)
+
+
+def file_sha256(path: str | Path) -> str:
+    import hashlib
+
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def load_checkpoint_verified(
+    path: str | Path,
+    model: nn.Module,
+    expected_model_sha: str,
+    expected_bits: int | None = None,
+    expected_group_size: int | None = None,
+    expected_scheme: str = "symmetric",
+    optimizer: torch.optim.Optimizer | None = None,
+) -> dict[str, Any]:
+    """Load a checkpoint only if its metadata matches the requested model/quantizer."""
+    payload = torch.load(path, map_location="cpu", weights_only=False)
+    meta = payload.get("meta") or {}
+    revisions = meta.get("revisions") or {}
+    model_sha = revisions.get("resolved_model_sha")
+    if model_sha != expected_model_sha:
+        raise ValueError(
+            f"checkpoint model revision mismatch: {model_sha!r} != {expected_model_sha!r}"
+        )
+    quant = meta.get("quantization") or {}
+    if expected_bits is not None and quant.get("bits") != expected_bits:
+        raise ValueError(f"checkpoint bits mismatch: {quant.get('bits')!r} != {expected_bits}")
+    if expected_group_size is not None and quant.get("group_size") != expected_group_size:
+        raise ValueError(
+            f"checkpoint group_size mismatch: {quant.get('group_size')!r} != {expected_group_size}"
+        )
+    if quant.get("scheme") != expected_scheme:
+        raise ValueError(f"checkpoint scheme mismatch: {quant.get('scheme')!r} != {expected_scheme}")
+    model.load_state_dict(payload["model"])
+    if optimizer is not None:
+        if payload.get("optimizer") is None:
+            raise ValueError("checkpoint has no optimizer state")
+        optimizer.load_state_dict(payload["optimizer"])
+    return meta
