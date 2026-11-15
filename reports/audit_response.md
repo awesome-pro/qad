@@ -38,9 +38,25 @@ P6 says the report must not present whole-model size reductions as deployment
 memory savings. We never claimed such savings, but the new table makes the
 distinction explicit; no packed artifact is produced.
 
+## Checkpoint A outcome (seed 42, 0.6B)
+
+The first corrected matched pair is complete and written up in
+`reports/checkpoint_a.md`.
+
+- Strict non-thinking GSM8K (100 questions): T0 38%, Q0 13%, Q1 34%, Q2 36%.
+  Paired Q2−Q1 = +2 points, 95% CI [−4,+9], McNemar p = 0.77.
+- The old Q1 28%/Q2 14% gap is not reproduced; it was substantially a
+  parser/cap and unmatched-protocol artifact.
+- Disjoint WikiText test PPL: Q1 30.64, Q2 29.92; matched prompt hashes and
+  token budget check clean (ratio 1.0012).
+- Thinking subset (10 questions, 1,536 cap): mostly truncated/incomplete;
+  reported for completion/parser verification, not accuracy.
+
+Per the parent reviewer's sequencing, seed 43, W3, corrected 1.7B QAD and the
+final report rewrite are **paused** until Checkpoint A is verified.
+
 ## What remains
 
-- Corrected GPU runs: strict non-thinking GSM8K, matched Q1/Q2 (seeds 42/43),
-  best/final evaluation on the disjoint test set, thinking subset, W3 probe,
-  exploratory 1.7B. Estimated 2–3 GPU-hours total, two sessions.
-- Final report rewrite with corrected tables and softened conclusions.
+- Reviewer verification of Checkpoint A.
+- Then seed 43 matched pair, W3 matched pair, corrected 1.7B baseline/Q1,
+  a larger thinking benchmark, and the final report rewrite.

@@ -28,16 +28,16 @@ large files and checkpoints are never committed. Local Mac runs are marked
 | 2026-11-15 | 6 | rollout-length ablation, 256-token | `scripts/train_offline.py --response-cap 256`, `train_online.py --max-new-tokens 256` | `experiments/gate3/q1_len256_25.*`, `experiments/gate4/q2_len256_25.*`, `experiments/gate5/*len256*` | Q1 26.81 ppl / 15% GSM; Q2 27.11 / 18%; ordering unchanged |
 | 2026-11-15 | 6 | W3-G128 QAD probe, 25 and 200 steps | `scripts/train_offline.py --bits 3 --group-size 128` | `experiments/gate3/w3g128_*`, `experiments/gate5/*w3g128*` | 723.98 → 83.56 (25) → 59.35 (200) ppl; GSM 3% → 0% (25% parse); not generative |
 
-## Audit (gate8) — pending GPU
+## Audit (gate8) — Checkpoint A executed; further runs paused for review
 
 Old GSM8K numbers in gate5/gate7 use the legacy parser and are historical. The
 corrected protocol is `GPU_RUNBOOK_AUDIT.md`; new runs write to `experiments/gate8`.
 
 | Planned | Purpose | Artifacts |
 |---|---|---|
-| strict non-thinking GSM8K, 100 questions | T0/Q0/Q1/Q2 accuracy with explicit-answer parsing | `gate8/gsm8k_*_nonthink.*` |
-| matched Q1/Q2, 200 steps, seeds 42/43 | same prompt schedule, prompt IDs/step, 128-token cap | `gate8/m_q1_*`, `gate8/m_q2_*`, `gate8/match_check_*` |
+| strict non-thinking GSM8K, 100 questions | T0/Q0/Q1/Q2 accuracy with explicit-answer parsing | **done**: T0 38%, Q0 13%, Q1 34%, Q2 36%; paired p=0.77 (`gate8/gsm8k_*_nonthink.*`) |
+| matched Q1/Q2, 200 steps, seeds 42/43 | same prompt schedule, prompt IDs/step, 128-token cap | **seed 42 done**; `check_matched` clean; seed 43 paused (`gate8/m_q*_s42.*`) |
 | best/final checkpoints | validation-selected vs final; portable `.safetensors` | `checkpoints/m_*_best.*` |
-| final test on WikiText-103 | disjoint test metrics | `gate8/test_*` |
-| thinking subset, 20 questions, 2048 tokens | completion/truncation/thinking-closed rates | `gate8/gsm8k_*_think20.*` |
-| 1.7B T0/Q0/Q1 | exploratory corrected arm | `gate8/test_1p7b_*` |
+| final test on WikiText-103 | disjoint test metrics | **done seed 42**: Q1 30.64 PPL, Q2 29.92 (`gate8/test_m_q*`) |
+| thinking subset, 10 questions, 1536 tokens | completion/truncation/thinking-closed rates | **done (pilot)**: low completion; not an accuracy benchmark (`gate8/gsm8k_*_think10.*`) |
+| 1.7B T0/Q0/Q1 | exploratory corrected arm | **T0/Q0 baselines done; Q1 stopped for Checkpoint A** (`gate8/test_1p7b_*`) |

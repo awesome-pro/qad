@@ -1,0 +1,94 @@
+START_BASE Sun Nov 15 09:13:21 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5269.69it/s]
+{
+  "nll": 3.2395198568701744,
+  "perplexity": 25.521464849043884,
+  "forward_kl_teacher_student": 0.0
+}
+teacher self-KL (two pass): 0.000e+00
+tokens=130,944 elapsed=9.0s (14602 tok/s)
+memory: 2323372544 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate8/test_t0.json
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4773.04it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6800.56it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.605184353888035,
+  "perplexity": 36.78846532874784,
+  "forward_kl_teacher_student": 0.4519766988232732
+}
+tokens=130,944 elapsed=12.0s (10890 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate8/test_q0_w4.json
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6155.46it/s]
+{
+  "nll": 3.1286604553461075,
+  "perplexity": 22.84335933857537,
+  "forward_kl_teacher_student": 0.0
+}
+teacher self-KL (two pass): 0.000e+00
+tokens=130,944 elapsed=9.0s (14480 tok/s)
+memory: 2323372544 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate8/val_t0.json
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6574.34it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 8268.91it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.441813386976719,
+  "perplexity": 31.24356350026963,
+  "forward_kl_teacher_student": 0.40562389604747295
+}
+tokens=130,944 elapsed=11.9s (11002 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate8/val_q0_w4.json
+BASELINE_DONE
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/7473 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 7473/7473 [00:00<00:00, 170733.09 examples/s]
+Generating test split:   0%|          | 0/1319 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1319/1319 [00:00<00:00, 88114.79 examples/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4042.53it/s]
+{
+  "accuracy": 0.38,
+  "accuracy_ci95": [
+    0.29,
+    0.48
+  ],
+  "correct": 38,
+  "count": 100,
+  "explicit_answer_rate": 0.64,
+  "completion_rate": 0.76,
+  "truncation_rate": 0.24,
+  "thinking_closed_rate": 1.0,
+  "parse_status_counts": {
+    "ok": 59,
+    "missing": 36,
+    "malformed": 5
+  },
+  "mean_response_tokens": 185.17,
+  "elapsed_seconds": 32.72473341098521
+}
+written experiments/gate8/gsm8k_t0_nonthink.json and experiments/gate8/gsm8k_t0_nonthink.generations.jsonl
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6641.02it/s]
+{
+  "accuracy": 0.13,
+  "accuracy_ci95": [
+    0.07,
+    0.2
+  ],
+  "correct": 13,
+  "count": 100,
+  "explicit_answer_rate": 0.49,
+  "completion_rate": 0.5,
+  "truncation_rate": 0.5,
+  "thinking_closed_rate": 1.0,
+  "parse_status_counts": {
+    "malformed": 6,
+    "missing": 51,
+    "ok": 43
+  },
+  "mean_response_tokens": 210.6,
+  "elapsed_seconds": 38.23217812599614
+}
+written experiments/gate8/gsm8k_q0_w4_nonthink.json and experiments/gate8/gsm8k_q0_w4_nonthink.generations.jsonl
+DONE_BASE Sun Nov 15 09:16:05 UTC 2026

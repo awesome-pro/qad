@@ -1,0 +1,118 @@
+START_THINK Sun Nov 15 10:21:13 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6576.40it/s]
+{
+  "accuracy": 0.1,
+  "accuracy_ci95": [
+    0.0,
+    0.3
+  ],
+  "correct": 1,
+  "count": 10,
+  "explicit_answer_rate": 0.4,
+  "completion_rate": 0.6,
+  "truncation_rate": 0.4,
+  "thinking_closed_rate": 0.6,
+  "parse_status_counts": {
+    "ok": 3,
+    "missing": 2,
+    "incomplete_thinking": 4,
+    "malformed": 1
+  },
+  "mean_response_tokens": 1049.3,
+  "elapsed_seconds": 46.63681794796139
+}
+written experiments/gate8/gsm8k_t0_think10.json and experiments/gate8/gsm8k_t0_think10.generations.jsonl
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6010.19it/s]
+{
+  "accuracy": 0.0,
+  "accuracy_ci95": [
+    0.0,
+    0.0
+  ],
+  "correct": 0,
+  "count": 10,
+  "explicit_answer_rate": 0.0,
+  "completion_rate": 0.0,
+  "truncation_rate": 1.0,
+  "thinking_closed_rate": 0.0,
+  "parse_status_counts": {
+    "incomplete_thinking": 10
+  },
+  "mean_response_tokens": 1536.0,
+  "elapsed_seconds": 51.14183870702982
+}
+written experiments/gate8/gsm8k_q0_think10.json and experiments/gate8/gsm8k_q0_think10.generations.jsonl
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6699.10it/s]
+{
+  "accuracy": 0.1,
+  "accuracy_ci95": [
+    0.0,
+    0.3
+  ],
+  "correct": 1,
+  "count": 10,
+  "explicit_answer_rate": 0.3,
+  "completion_rate": 0.3,
+  "truncation_rate": 0.7,
+  "thinking_closed_rate": 0.4,
+  "parse_status_counts": {
+    "missing": 1,
+    "malformed": 1,
+    "incomplete_thinking": 6,
+    "ok": 2
+  },
+  "mean_response_tokens": 1341.8,
+  "elapsed_seconds": 51.37264833902009
+}
+written experiments/gate8/gsm8k_m_q1_w4_s42_think10.json and experiments/gate8/gsm8k_m_q1_w4_s42_think10.generations.jsonl
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4849.93it/s]
+{
+  "accuracy": 0.0,
+  "accuracy_ci95": [
+    0.0,
+    0.0
+  ],
+  "correct": 0,
+  "count": 10,
+  "explicit_answer_rate": 0.1,
+  "completion_rate": 0.1,
+  "truncation_rate": 0.9,
+  "thinking_closed_rate": 0.1,
+  "parse_status_counts": {
+    "incomplete_thinking": 9,
+    "ok": 1
+  },
+  "mean_response_tokens": 1439.9,
+  "elapsed_seconds": 52.43766356993001
+}
+written experiments/gate8/gsm8k_m_q2_w4_s42_think10.json and experiments/gate8/gsm8k_m_q2_w4_s42_think10.generations.jsonl
+{
+  "count": 10,
+  "q1_accuracy": 0.1,
+  "q1_ci95": [
+    0.0,
+    0.3
+  ],
+  "q2_accuracy": 0.0,
+  "q2_ci95": [
+    0.0,
+    0.0
+  ],
+  "difference_q2_minus_q1": -0.1,
+  "difference_ci95": [
+    -0.3,
+    0.0
+  ],
+  "paired_counts": {
+    "q1_only": 1,
+    "q2_only": 0,
+    "both": 0,
+    "neither": 9
+  },
+  "mcnemar_p": 1.0
+}
+DONE_THINK Sun Nov 15 10:25:13 UTC 2026
