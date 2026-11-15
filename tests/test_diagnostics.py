@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import pytest
 import torch
 from transformers import Qwen3Config, Qwen3ForCausalLM
 
@@ -9,6 +10,7 @@ from qwen_qad.diagnostics import (
     capture_hidden_states,
     compare_activations,
     quantization_coverage,
+    cosine_similarity,
     relative_error,
     weight_diagnostics,
 )
@@ -93,7 +95,16 @@ def test_activation_capture_and_comparison():
 
     same = compare_activations(teacher_layers, teacher_layers)
     assert same["0"]["relative_error"] == 0.0
+    assert same["0"]["cosine_similarity"] == pytest.approx(1.0)
     assert relative_error(teacher_hidden, teacher_hidden) == 0.0
+
+
+def test_cosine_similarity_measures_direction_only():
+    a = torch.tensor([[1.0, 0.0]])
+    b = torch.tensor([[0.0, 1.0]])
+    assert cosine_similarity(a, b) == pytest.approx(0.0)
+    assert cosine_similarity(a, a * 3.0) == pytest.approx(1.0)  # scale invariant
+    assert cosine_similarity(a, -a) == pytest.approx(-1.0)
 
 
 def test_quantization_disabled_reproduces_reference_activations():

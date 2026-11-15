@@ -1,0 +1,319 @@
+{
+  "created_utc": "2026-11-15T04:16:18.802783+00:00",
+  "git_commit": "9401fc26fb26ed8935f8d5a788b77d877fc378a3",
+  "model": {
+    "id": "Qwen/Qwen3-0.6B",
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    }
+  },
+  "tokenizer": {
+    "id": "Qwen/Qwen3-0.6B",
+    "vocab_size": 151643,
+    "eos_token_id": 151645,
+    "pad_token_id": 151643
+  },
+  "prompts": {
+    "path": "data/cache/prompts/openthoughts_prompts.jsonl",
+    "num_prompts": 2,
+    "ids_sha256": "aa45be188f16ee41035140cfa23e78d8f91aa26b46a6a796901a4a0a73a5db4f"
+  },
+  "generation": {
+    "do_sample": true,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_new_tokens": 32,
+    "min_new_tokens": 32,
+    "seed_per_prompt": "42+prompt_index (identical across configs)",
+    "note": "fixed seed does not guarantee identical trajectories across different models"
+  },
+  "environment": {
+    "device": "mps",
+    "dtype": "bfloat16",
+    "torch": "2.15.0",
+    "transformers": "5.23.0",
+    "python": "3.12.12",
+    "platform": "macOS-27.2.1-arm64-arm-64bit"
+  },
+  "configs": {
+    "bf16": {
+      "quantization": null,
+      "parameter_bytes": 1192099840,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0,
+            "max_repeated_4gram": 1,
+            "distinct_1": 0.875,
+            "distinct_2": 1.0
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. So, the problem is about determining if all three people (Chef, head server"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0,
+            "max_repeated_4gram": 1,
+            "distinct_1": 0.90625,
+            "distinct_2": 1.0
+          },
+          "text": "<think>\nOkay, let's see. I need to generate a Python function that takes input lines, each with two numbers A and B, and outputs their G"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 32.0,
+        "mean_content_tokens": 32.0,
+        "mean_repetition_4gram": 0.0,
+        "mean_max_repeated_4gram": 1.0,
+        "mean_distinct_2": 1.0,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 2,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 2.880506417000106,
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 1199702528,
+        "end_allocated_bytes": 1199710976,
+        "peak_bytes": 1299085312,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 1603043328,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    },
+    "w3a16_g128": {
+      "quantization": {
+        "bits": 3,
+        "group_size": 128,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.3793103448275862,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.15625,
+            "distinct_2": 0.3225806451612903
+          },
+          "text": "- 3\n- 0\n- 0\n-0\n- 0\n- 0  0 000000"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.3448275862068966,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.25,
+            "distinct_2": 0.41935483870967744
+          },
+          "text": "     24\n     14\n    14\n  14\n  14\n  A\n  14"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 32.0,
+        "mean_content_tokens": 32.0,
+        "mean_repetition_4gram": 0.3620689655172414,
+        "mean_max_repeated_4gram": 4.0,
+        "mean_distinct_2": 0.3709677419354839,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 2,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 3.6829894159991454,
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 2080514816,
+        "end_allocated_bytes": 3853656832,
+        "peak_bytes": 3975519744,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 4690051072,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    },
+    "w3a16_g32": {
+      "quantization": {
+        "bits": 3,
+        "group_size": 32,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.10344827586206895,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.625,
+            "distinct_2": 0.8064516129032258
+          },
+          "text": ":\nThe answer is yes or no as per the example.\n\nNow, the answer is in the above thinking process, and the answer is in the above.\n\nBut"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.3793103448275862,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.375,
+            "distinct_2": 0.4838709677419355
+          },
+          "text": ":\n\nThe final answer is: 2, 1, 10 11, 10 11, 10 1"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 32.0,
+        "mean_content_tokens": 32.0,
+        "mean_repetition_4gram": 0.24137931034482757,
+        "mean_max_repeated_4gram": 2.5,
+        "mean_distinct_2": 0.6451612903225806,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 2,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 3.6684332499999073,
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 2080514816,
+        "end_allocated_bytes": 3853132544,
+        "peak_bytes": 3975052800,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 4698439680,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    },
+    "w4a16_g128": {
+      "quantization": {
+        "bits": 4,
+        "group_size": 128,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0,
+            "max_repeated_4gram": 1,
+            "distinct_1": 0.9375,
+            "distinct_2": 1.0
+          },
+          "text": "narrative\nOkay, let's try to figure this problem out. The question is about determining if all three people (Chef, head server, and sous"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 32,
+            "content_tokens": 32,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0,
+            "max_repeated_4gram": 1,
+            "distinct_1": 0.375,
+            "distinct_2": 0.7419354838709677
+          },
+          "text": "n\n2\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n1"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 32.0,
+        "mean_content_tokens": 32.0,
+        "mean_repetition_4gram": 0.0,
+        "mean_max_repeated_4gram": 1.0,
+        "mean_distinct_2": 0.8709677419354839,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 2,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 3.6724265420007214,
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 2080514816,
+        "end_allocated_bytes": 3852608256,
+        "peak_bytes": 3976627712,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 4690051072,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    }
+  },
+  "notes": [
+    "Descriptive only: 8 prompts, one seed, stochastic sampling.",
+    "Prompts are the first N rows of the pinned OpenThoughts pool; identical for all configs."
+  ]
+}

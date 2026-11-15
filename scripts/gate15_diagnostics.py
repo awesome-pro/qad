@@ -192,6 +192,7 @@ def main() -> None:
         tokens = 0
         layer_errors: dict[int, list[float]] = {index: [] for index in layers}
         layer_max_errors: dict[int, float] = {index: 0.0 for index in layers}
+        layer_cosines: dict[int, list[float]] = {index: [] for index in layers}
         self_kl_sum = 0.0
         self_kl_max = 0.0
         second_pass_seconds = 0.0
@@ -240,6 +241,7 @@ def main() -> None:
                 comparisons = compare_activations(student_layers, teacher_layers)
                 for index in layers:
                     layer_errors[index].append(comparisons[str(index)]["relative_error"])
+                    layer_cosines[index].append(comparisons[str(index)]["cosine_similarity"])
                     layer_max_errors[index] = max(
                         layer_max_errors[index], comparisons[str(index)]["relative_error"]
                     )
@@ -260,6 +262,12 @@ def main() -> None:
             },
             "activation_relative_error_max": {
                 str(index): float(value) for index, value in layer_max_errors.items()
+            },
+            "activation_cosine_mean": {
+                str(index): float(np.mean(values)) for index, values in layer_cosines.items()
+            },
+            "activation_cosine_min": {
+                str(index): float(np.min(values)) for index, values in layer_cosines.items()
             },
             "coverage": coverage,
             "weight_diagnostics": weight_metrics,
@@ -391,13 +399,13 @@ def main() -> None:
         f"- device `{device}`, dtype `{args.dtype}`, eval blocks {blocks.shape[0]} × {blocks.shape[1]}",
         f"- git `{git_commit()[:12]}`, created {payload['created_utc']}",
         "",
-        "| config | NLL | ppl | KL(T||S) | quantized params | eff bits | weight MSE | act L0 | act L13 | act L27 |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| config | NLL | ppl | KL(T||S) | quantized params | eff bits | weight MSE | act L0 | act L13 | act L27 | cos L0 | cos L27 |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for name, result in results.items():
         coverage = result["coverage"]
         lines.append(
-            "| {name} | {nll:.4f} | {ppl:.2f} | {kl:.4f} | {q:.1%} | {bits} | {mse} | {a0} | {a13} | {a27} |".format(
+            "| {name} | {nll:.4f} | {ppl:.2f} | {kl:.4f} | {q:.1%} | {bits} | {mse} | {a0} | {a13} | {a27} | {c0} | {c27} |".format(
                 name=name,
                 nll=result["nll"],
                 ppl=result["perplexity"],
@@ -408,6 +416,8 @@ def main() -> None:
                 a0=f"{result['activation_relative_error_mean'].get('0', 0):.2e}",
                 a13=f"{result['activation_relative_error_mean'].get('13', 0):.2e}",
                 a27=f"{result['activation_relative_error_mean'].get('27', 0):.2e}",
+                c0=f"{result['activation_cosine_mean'].get('0', 0):.4f}",
+                c27=f"{result['activation_cosine_mean'].get('27', 0):.4f}",
             )
         )
     lines.extend(

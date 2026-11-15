@@ -1,0 +1,681 @@
+{
+  "created_utc": "2026-11-15T01:58:21.202448+00:00",
+  "git_commit": "3afdd195faa4a79780ae7bcf0d7495a03b05a34c",
+  "model": {
+    "id": "Qwen/Qwen3-0.6B",
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    }
+  },
+  "tokenizer": {
+    "id": "Qwen/Qwen3-0.6B",
+    "vocab_size": 151643,
+    "eos_token_id": 151645,
+    "pad_token_id": 151643
+  },
+  "environment": {
+    "device": "mps",
+    "dtype": "bfloat16",
+    "python": "3.12.12",
+    "torch": "2.15.0",
+    "transformers": "5.23.0",
+    "platform": "macOS-27.2.1-arm64-arm-64bit"
+  },
+  "eval_set": {
+    "path": "data/cache/eval/fineweb_eval_ids.npy",
+    "total_blocks_available": 256,
+    "blocks_used": 64,
+    "block_size": 1024,
+    "tokens_scored_per_config": 65472,
+    "batch_size": 4,
+    "layers_probed": [
+      0,
+      13,
+      27
+    ]
+  },
+  "configs": {
+    "bf16": {
+      "config": {
+        "name": "bf16",
+        "kind": "reference"
+      },
+      "quantized": false,
+      "nll": 3.110147640109062,
+      "perplexity": 22.424354890561485,
+      "forward_kl_teacher_student": 0.0,
+      "teacher_self_kl": 0.0,
+      "teacher_self_kl_max_batch": 0.0,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.0,
+        "13": 0.0,
+        "27": 0.0
+      },
+      "activation_relative_error_max": {
+        "0": 0.0,
+        "13": 0.0,
+        "27": 0.0
+      },
+      "coverage": null,
+      "weight_diagnostics": null,
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 1192099840,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 1737097728,
+        "end_allocated_bytes": 1779107072,
+        "peak_bytes": 2919958272,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 5533024256,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 69.11272158300005,
+      "tokens_per_second": 947.3219763364726
+    },
+    "w4a16_g128": {
+      "config": {
+        "name": "w4a16_g128",
+        "bits": 4,
+        "group_size": 128
+      },
+      "quantized": true,
+      "nll": 3.424155205488205,
+      "perplexity": 30.696701489692305,
+      "forward_kl_teacher_student": 0.4050270225852728,
+      "teacher_self_kl": null,
+      "teacher_self_kl_max_batch": null,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.16764371655881405,
+        "13": 0.09905831050127745,
+        "27": 0.4103290494531393
+      },
+      "activation_relative_error_max": {
+        "0": 0.17062518000602722,
+        "13": 0.24385151267051697,
+        "27": 0.44262364506721497
+      },
+      "coverage": {
+        "quantized_modules": 196,
+        "quantized_weight_parameters": 440401920,
+        "quantized_bias_parameters": 0,
+        "total_parameters": 596049920,
+        "fraction_of_model_parameters": 0.7388675096206707,
+        "effective_bits_per_quantized_weight": 4.125,
+        "payload_bytes": 220200960.0,
+        "metadata_bytes": 6881280.0,
+        "total_quantized_bytes": 227082240.0,
+        "wrapped_modules": 196
+      },
+      "weight_diagnostics": {
+        "modules": 196,
+        "weights": 440401920,
+        "mse_weighted": 1.2057620640570392e-05,
+        "max_abs_error": 0.0855189710855484,
+        "endpoint_fraction": 0.012505892338231206,
+        "clipped_fraction": 0.0,
+        "zero_level_fraction": 0.1741913840174675,
+        "degenerate_groups": 0,
+        "scale_min": 0.00040108818211592734,
+        "scale_max": 0.1763392835855484,
+        "scale_mean_weighted": 0.011406647456100299,
+        "worst_modules": [
+          {
+            "name": "model.layers.1.mlp.gate_proj",
+            "mse": 2.6628566047293134e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.2.mlp.gate_proj",
+            "mse": 2.2338239432428963e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.3.mlp.gate_proj",
+            "mse": 2.231837424915284e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.4.mlp.gate_proj",
+            "mse": 2.0214085452607833e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.26.self_attn.q_proj",
+            "mse": 1.9252154743298888e-05,
+            "weights": 2097152
+          }
+        ]
+      },
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 2072903680,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 3859613440,
+        "end_allocated_bytes": 5663163904,
+        "peak_bytes": 5902239744,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 8787804160,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 73.74842620799996,
+      "tokens_per_second": 887.7748769220223,
+      "nll_delta_vs_bf16": 0.31400756537914276,
+      "perplexity_ratio_vs_bf16": 1.3689000927564114
+    },
+    "w3a16_g32": {
+      "config": {
+        "name": "w3a16_g32",
+        "bits": 3,
+        "group_size": 32
+      },
+      "quantized": true,
+      "nll": 4.569030374288559,
+      "perplexity": 96.45054349118764,
+      "forward_kl_teacher_student": 1.7002224624156952,
+      "teacher_self_kl": null,
+      "teacher_self_kl_max_batch": null,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.3128234874457121,
+        "13": 0.2205270966514945,
+        "27": 0.6592163369059563
+      },
+      "activation_relative_error_max": {
+        "0": 0.31638017296791077,
+        "13": 0.4278675615787506,
+        "27": 0.6909618973731995
+      },
+      "coverage": {
+        "quantized_modules": 196,
+        "quantized_weight_parameters": 440401920,
+        "quantized_bias_parameters": 0,
+        "total_parameters": 596049920,
+        "fraction_of_model_parameters": 0.7388675096206707,
+        "effective_bits_per_quantized_weight": 3.5,
+        "payload_bytes": 165150720.0,
+        "metadata_bytes": 27525120.0,
+        "total_quantized_bytes": 192675840.0,
+        "wrapped_modules": 196
+      },
+      "weight_diagnostics": {
+        "modules": 196,
+        "weights": 440401920,
+        "mse_weighted": 4.330244234682011e-05,
+        "max_abs_error": 0.1982421875,
+        "endpoint_fraction": 0.06470706118714242,
+        "clipped_fraction": 0.0,
+        "zero_level_fraction": 0.3178878532279105,
+        "degenerate_groups": 0,
+        "scale_min": 0.00057220458984375,
+        "scale_max": 0.4114583432674408,
+        "scale_mean_weighted": 0.02169173089787364,
+        "worst_modules": [
+          {
+            "name": "model.layers.1.mlp.gate_proj",
+            "mse": 9.840858547249809e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.3.mlp.gate_proj",
+            "mse": 8.216893911594525e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.2.mlp.gate_proj",
+            "mse": 8.202821481972933e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.4.mlp.gate_proj",
+            "mse": 7.490462303394452e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.0.mlp.gate_proj",
+            "mse": 7.000500045251101e-05,
+            "weights": 3145728
+          }
+        ]
+      },
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 2072903680,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 3901556224,
+        "end_allocated_bytes": 5663163904,
+        "peak_bytes": 5981931520,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 8821358592,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 73.85118137500012,
+      "tokens_per_second": 886.5396433883369,
+      "nll_delta_vs_bf16": 1.4588827341794968,
+      "perplexity_ratio_vs_bf16": 4.301151313466954
+    },
+    "w3a16_g64": {
+      "config": {
+        "name": "w3a16_g64",
+        "bits": 3,
+        "group_size": 64
+      },
+      "quantized": true,
+      "nll": 5.4082512855529785,
+      "perplexity": 223.24086162607693,
+      "forward_kl_teacher_student": 2.6142297983169556,
+      "teacher_self_kl": null,
+      "teacher_self_kl_max_batch": null,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.35288258641958237,
+        "13": 0.25151748582720757,
+        "27": 0.7876044772565365
+      },
+      "activation_relative_error_max": {
+        "0": 0.3568393588066101,
+        "13": 0.5099791288375854,
+        "27": 0.8308491110801697
+      },
+      "coverage": {
+        "quantized_modules": 196,
+        "quantized_weight_parameters": 440401920,
+        "quantized_bias_parameters": 0,
+        "total_parameters": 596049920,
+        "fraction_of_model_parameters": 0.7388675096206707,
+        "effective_bits_per_quantized_weight": 3.25,
+        "payload_bytes": 165150720.0,
+        "metadata_bytes": 13762560.0,
+        "total_quantized_bytes": 178913280.0,
+        "wrapped_modules": 196
+      },
+      "weight_diagnostics": {
+        "modules": 196,
+        "weights": 440401920,
+        "mse_weighted": 5.3985355312068436e-05,
+        "max_abs_error": 0.2024739682674408,
+        "endpoint_fraction": 0.0384882563991206,
+        "clipped_fraction": 0.0,
+        "zero_level_fraction": 0.35341853073665075,
+        "degenerate_groups": 0,
+        "scale_min": 0.0006917317514307797,
+        "scale_max": 0.4114583432674408,
+        "scale_mean_weighted": 0.024192317269210305,
+        "worst_modules": [
+          {
+            "name": "model.layers.1.mlp.gate_proj",
+            "mse": 0.00012142118794145063,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.3.mlp.gate_proj",
+            "mse": 0.00010153775656362996,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.2.mlp.gate_proj",
+            "mse": 0.00010136293713003397,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.4.mlp.gate_proj",
+            "mse": 9.212824079440907e-05,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.0.mlp.gate_proj",
+            "mse": 8.669926319271326e-05,
+            "weights": 3145728
+          }
+        ]
+      },
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 2072903680,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 3901556224,
+        "end_allocated_bytes": 5663163904,
+        "peak_bytes": 5902239744,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 8754249728,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 78.53927312499991,
+      "tokens_per_second": 833.6211604071943,
+      "nll_delta_vs_bf16": 2.2981036454439163,
+      "perplexity_ratio_vs_bf16": 9.955285791523039
+    },
+    "w3a16_g128": {
+      "config": {
+        "name": "w3a16_g128",
+        "bits": 3,
+        "group_size": 128
+      },
+      "quantized": true,
+      "nll": 6.625891476869583,
+      "perplexity": 754.3764220116335,
+      "forward_kl_teacher_student": 3.918618217110634,
+      "teacher_self_kl": null,
+      "teacher_self_kl_max_batch": null,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.38728778064250946,
+        "13": 0.3210924305021763,
+        "27": 0.9565382190048695
+      },
+      "activation_relative_error_max": {
+        "0": 0.3938601613044739,
+        "13": 0.5384969711303711,
+        "27": 1.016425371170044
+      },
+      "coverage": {
+        "quantized_modules": 196,
+        "quantized_weight_parameters": 440401920,
+        "quantized_bias_parameters": 0,
+        "total_parameters": 596049920,
+        "fraction_of_model_parameters": 0.7388675096206707,
+        "effective_bits_per_quantized_weight": 3.125,
+        "payload_bytes": 165150720.0,
+        "metadata_bytes": 6881280.0,
+        "total_quantized_bytes": 172032000.0,
+        "wrapped_modules": 196
+      },
+      "weight_diagnostics": {
+        "modules": 196,
+        "weights": 440401920,
+        "mse_weighted": 6.518223602879083e-05,
+        "max_abs_error": 0.2024739682674408,
+        "endpoint_fraction": 0.02292584240259159,
+        "clipped_fraction": 0.0,
+        "zero_level_fraction": 0.3865756850157465,
+        "degenerate_groups": 0,
+        "scale_min": 0.0009358723764307797,
+        "scale_max": 0.4114583432674408,
+        "scale_mean_weighted": 0.02661551097407937,
+        "worst_modules": [
+          {
+            "name": "model.layers.1.mlp.gate_proj",
+            "mse": 0.00014488182205241174,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.3.mlp.gate_proj",
+            "mse": 0.00012130849063396454,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.2.mlp.gate_proj",
+            "mse": 0.00012129398965043947,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.4.mlp.gate_proj",
+            "mse": 0.00010972848394885659,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.0.mlp.gate_proj",
+            "mse": 0.00010390209354227409,
+            "weights": 3145728
+          }
+        ]
+      },
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 2072903680,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 3901556224,
+        "end_allocated_bytes": 5663163904,
+        "peak_bytes": 5981931520,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 8787804160,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 78.982760375,
+      "tokens_per_second": 828.9403876130355,
+      "nll_delta_vs_bf16": 3.515743836760521,
+      "perplexity_ratio_vs_bf16": 33.64094198888879
+    },
+    "w3a16_g128_attn": {
+      "config": {
+        "name": "w3a16_g128_attn",
+        "bits": 3,
+        "group_size": 128,
+        "include": ".*self_attn\\.(q_proj|k_proj|v_proj|o_proj)"
+      },
+      "quantized": true,
+      "nll": 4.264037191867828,
+      "perplexity": 71.09643478405833,
+      "forward_kl_teacher_student": 1.3477496206760406,
+      "teacher_self_kl": null,
+      "teacher_self_kl_max_batch": null,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.3108512442559004,
+        "13": 0.16820438439026475,
+        "27": 0.5328929554671049
+      },
+      "activation_relative_error_max": {
+        "0": 0.3146875202655792,
+        "13": 0.39313119649887085,
+        "27": 0.5678064227104187
+      },
+      "coverage": {
+        "quantized_modules": 112,
+        "quantized_weight_parameters": 176160768,
+        "quantized_bias_parameters": 0,
+        "total_parameters": 596049920,
+        "fraction_of_model_parameters": 0.29554700384826826,
+        "effective_bits_per_quantized_weight": 3.125,
+        "payload_bytes": 66060288.0,
+        "metadata_bytes": 2752512.0,
+        "total_quantized_bytes": 68812800.0,
+        "wrapped_modules": 112
+      },
+      "weight_diagnostics": {
+        "modules": 112,
+        "weights": 176160768,
+        "mse_weighted": 6.161912872249515e-05,
+        "max_abs_error": 0.1354166567325592,
+        "endpoint_fraction": 0.023131818998427617,
+        "clipped_fraction": 0.0,
+        "zero_level_fraction": 0.38539269992283415,
+        "degenerate_groups": 0,
+        "scale_min": 0.0009358723764307797,
+        "scale_max": 0.2760416567325592,
+        "scale_mean_weighted": 0.025406887156090567,
+        "worst_modules": [
+          {
+            "name": "model.layers.26.self_attn.q_proj",
+            "mse": 0.00010339640721213073,
+            "weights": 2097152
+          },
+          {
+            "name": "model.layers.21.self_attn.q_proj",
+            "mse": 9.164625953417271e-05,
+            "weights": 2097152
+          },
+          {
+            "name": "model.layers.20.self_attn.q_proj",
+            "mse": 9.134909487329423e-05,
+            "weights": 2097152
+          },
+          {
+            "name": "model.layers.25.self_attn.q_proj",
+            "mse": 9.015148680191487e-05,
+            "weights": 2097152
+          },
+          {
+            "name": "model.layers.24.self_attn.q_proj",
+            "mse": 8.861780224833637e-05,
+            "weights": 2097152
+          }
+        ]
+      },
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 1544421376,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 3373073920,
+        "end_allocated_bytes": 4077716992,
+        "peak_bytes": 4715251712,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 7714062336,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 78.8635837920001,
+      "tokens_per_second": 830.1930606232665,
+      "nll_delta_vs_bf16": 1.1538895517587662,
+      "perplexity_ratio_vs_bf16": 3.1705007850184868
+    },
+    "w3a16_g128_mlp": {
+      "config": {
+        "name": "w3a16_g128_mlp",
+        "bits": 3,
+        "group_size": 128,
+        "include": ".*mlp\\.(gate_proj|up_proj|down_proj)"
+      },
+      "quantized": true,
+      "nll": 4.564900100231171,
+      "perplexity": 96.05299786492787,
+      "forward_kl_teacher_student": 1.6630209237337112,
+      "teacher_self_kl": null,
+      "teacher_self_kl_max_batch": null,
+      "tokens": 65472,
+      "activation_relative_error_mean": {
+        "0": 0.23001743014901876,
+        "13": 0.20313261821866035,
+        "27": 0.6592847891151905
+      },
+      "activation_relative_error_max": {
+        "0": 0.2357119470834732,
+        "13": 0.3178478181362152,
+        "27": 0.6921307444572449
+      },
+      "coverage": {
+        "quantized_modules": 84,
+        "quantized_weight_parameters": 264241152,
+        "quantized_bias_parameters": 0,
+        "total_parameters": 596049920,
+        "fraction_of_model_parameters": 0.4433205057724024,
+        "effective_bits_per_quantized_weight": 3.125,
+        "payload_bytes": 99090432.0,
+        "metadata_bytes": 4128768.0,
+        "total_quantized_bytes": 103219200.0,
+        "wrapped_modules": 84
+      },
+      "weight_diagnostics": {
+        "modules": 84,
+        "weights": 264241152,
+        "mse_weighted": 6.755764089965461e-05,
+        "max_abs_error": 0.2024739682674408,
+        "endpoint_fraction": 0.02278852467203424,
+        "clipped_fraction": 0.0,
+        "zero_level_fraction": 0.3873643417443548,
+        "degenerate_groups": 0,
+        "scale_min": 0.0029296875,
+        "scale_max": 0.4114583432674408,
+        "scale_mean_weighted": 0.027421260186071907,
+        "worst_modules": [
+          {
+            "name": "model.layers.1.mlp.gate_proj",
+            "mse": 0.00014488182205241174,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.3.mlp.gate_proj",
+            "mse": 0.00012130849063396454,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.2.mlp.gate_proj",
+            "mse": 0.00012129398965043947,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.4.mlp.gate_proj",
+            "mse": 0.00010972848394885659,
+            "weights": 3145728
+          },
+          {
+            "name": "model.layers.0.mlp.gate_proj",
+            "mse": 0.00010390209354227409,
+            "weights": 3145728
+          }
+        ]
+      },
+      "parameter_bytes": {
+        "teacher": 1192099840,
+        "student": 1720582144,
+        "teacher_cache": 537263616
+      },
+      "memory": {
+        "device_type": "mps",
+        "start_allocated_bytes": 3549234688,
+        "end_allocated_bytes": 4606199296,
+        "peak_bytes": 4845275136,
+        "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+        "driver_allocated_bytes_at_end": 8754249728,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      },
+      "elapsed_seconds": 80.02509387499981,
+      "tokens_per_second": 818.1433701567171,
+      "nll_delta_vs_bf16": 1.4547524601221085,
+      "perplexity_ratio_vs_bf16": 4.283423016345368
+    }
+  },
+  "quantization_disabled_equivalence": {
+    "wrapped_modules": 196,
+    "wrapped_modules_quantized_flag": 0,
+    "sequences": 4,
+    "max_abs_logit_diff": 0.0,
+    "mean_abs_logit_diff": 0.0,
+    "nll_teacher": 3.147981286048889,
+    "nll_wrapped_disabled": 3.147981286048889,
+    "nll_abs_diff": 0.0,
+    "tokens": 4092,
+    "memory": {
+      "device_type": "mps",
+      "start_allocated_bytes": 4220323328,
+      "end_allocated_bytes": 6132934144,
+      "peak_bytes": 6770477312,
+      "peak_method": "sampled torch.mps.current_allocated_memory every 20 ms",
+      "driver_allocated_bytes_at_end": 8766832640,
+      "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+    },
+    "tolerance": "max_abs_logit_diff == 0.0 expected (fp32 master is a lossless upcast)"
+  },
+  "notes": [
+    "Diagnostic subset only; not the official Gate 2 evaluation.",
+    "MPS peak memory is sampled at 20 ms and is a lower bound; CUDA would use max_memory_allocated.",
+    "Memory is process-level and includes teacher+student; compare parameter_bytes for model sizes.",
+    "Teacher self-KL is computed between two independent forward passes, not assigned.",
+    "W4A16 uses the same symmetric per-group quantizer with b=4 and G=128.",
+    "The diagnostic ran from the working tree that was committed immediately after the run as a28ff1b901241fed517af35c42692d971edfe3b2; the recorded git_commit_at_run_start is the HEAD at process start and does not include the Gate 1.5 scripts."
+  ],
+  "git_commit_at_run_start": "3afdd195faa4a79780ae7bcf0d7495a03b05a34c",
+  "implementation_commit": "a28ff1b901241fed517af35c42692d971edfe3b2"
+}

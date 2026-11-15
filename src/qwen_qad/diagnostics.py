@@ -127,9 +127,17 @@ def capture_hidden_states(
 
 
 def relative_error(student: Tensor, teacher: Tensor) -> float:
+    """L2 distance relative to the teacher norm (a magnitude-relative metric)."""
     student_f = student.float()
     teacher_f = teacher.float()
     return float((student_f - teacher_f).norm() / teacher_f.norm().clamp_min(1e-12))
+
+
+def cosine_similarity(student: Tensor, teacher: Tensor) -> float:
+    """Cosine between flattened activations; measures direction only."""
+    student_f = student.float().flatten()
+    teacher_f = teacher.float().flatten()
+    return float(torch.nn.functional.cosine_similarity(student_f, teacher_f, dim=0))
 
 
 def max_abs_error(student: Tensor, teacher: Tensor) -> float:
@@ -144,6 +152,9 @@ def compare_activations(
         results[str(index)] = {
             "relative_error": relative_error(student_layers[index], teacher_layers[index]),
             "max_abs_error": max_abs_error(student_layers[index], teacher_layers[index]),
+            "cosine_similarity": cosine_similarity(
+                student_layers[index], teacher_layers[index]
+            ),
         }
     return results
 
