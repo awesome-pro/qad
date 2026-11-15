@@ -1,7 +1,7 @@
 # Gate 1.5 diagnosis — why is W3A16 RTN so degraded?
 
 Status: **diagnostic, local (MPS, bf16)**. Not the official Gate 2 evaluation.
-Machine-readable results: `gate15_diagnostics.json`. Command:
+Machine-readable results: `gate15_diagnostics.json`. The run used the working tree committed as `a28ff1b90124` (the JSON records the HEAD at process start, `3afdd19`, plus `implementation_commit`). Command:
 
 ```bash
 HF_HOME=.hf-cache .venv/bin/python scripts/gate15_diagnostics.py
