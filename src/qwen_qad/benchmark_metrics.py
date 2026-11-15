@@ -22,7 +22,10 @@ def summarize_records(records: Sequence[dict], thinking: bool, seed: int = 1234)
     completed = sum(bool(r.get("finished_naturally")) for r in records)
     truncated = sum(bool(r.get("hit_cap")) for r in records)
     closed = sum(bool(r.get("thinking_closed")) for r in records)
-    marker_present = sum(r["parse_status"] in MARKER_STATUSES for r in records)
+    marker_present = sum(
+        bool(r.get("marker_seen", r["parse_status"] in MARKER_STATUSES)) for r in records
+    )
+    terminal_marker = sum(bool(r.get("terminal_marker_present", False)) for r in records)
     parsed = sum(r["parse_status"] == "ok" for r in records)
     point, low, high = bootstrap_ci(correct, seed=seed)
     return {
@@ -31,6 +34,7 @@ def summarize_records(records: Sequence[dict], thinking: bool, seed: int = 1234)
         "correct": int(sum(correct)),
         "count": n,
         "marker_present_rate": marker_present / n,
+        "terminal_marker_present_rate": terminal_marker / n,
         "parsed_answer_rate": parsed / n,
         "completion_rate": completed / n,
         "truncation_rate": truncated / n,

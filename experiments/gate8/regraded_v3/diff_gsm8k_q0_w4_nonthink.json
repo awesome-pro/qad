@@ -1,0 +1,100 @@
+{
+  "old": "experiments/gate8/regraded/gsm8k_q0_w4_nonthink.generations.jsonl",
+  "new": "experiments/gate8/regraded_v3/gsm8k_q0_w4_nonthink.generations.jsonl",
+  "changed_count": 8,
+  "transitions": {
+    "missing->ok": 4,
+    "missing->malformed": 1,
+    "ambiguous->ok": 3
+  },
+  "changes": [
+    {
+      "example_id": "gsm8k-test-1",
+      "old_status": "missing",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "3",
+      "gold": "3",
+      "old_correct": false,
+      "new_correct": true,
+      "terminal_line": "**Answer: 3**"
+    },
+    {
+      "example_id": "gsm8k-test-3",
+      "old_status": "missing",
+      "new_status": "malformed",
+      "old_value": null,
+      "new_value": null,
+      "gold": "540",
+      "old_correct": false,
+      "new_correct": false,
+      "terminal_line": "**Answer: 180**."
+    },
+    {
+      "example_id": "gsm8k-test-11",
+      "old_status": "missing",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "694",
+      "gold": "694",
+      "old_correct": false,
+      "new_correct": true,
+      "terminal_line": "**Answer: 694**"
+    },
+    {
+      "example_id": "gsm8k-test-27",
+      "old_status": "ambiguous",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "280",
+      "gold": "16",
+      "old_correct": false,
+      "new_correct": false,
+      "terminal_line": "#### $ \\boxed{280} $"
+    },
+    {
+      "example_id": "gsm8k-test-32",
+      "old_status": "missing",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "35",
+      "gold": "35",
+      "old_correct": false,
+      "new_correct": true,
+      "terminal_line": "**Answer: 35**"
+    },
+    {
+      "example_id": "gsm8k-test-56",
+      "old_status": "missing",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "3",
+      "gold": "3",
+      "old_correct": false,
+      "new_correct": true,
+      "terminal_line": "**Answer: 3**"
+    },
+    {
+      "example_id": "gsm8k-test-70",
+      "old_status": "ambiguous",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "330",
+      "gold": "7425",
+      "old_correct": false,
+      "new_correct": false,
+      "terminal_line": "#### $ \\boxed{330} $"
+    },
+    {
+      "example_id": "gsm8k-test-73",
+      "old_status": "ambiguous",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "103",
+      "gold": "255",
+      "old_correct": false,
+      "new_correct": false,
+      "terminal_line": "#### $ \\boxed{103} $"
+    }
+  ]
+}

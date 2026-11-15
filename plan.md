@@ -883,7 +883,7 @@ run on a GPU; **blocked** = cannot be completed with available artifacts.
 
 | Priority | Issue | Status |
 |---|---|---|
-| P0A/B/C | strict GSM8K parser, non-thinking and thinking evaluators, lossless token/text records | **verified + parser v2**: edge cases fixed, offline regrade done; see `reports/checkpoint_a_patch.md` |
+| P0A/B/C | strict GSM8K parser, non-thinking and thinking evaluators, lossless token/text records | **frozen parser v3.0.0**: nested/markdown/units cases fixed, final regrade and per-example diff in `reports/parser_v3_final.md` |
 | P0D/E | regrade old checkpoints / matched 25-step pair | **blocked for old checkpoints** (deleted); corrected matched seed-42 pair evaluated at Checkpoint A |
 | P1 | matched Q1/Q2 schedule, tokens, context | **verified at Checkpoint A** (seed 42): `check_matched.py` passes, 0 prompt-hash mismatches, token ratio 1.0012 |
 | P2 | disjoint validation vs final test | **verified at Checkpoint A**: `fineweb_val_ids.npy`, `wikitext_test_ids.npy`, zero block overlap |
@@ -897,9 +897,9 @@ run on a GPU; **blocked** = cannot be completed with available artifacts.
 Old artifacts (`experiments/gate2`–`gate7`, old `reports/findings.md` tables) are
 preserved and labelled historical. New corrected runs use `experiments/gate8`.
 
-**Pause point:** Checkpoint A is verified. Parser v2/regrade/checkpoint verification are in
-`reports/checkpoint_a_patch.md`. Seed 43, W3 and corrected 1.7B runs have **not**
-been started and remain paused until reviewer approval of the patch.
+**Status:** parser v3.0.0 is frozen (`docs/parser_spec_v3.md`); final seed-42
+regrade is in `reports/parser_v3_final.md`. Seed-43 matched training is running
+under the approved protocol; W3 and corrected 1.7B remain paused.
 
 ---
 

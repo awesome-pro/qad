@@ -1,5 +1,8 @@
 # Checkpoint A patch — parser v2, regrade, checkpoint verification
 
+> **Superseded:** parser v3.0.0 and the final regrade are in
+> `reports/parser_v3_final.md`. This file is preserved as the v2 audit trail.
+
 This patch responds to the parent review of commit
 `525ea3dd8b52bc46e08a0226d9640fc9ef57c42d`. The seed-42 model pair was **not**
 retrained; the existing generations and weights were reused.

@@ -1,0 +1,55 @@
+{
+  "old": "experiments/gate8/regraded/gsm8k_t0_nonthink.generations.jsonl",
+  "new": "experiments/gate8/regraded_v3/gsm8k_t0_nonthink.generations.jsonl",
+  "changed_count": 4,
+  "transitions": {
+    "malformed->ok": 2,
+    "missing->ok": 2
+  },
+  "changes": [
+    {
+      "example_id": "gsm8k-test-7",
+      "old_status": "malformed",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "100",
+      "gold": "160",
+      "old_correct": false,
+      "new_correct": false,
+      "terminal_line": "#### **100 minutes**"
+    },
+    {
+      "example_id": "gsm8k-test-55",
+      "old_status": "missing",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "14",
+      "gold": "14",
+      "old_correct": false,
+      "new_correct": true,
+      "terminal_line": "**Answer:** 14 bags."
+    },
+    {
+      "example_id": "gsm8k-test-84",
+      "old_status": "malformed",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "15",
+      "gold": "15",
+      "old_correct": false,
+      "new_correct": true,
+      "terminal_line": "#### **15**"
+    },
+    {
+      "example_id": "gsm8k-test-99",
+      "old_status": "missing",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "40",
+      "gold": "58",
+      "old_correct": false,
+      "new_correct": false,
+      "terminal_line": "**Answer:** 40"
+    }
+  ]
+}

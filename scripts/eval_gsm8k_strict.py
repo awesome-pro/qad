@@ -167,6 +167,8 @@ def main() -> None:
                 "parse_marker": parsed.marker,
                 "answer_region": parsed.answer_region,
                 "final_line": parsed.final_line,
+                "marker_seen": parsed.marker_seen,
+                "terminal_marker_present": parsed.terminal_marker_present,
                 "correct": is_correct,
             }
         )

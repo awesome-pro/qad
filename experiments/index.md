@@ -35,7 +35,7 @@ corrected protocol is `GPU_RUNBOOK_AUDIT.md`; new runs write to `experiments/gat
 
 | Planned | Purpose | Artifacts |
 |---|---|---|
-| strict non-thinking GSM8K, 100 questions | T0/Q0/Q1/Q2 accuracy with explicit-answer parsing | **done + parser v2 regrade**: T0 37%, Q0 13%, Q1 33%, Q2 31%; paired p=0.77 (`gate8/regraded/*`) |
+| strict non-thinking GSM8K, 100 questions | T0/Q0/Q1/Q2 accuracy with explicit-answer parsing | **done + parser v3 frozen**: T0 39%, Q0 17%, Q1 33%, Q2 35%; paired p=0.77 (`gate8/regraded_v3/*`) |
 | matched Q1/Q2, 200 steps, seeds 42/43 | same prompt schedule, prompt IDs/step, 128-token cap | **seed 42 done**; `check_matched` clean; seed 43 paused (`gate8/m_q*_s42.*`) |
 | best/final checkpoints | validation-selected vs final; portable `.safetensors` | `checkpoints/m_*_best.*` |
 | final test on WikiText-103 | disjoint test metrics | **done seed 42**: Q1 30.64 PPL, Q2 29.92 (`gate8/test_m_q*`) |

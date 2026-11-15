@@ -18,7 +18,7 @@ def test_qwen3_thinking_markers_are_ascii_added_tokens():
     # Verified against the pinned Qwen3 tokenizer: ids 151667 / 151668.
     assert THINK_OPEN == "<think>"
     assert THINK_CLOSE == "</think>"
-    assert PARSER_VERSION == "2"
+    assert PARSER_VERSION == "3.0.0"
 
 
 def test_non_thinking_explicit_answer():
@@ -185,3 +185,53 @@ def test_boxed_followed_by_arithmetic_is_not_final():
 
 def test_multiple_distinct_boxes_are_ambiguous():
     assert parse_final_answer("\\boxed{12} and \\boxed{13}", thinking_mode=False).status == "ambiguous"
+
+
+def test_nested_hash_boxed_is_one_answer():
+    assert parse_final_answer(r"#### $\boxed{8}$", thinking_mode=False).value == "8"
+    assert parse_final_answer(r"#### **\boxed{8}**", thinking_mode=False).value == "8"
+
+
+def test_markdown_answer_lines():
+    assert parse_final_answer("**Answer: $694**", thinking_mode=False).value == "694"
+    assert parse_final_answer("**Answer: $233.00**", thinking_mode=False).value == "233"
+
+
+def test_answer_regex_does_not_consume_next_line():
+    parsed = parse_final_answer("Answer: 5\nnot the answer", thinking_mode=False)
+    assert parsed.status == "missing"
+    assert parsed.marker_seen
+    assert not parsed.terminal_marker_present
+
+
+def test_marker_present_vs_terminal_marker():
+    earlier = parse_final_answer("I tried #### 8\nbut no final marker", thinking_mode=False)
+    assert earlier.status == "missing"
+    assert earlier.marker_seen
+    assert not earlier.terminal_marker_present
+    terminal = parse_final_answer("#### 8", thinking_mode=False)
+    assert terminal.marker_seen and terminal.terminal_marker_present
+
+
+def test_contradictory_terminal_answers_rejected():
+    assert parse_final_answer("#### 8\nAnswer: 9", thinking_mode=False).status == "ambiguous"
+
+
+def test_nested_boxed_with_arithmetic_is_rejected():
+    assert parse_final_answer(r"#### \boxed{8} + 3", thinking_mode=False).status != "ok"
+
+
+def test_nested_markers_after_answer_prefix():
+    assert parse_final_answer("**Answer:** #### 225", thinking_mode=False).value == "225"
+    assert parse_final_answer("**Answer:** $\\boxed{10}$ games.", thinking_mode=False).value == "10"
+    assert parse_final_answer("Answer: #### 8\nAnswer: 9", thinking_mode=False).status == "ambiguous"
+    assert parse_final_answer("Answer: $\\boxed{12}$ + 3 = 15", thinking_mode=False).status != "ok"
+
+
+def test_answers_with_units_are_numeric_but_extra_numbers_are_not():
+    assert normalize_number("14 bags.") == "14"
+    assert normalize_number("120 minutes") == "120"
+    assert normalize_number("8 and 9") is None
+    assert normalize_number("12 + 3") is None
+    text = "**Answer:** 14 bags.\\nFinal answer: #### 14."
+    assert parse_final_answer(text, thinking_mode=False).value == "14"

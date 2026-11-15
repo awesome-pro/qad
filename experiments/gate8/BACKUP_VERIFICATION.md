@@ -1,6 +1,6 @@
 # Checkpoint A backup verification
 
-Date: 2026-11-15 (UTC). Source pod: `root@63.141.33.158 -p 22107`,
+Date: 2026-11-15 (UTC). Source pod: a private RunPod session (address withheld);
 `/workspace/qad/checkpoints`. Destination: local
 `checkpoints/gate8/` (gitignored, outside pod ephemeral storage).
 

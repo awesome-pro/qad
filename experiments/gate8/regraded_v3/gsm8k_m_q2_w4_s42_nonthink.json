@@ -1,0 +1,75 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q2_w4_s42_nonthink.generations.jsonl",
+  "source_sha256": "5f81a7cbe9b9de4e710b7e2c6a061e94ac4f725ffe9a279e7f9aa8519b20b8f2",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.35,
+    "accuracy_ci95": [
+      0.26,
+      0.45
+    ],
+    "correct": 35,
+    "count": 100,
+    "marker_present_rate": 0.73,
+    "terminal_marker_present_rate": 0.72,
+    "parsed_answer_rate": 0.7,
+    "completion_rate": 0.72,
+    "truncation_rate": 0.28,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 70,
+      "missing": 28,
+      "ambiguous": 1,
+      "malformed": 1
+    },
+    "mean_response_tokens": 192.42
+  },
+  "old_metrics": {
+    "accuracy": 0.36,
+    "accuracy_ci95": [
+      0.27,
+      0.46
+    ],
+    "correct": 36,
+    "count": 100,
+    "explicit_answer_rate": 0.73,
+    "completion_rate": 0.72,
+    "truncation_rate": 0.28,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 70,
+      "missing": 27,
+      "malformed": 3
+    },
+    "mean_response_tokens": 192.42,
+    "elapsed_seconds": 35.12196340993978
+  },
+  "changed_examples": [
+    {
+      "example_id": "gsm8k-test-9",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "460",
+      "new_value": null,
+      "final_line": "Final answer: $ \\boxed{460} $ ####."
+    },
+    {
+      "example_id": "gsm8k-test-15",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "Profit = $8,096.80 - $8,000 = **"
+    },
+    {
+      "example_id": "gsm8k-test-77",
+      "old_status": "malformed",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "700",
+      "final_line": "#### **700**"
+    }
+  ],
+  "changed_count": 3
+}
