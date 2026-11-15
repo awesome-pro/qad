@@ -6,6 +6,7 @@ The goal is to investigate two questions:
 
 1. **How much model quality can quantization-aware distillation (QAD) recover after aggressive W3/W4 weight quantization?**
 2. **Does training on the quantized student's own generated trajectories improve recovery compared with offline distillation?**
+3. [Research Brief](docs/research_brief.md)
 
 A weight-only fake-quantization and distillation pipeline was implemented; multiple quantization granularities and matched offline/on-policy experiments across two seeds were evaluated; cases where lower perplexity did not translate into better generation were investigated.
 
@@ -103,6 +104,26 @@ Offline QAD recovered test perplexity to approximately BF16 quality. However, GS
 This is a second observation of the **likelihood-versus-task-quality gap**, now at a different model size.
 
 ![Qwen3-1.7B results](reports/figures/fig_1p7b.png)
+
+---
+
+## Research Evidence & Artifacts
+
+The main findings above are supported by versioned training logs, held-out evaluations, per-example generations, and integrity checks.
+
+| Research question | Direct evidence |
+|---|---|
+| **W4 quality recovery** | [Seed-42 offline test](experiments/gate8/test_m_q1_w4_s42_verified.json) · [Seed-42 online test](experiments/gate8/test_m_q2_w4_s42_verified.json) |
+| **Offline vs. on-policy QAD** | [Seed-42 paired comparison](experiments/gate8/regraded_v3/paired_integrity.json) · [Seed-43 paired comparison](experiments/gate8/regraded_v3/paired_integrity_s43.json) |
+| **W3-G128 vs. W3-G32** | [G128 test metrics](experiments/gate8/test_m_q1_w3_s42_verified.json) · [G32 test metrics](experiments/gate9/test_m_q1_w3g32_s42_verified.json) |
+| **Actual W3 generation failures** | [100 raw W3-G32 generations](experiments/gate9/regraded_v3/gsm8k_m_q1_w3g32_s42_nonthink.generations.jsonl) · [Failure analysis](reports/w3_failure_analysis.md) |
+| **Qwen3-1.7B quality recovery** | [BF16 test](experiments/gate8/test_1p7b_t0.json) · [W4 RTN test](experiments/gate8/test_1p7b_q0_w4.json) · [QAD test](experiments/gate8/test_m_q1_w4_1p7b_verified.json) |
+| **Reproducibility** | [Dataset/split manifest](data/manifests/gate8_splits_manifest.json) · [Final audit](reports/final_audit.md) |
+| **Compression and artifacts** | [Memory accounting](reports/memory_accounting.md) · [Checkpoint inventory](reports/checkpoint_inventory.md) |
+
+See the [experiment registry](experiments/index.md) for configurations and the [full research report](reports/FINAL_RESEARCH_REPORT.md) for interpretation, uncertainty, and limitations.
+
+Large model weights and source datasets are not committed to Git; availability and reproduction instructions are documented separately.
 
 ---
 
