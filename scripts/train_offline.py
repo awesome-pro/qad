@@ -77,6 +77,7 @@ def main() -> None:
     parser.add_argument("--steps", type=int, default=25)
     parser.add_argument("--response-tokens-per-step", type=int, default=4096)
     parser.add_argument("--max-seq-len", type=int, default=2048)
+    parser.add_argument("--response-cap", type=int, default=None)
     parser.add_argument("--lr", type=float, default=1e-5)
     parser.add_argument("--warmup-steps", type=int, default=5)
     parser.add_argument("--grad-clip", type=float, default=1.0)
@@ -123,7 +124,7 @@ def main() -> None:
             records.append(json.loads(line))
     examples = []
     for index, record in enumerate(records):
-        example = make_example(record, args.max_seq_len, index)
+        example = make_example(record, args.max_seq_len, index, args.response_cap)
         if example is not None:
             examples.append(example)
     if not examples:

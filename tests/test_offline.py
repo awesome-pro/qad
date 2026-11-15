@@ -50,6 +50,12 @@ def test_make_example_truncates_to_max_seq_len():
     assert example.total_len == 8
 
 
+def test_make_example_response_cap():
+    example = make_example(record(prompt_len=4, response_len=10), max_seq_len=32, index=0, max_response_tokens=3)
+    assert example is not None
+    assert len(example.response_ids) == 3
+
+
 def test_make_example_rejects_too_long_prompt():
     assert make_example(record(10, 4), max_seq_len=8, index=0) is None
 

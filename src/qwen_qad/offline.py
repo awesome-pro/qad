@@ -32,13 +32,20 @@ class Example:
         return len(self.prompt_ids) + len(self.response_ids)
 
 
-def make_example(record: dict, max_seq_len: int, index: int) -> Example | None:
+def make_example(
+    record: dict,
+    max_seq_len: int,
+    index: int,
+    max_response_tokens: int | None = None,
+) -> Example | None:
     """Prompt + truncated response that fits ``max_seq_len``, or None."""
     prompt_ids = [int(t) for t in record["prompt_ids"]]
     response_ids = [int(t) for t in record["response_ids"]]
     if len(prompt_ids) + 2 > max_seq_len:
         return None
     response_budget = max_seq_len - len(prompt_ids)
+    if max_response_tokens is not None:
+        response_budget = min(response_budget, max_response_tokens)
     response_ids = response_ids[:response_budget]
     if len(response_ids) < 2:
         return None
