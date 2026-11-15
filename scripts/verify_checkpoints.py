@@ -90,7 +90,7 @@ def main() -> None:
         "heldout_safetensors": metrics_b,
         "nll_abs_diff": abs(metrics_a["nll"] - metrics_b["nll"]),
         "kl_abs_diff": abs(
-            metrics_a["forward_kl_teacher_student"] - metrics_b["forward_kl_teacher_student"]
+            metrics_a["kl"] - metrics_b["kl"]
         ),
         "passed": bool(
             max_abs < 1e-2
