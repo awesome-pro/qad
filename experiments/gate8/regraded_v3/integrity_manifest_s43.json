@@ -16,6 +16,22 @@
       "generations": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.generations.jsonl",
       "provenance": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.with_provenance.json",
       "run_json": "experiments/gate8/m_q2_w4_s43.json"
+    },
+    {
+      "name": "q1_s43_think10",
+      "mode": "thinking",
+      "summary": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_think10.json",
+      "generations": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_think10.generations.jsonl",
+      "provenance": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_think10.with_provenance.json",
+      "run_json": "experiments/gate8/m_q1_w4_s43.json"
+    },
+    {
+      "name": "q2_s43_think10",
+      "mode": "thinking",
+      "summary": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_think10.json",
+      "generations": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_think10.generations.jsonl",
+      "provenance": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_think10.with_provenance.json",
+      "run_json": "experiments/gate8/m_q2_w4_s43.json"
     }
   ],
   "paired": [

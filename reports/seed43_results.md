@@ -28,9 +28,13 @@ a reliable on-policy advantage; it does suggest the effect is seed-dependent.
 ## Integrity
 
 `regraded_v3` Q1/Q2 summaries and provenance:
-`integrity_report_s43.json` → **passed** for both summaries and the paired
-comparison (parser 3.0.0, source hashes, records, provenance and checkpoint
-SHA all consistent).
+`integrity_report_s43.json` → **passed** for the two non-thinking summaries,
+the two thinking subsets, and the paired comparison (parser 3.0.0, source
+hashes, records, provenance and checkpoint SHA all consistent).
+
+Thinking-mode 10-question subset (same cap/settings as seed 42): Q1 30%
+(4/10 parsed, 50% completed), Q2 20% (3/10, 40% completed). Underpowered; this
+is a parser/completion sanity subset, not an accuracy benchmark.
 
 Raw evaluation summaries are preserved; canonical analysis uses the v3
 regrades (which had zero changed examples versus the evaluator output).
