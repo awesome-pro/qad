@@ -40,3 +40,13 @@ their results remain valid and the models can be regenerated, but the backup
 requirement cannot be completed.
 
 No claim of clean-process restoration for seed-43/W3 is made.
+
+## Update — W3-G32 and 1.7B
+
+- **W3-G32:** fully backed up and clean-process verified
+  (`checkpoints/gate9_w3g32/`, SHA-256 manifest, 310 tensors max diff 0.0).
+- **1.7B:** backup did **not** complete. The link settled around 0.5 MB/s; only
+  partial files exist locally. The pod copy remains intact. No durability claim
+  is made for the 1.7B best `.pt`/safetensors.
+- Old seed-43/W3 (G128) weights were lost when the previous A5000 was stopped;
+  their results/artifacts remain valid.
