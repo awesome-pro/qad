@@ -7,6 +7,8 @@ Status: **diagnostic, local (MPS, bf16)**. Not the official Gate 2 evaluation.
 - Original record (v1, no cosine): `archive_v1/` — preserved unchanged.
 - Command: `HF_HOME=.hf-cache .venv/bin/python scripts/gate15_diagnostics.py
   --out-dir experiments/gate15/v2 --limit-batches 16`
+- The run used the working tree committed as `7e3e35b` (the v2 JSON records
+  `git_commit_at_run_start` and `implementation_commit`).
 
 ## Setup
 

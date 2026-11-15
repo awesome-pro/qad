@@ -743,6 +743,9 @@
     "MPS peak memory is sampled at 20 ms and is a lower bound; CUDA would use max_memory_allocated.",
     "Memory is process-level and includes teacher+student; compare parameter_bytes for model sizes.",
     "Teacher self-KL is computed between two independent forward passes, not assigned.",
-    "W4A16 uses the same symmetric per-group quantizer with b=4 and G=128."
-  ]
+    "W4A16 uses the same symmetric per-group quantizer with b=4 and G=128.",
+    "The v2 diagnostic ran from the working tree committed immediately after the run as 7e3e35b4ac306ee2f7ab00e169bf080aa07f48cf; git_commit_at_run_start is the HEAD at process start and does not include the cosine changes."
+  ],
+  "git_commit_at_run_start": "9401fc26fb26ed8935f8d5a788b77d877fc378a3",
+  "implementation_commit": "7e3e35b4ac306ee2f7ab00e169bf080aa07f48cf"
 }
