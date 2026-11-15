@@ -6,9 +6,10 @@ The goal is to investigate two questions:
 
 1. **How much model quality can quantization-aware distillation (QAD) recover after aggressive W3/W4 weight quantization?**
 2. **Does training on the quantized student's own generated trajectories improve recovery compared with offline distillation?**
-3. [Research Brief](docs/research_brief.md)
 
 A weight-only fake-quantization and distillation pipeline was implemented; multiple quantization granularities and matched offline/on-policy experiments across two seeds were evaluated; cases where lower perplexity did not translate into better generation were investigated.
+
+Here is the [Research Brief](docs/research_brief.md).
 
 **Central finding:** QAD can recover substantial quantization-induced likelihood degradation, but recovering teacher-forced token distributions does not necessarily restore autoregressive reasoning or generation quality.
 
