@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** Gates 0–6 complete on Qwen3-0.6B W4A16-G128, including a second seed, a rollout-length ablation, a W3-G128 QAD probe, and an exploratory 1.7B arm. 109 tests collected (108 pass, 1 CUDA-only skip). See §6.4–6.7 and `reports/findings.md`; no publication claims yet.
+- **Status:** original Gates 0–6 complete; audit corrections (review.md) partly landed on the Mac — strict GSM8K evaluator, matched Q1/Q2 trainer, disjoint val/test splits, best/final checkpoints, statistics, portable weight export. 142 tests collected (141 pass, 1 CUDA-only skip). Corrected GPU runs are pending; see §15 and `GPU_RUNBOOK_AUDIT.md`. No publication claims.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -555,6 +555,8 @@ Full write-up: `reports/findings.md`.
 
 ### 6.7 Replication and exploratory 1.7B
 
+> GSM8K values in this section use the legacy parser and are historical; see §15.
+
 **Second seed (43), 25-step matched arms (0.6B):** NLL/KL and the GSM8K ordering
 replicate. Q1-128: NLL 3.2938, PPL 26.95, KL 0.3015, GSM8K 16% (seed 42:
 3.2942 / 26.96 / 0.3009 / 13%). Q2: 3.2989 / 27.08 / 0.3083 / 18% (seed 42:
@@ -793,7 +795,7 @@ guarantee is made.
 
 ---
 
-## 12. Test plan (beyond the 98 collected tests)
+## 12. Test plan (beyond the 142 collected tests)
 
 | Test | Failure it prevents | When |
 |---|---|---|
@@ -873,3 +875,28 @@ The pilot is complete. The highest-value follow-ups, in order:
 
 Artifacts are in `experiments/gate2`–`gate5` and `reports/findings.md`.
 Checkpoints (5.3–5.6 GB each) remain on the pod and are not committed.
+
+## 15. Audit corrections (review.md, 2026-11-15)
+
+Status legend: **done (Mac)** = code/tests/data landed; **pending GPU** = must
+run on a GPU; **blocked** = cannot be completed with available artifacts.
+
+| Priority | Issue | Status |
+|---|---|---|
+| P0A/B/C | strict GSM8K parser, non-thinking and thinking evaluators, lossless token/text records | **done (Mac)**: `answer_parsing.py`, `eval_gsm8k_strict.py`, tests (Qwen3 markers `<think>`/`</think>` verified) |
+| P0D/E | regrade old checkpoints / matched 25-step pair | **blocked**: old checkpoints deleted; corrected arms must be retrained and evaluated (GPU_RUNBOOK_AUDIT.md) |
+| P1 | matched Q1/Q2 schedule, tokens, context | **done (Mac)**: `schedule.py`, `train_matched.py`, `check_matched.py`, tests; GPU run pending |
+| P2 | disjoint validation vs final test | **done (Mac)**: `fineweb_val_ids.npy`, `wikitext_test_ids.npy`, zero block overlap |
+| P3 | best/final checkpoint selection with reload | **done (Mac) in `train_matched.py`**; GPU execution pending |
+| P4 | durable checkpoints | **pending GPU**: best/final `.pt` + portable `.safetensors`; old checkpoints lost |
+| P5 | API-correctness tests (sampling uses current weights, modes, masks, EOS) | **done (Mac)**: `test_generation_correctness.py`, existing training/freeze tests |
+| P6 | realistic memory accounting | **done (Mac)**: `reports/memory_accounting.md`; no packed artifact claimed |
+| P7 | statistics | **done (Mac) in evaluator**: bootstrap CI, paired difference CI, McNemar |
+| P8 | updated report | **pending GPU**: old GSM numbers are labelled historical; final tables await corrected runs |
+
+Old artifacts (`experiments/gate2`–`gate7`, old `reports/findings.md` tables) are
+preserved and labelled historical. New corrected runs must use `experiments/gate8`
+and `gate9` and distinct run names.
+
+---
+

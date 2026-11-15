@@ -146,3 +146,26 @@ def test_checkpoint_roundtrip_restores_logits():
     with torch.no_grad():
         after = fresh(ids).logits
     assert torch.allclose(before, after, atol=1e-6)
+
+
+def test_inference_weight_export_roundtrip(tmp_path):
+    from qwen_qad.checkpoint import export_inference_weights, import_inference_weights
+
+    torch.manual_seed(3)
+    model = tiny_model()
+    wrap_quantized_linears(model, CFG)
+    ids = torch.tensor([[1, 2, 3, 4]])
+    with torch.no_grad():
+        before = model(ids).logits.clone()
+
+    path = tmp_path / "weights.safetensors"
+    size = export_inference_weights(path, model, metadata={"step": "7"})
+    assert size > 0
+
+    fresh = tiny_model()
+    wrap_quantized_linears(fresh, CFG)
+    missing = import_inference_weights(path, fresh)
+    assert all(key.startswith("lm_head.") for key in missing)
+    with torch.no_grad():
+        after = fresh(ids).logits
+    assert torch.allclose(before, after, atol=1e-6)

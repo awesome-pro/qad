@@ -49,3 +49,39 @@ def load_checkpoint(
             raise ValueError("checkpoint has no optimizer state")
         optimizer.load_state_dict(payload["optimizer"])
     return payload
+
+
+def export_inference_weights(
+    path: str | Path,
+    model: nn.Module,
+    metadata: dict[str, str] | None = None,
+) -> int:
+    """Save portable master weights (no optimizer) as safetensors.
+
+    Qwen3 ties ``lm_head.weight`` to the embedding; the duplicate key is omitted
+    because safetensors rejects shared storage. The optimizer state is kept
+    separately by :func:`save_checkpoint` for training resumption.
+    """
+    from safetensors.torch import save_file
+
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    state = {
+        key: value.detach().cpu().contiguous()
+        for key, value in model.state_dict().items()
+        if not key.startswith("lm_head.")
+    }
+    save_file(state, str(path), metadata=metadata or {})
+    return path.stat().st_size
+
+
+def import_inference_weights(path: str | Path, model: nn.Module) -> list[str]:
+    """Restore portable weights; returns keys intentionally missing (tied lm_head)."""
+    from safetensors.torch import load_file
+
+    state = load_file(str(path))
+    result = model.load_state_dict(state, strict=False)
+    unexpected = list(result.unexpected_keys)
+    if unexpected:
+        raise ValueError(f"unexpected weights: {unexpected}")
+    return list(result.missing_keys)

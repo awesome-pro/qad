@@ -1,8 +1,16 @@
 # Findings — Qwen3-0.6B W4A16-G128 QAD pilot
 
-**Status:** complete first pilot, single seed, 2026-11-15. Not a
-publication-ready claim. W4A16-G128 only; W3A16-G128 remains un-recovered and
-is the aggressive baseline.
+**Status:** historical pilot report, 2026-11-15. Superseded in part by the audit
+corrections in `review.md` / `plan.md` §15. Not publication-ready.
+
+> **Audit notice.** All GSM8K numbers in this document were produced with the
+> legacy permissive parser and a 512-token thinking cap. They are **historical
+> and exploratory**, not strict reasoning accuracy: an unfinished reasoning
+> trace could be graded from its last number. The corrected protocol uses
+> `scripts/eval_gsm8k_strict.py` (only explicit final answers; non-thinking
+> first, thinking subset with completion/truncation tracked) and
+> `scripts/train_matched.py` for matched Q1/Q2 schedules. See
+> `GPU_RUNBOOK_AUDIT.md` for the rerun plan.
 
 ## 1. Question
 
@@ -79,7 +87,9 @@ in both. There is no evidence that on-policy helps here.
 
 ## 4. Generative quality
 
-### GSM8K, 100 test examples, thinking mode, 512-token cap
+### GSM8K (legacy parser; exploratory only, do not cite as strict accuracy)
+
+100 test examples, thinking mode, 512-token cap, last-number fallback allowed.
 
 | Variant | Accuracy | Parsed | Mean response tokens |
 |---|---:|---:|---:|
@@ -175,8 +185,14 @@ shows that likelihood recovers strongly, but generation does not:
 | Q2-len256-m25 | 328 s | 102,384 | 13.6 GiB | 5.6 GB |
 | W3 Q1-200 | 312 s | 818,760 | 14.6 GiB | 5.6 GB |
 
-Checkpoints stay on the pod and are not committed. The 24 GB card is sufficient
-for 0.6B QAD at 2,048-token sequences with microbatches of one.
+Checkpoints stayed on the pod and were deleted after evaluation; they are not
+durable. The 24 GB card is sufficient for 0.6B QAD at 2,048-token sequences with
+microbatches of one.
+
+Theoretical whole-model storage (not measured packed artifacts): see
+`reports/memory_accounting.md`. W4A16-G128 is ~0.50 GiB for 0.6B and ~1.26 GiB
+for 1.7B versus ~1.11/3.20 GiB BF16; these numbers exclude packing overhead and
+imply no serving speedup.
 
 ## 6. What is established vs hypothesis
 
@@ -221,7 +237,10 @@ for 0.6B QAD at 2,048-token sequences with microbatches of one.
 
 - One quantization scheme (W4-G128) for the main study; two seeds for the
   0.6B arms, single seed for 1.7B and W3.
-- GSM8K subset is 100 examples with a 512-token thinking cap; ±4–5 point noise.
+- The historical GSM8K numbers used a permissive parser and 512-token cap; they
+  are not strict reasoning accuracy and are being replaced (review.md P0).
+- Old checkpoints were deleted after evaluation; corrected re-evaluation
+  requires retraining (documented in GPU_RUNBOOK_AUDIT.md).
 - Q2 rollouts are 128 tokens for the 200-step runs (256 only in the 25-step
   ablation); Q1-200 used 1,024-token gold completions, so the 200-step arms are
   token-matched but not length-matched.

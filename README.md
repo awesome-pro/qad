@@ -5,6 +5,13 @@ weight-only low-bit Qwen3 student, and does collecting training data
 on-policy — on the student's own rollouts — help compared with fixed-prefix
 offline distillation?**
 
+> **Audit in progress (2026-11-15).** The GSM8K numbers in the historical report
+> used a permissive parser and a 512-token cap; they are being replaced by the
+> strict evaluator in `scripts/eval_gsm8k_strict.py`, and Q1/Q2 are being rerun
+> with matched schedules (`scripts/train_matched.py`). See `review.md`,
+> `GPU_RUNBOOK_AUDIT.md`, and `plan.md` §15. Old artifacts are preserved as
+> historical.
+
 This repository follows `QWEN_LOW_BIT_QAD_RESEARCH_BRIEF.md`. Where the brief
 and the published *OnlineQAT* paper (arXiv:2610.09346) differ, **the brief
 wins**; the paper is reference material only, not a reproduction target.
@@ -28,7 +35,7 @@ normalization layers, attention biases (none in Qwen3).
 
 | Increment | State |
 |---|---|
-| 0. Reference quantizer, losses, wrapping + tests | **done locally** (109 collected, 108 pass + 1 CUDA-only skip) |
+| 0. Reference quantizer, losses, wrapping + tests | **done locally** (142 collected, 141 pass + 1 CUDA-only skip) |
 | 1. Checkpoint inventory, fixed eval data, T0/Q0 smoke | **done locally** (not reportable) |
 | 1.5. W3A16 degradation diagnosis (BF16/W4/W3-G32/G64/G128, attn vs MLP) | **done locally** — see [diagnosis](experiments/gate15/DIAGNOSIS.md) |
 | 2. Official baseline (4 configs), generation diagnostic, training probe | **done on CUDA** (RTX A5000 24 GB) |
