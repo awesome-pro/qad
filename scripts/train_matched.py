@@ -99,6 +99,8 @@ def main() -> None:
     parser.add_argument("--run-name", required=True)
     parser.add_argument("--out-dir", default="experiments/gate8")
     parser.add_argument("--checkpoint-dir", default="checkpoints")
+    parser.add_argument("--no-final-optimizer", action="store_true",
+                        help="skip the final optimizer-state .pt; always export final safetensors")
     args = parser.parse_args()
 
     device = torch.device(args.device)
@@ -309,7 +311,9 @@ def main() -> None:
             "prompts_per_step": args.prompts_per_step,
             "continuation_cap": args.continuation_cap,
         }
-        size = save_checkpoint(final_path, student, optimizer, args.steps, meta)
+        size = None
+        if not args.no_final_optimizer:
+            size = save_checkpoint(final_path, student, optimizer, args.steps, meta)
         inference_path = ckpt_dir / f"{args.run_name}_final.safetensors"
         export_inference_weights(
             inference_path,
@@ -323,10 +327,10 @@ def main() -> None:
             },
         )
         final_checkpoint = {
-            "path": str(final_path),
+            "path": None if size is None else str(final_path),
             "step": args.steps,
             "bytes": size,
-            "sha256": file_sha256(final_path),
+            "sha256": None if size is None else file_sha256(final_path),
             "inference_weights": str(inference_path),
             "inference_bytes": inference_path.stat().st_size,
             "inference_sha256": file_sha256(inference_path),
