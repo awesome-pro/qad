@@ -1,0 +1,82 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q1_w4_1p7b_nonthink.generations.jsonl",
+  "source_sha256": "45a352e7f092a8f90d9482251731b656e4546ea9fc8d88504b6fecc635e28cbd",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.42,
+    "accuracy_ci95": [
+      0.32,
+      0.52
+    ],
+    "correct": 42,
+    "count": 100,
+    "marker_present_rate": 0.75,
+    "terminal_marker_present_rate": 0.68,
+    "parsed_answer_rate": 0.63,
+    "completion_rate": 0.76,
+    "truncation_rate": 0.24,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 32,
+      "ok": 63,
+      "malformed": 5
+    },
+    "mean_response_tokens": 189.06
+  },
+  "old_metrics": {
+    "accuracy": 0.42,
+    "accuracy_ci95": [
+      0.32,
+      0.52
+    ],
+    "correct": 42,
+    "count": 100,
+    "marker_present_rate": 0.75,
+    "terminal_marker_present_rate": 0.68,
+    "parsed_answer_rate": 0.63,
+    "completion_rate": 0.76,
+    "truncation_rate": 0.24,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 32,
+      "ok": 63,
+      "malformed": 5
+    },
+    "mean_response_tokens": 189.06,
+    "elapsed_seconds": 34.535808807238936
+  },
+  "changed_examples": [],
+  "changed_count": 0,
+  "provenance": {
+    "generated_from": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_1p7b_nonthink.json",
+    "artifact_sha256": "9e71d0f202847c61cd8e38de5765338b6556784ffe8bef9159a4db6dd9647244",
+    "parser_version": "3.0.0",
+    "source_sha256": "45a352e7f092a8f90d9482251731b656e4546ea9fc8d88504b6fecc635e28cbd"
+  },
+  "checkpoint": {
+    "path": "checkpoints/m_q1_w4_1p7b_best.pt",
+    "sha256": "4c808aab719d554bd9906e8c9666a247380666f2c451eb07109ca2b12c284e4e",
+    "step": 100,
+    "val_nll": 2.9004899710416794,
+    "inference_weights": "checkpoints/m_q1_w4_1p7b_best.safetensors",
+    "inference_sha256": "e9c354db54c46d6ce7b42fe47a81885df22433f58789ae107114ed4bfaa8d105",
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-1.7B",
+      "revisions": {
+        "requested": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "resolved_model_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "resolved_tokenizer_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "last_modified": "2025-07-26T03:46:32+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  }
+}

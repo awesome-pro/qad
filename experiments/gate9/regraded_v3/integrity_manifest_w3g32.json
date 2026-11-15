@@ -1,0 +1,13 @@
+{
+  "parser_version": "3.0.0",
+  "entries": [
+    {
+      "name": "q1_w3g32_s42_nonthink",
+      "mode": "nonthinking",
+      "summary": "experiments/gate9/regraded_v3/gsm8k_m_q1_w3g32_s42_nonthink.json",
+      "generations": "experiments/gate9/regraded_v3/gsm8k_m_q1_w3g32_s42_nonthink.generations.jsonl",
+      "provenance": "experiments/gate9/regraded_v3/gsm8k_m_q1_w3g32_s42_nonthink.with_provenance.json",
+      "run_json": "experiments/gate9/m_q1_w3g32_s42.json"
+    }
+  ]
+}

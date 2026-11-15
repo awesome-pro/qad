@@ -1,0 +1,22 @@
+{
+  "manifest": "experiments/gate8/regraded_v3/integrity_manifest_1p7b.json",
+  "parser_version": "3.0.0",
+  "passed": true,
+  "results": [
+    {
+      "name": "t0_1p7b",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q0_1p7b",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q1_1p7b",
+      "passed": true,
+      "problems": []
+    }
+  ]
+}

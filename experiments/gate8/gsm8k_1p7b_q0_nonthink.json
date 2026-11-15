@@ -1,0 +1,93 @@
+{
+  "created_utc": "2026-11-15T14:19:42.063152+00:00",
+  "git_commit": "8af4d0105d642cd7264e8883d23a41795aa1b82d",
+  "config_name": "1p7b_q0",
+  "mode": "nonthinking",
+  "model": {
+    "id": "Qwen/Qwen3-1.7B",
+    "revisions": {
+      "requested": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "resolved_model_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "resolved_tokenizer_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "last_modified": "2025-07-26T03:46:32+00:00",
+      "source": "huggingface_hub.model_info"
+    }
+  },
+  "checkpoint": null,
+  "checkpoint_sha256": null,
+  "checkpoint_meta": null,
+  "quantization": {
+    "bits": 4,
+    "group_size": 128,
+    "granularity": "per_group",
+    "scheme": "symmetric",
+    "scale_floor": 1e-08
+  },
+  "dataset": {
+    "name": "openai/gsm8k",
+    "config": "main",
+    "split": "test",
+    "revision": "740312add88f781978c0658806c59bc2815b9866",
+    "offset": 0,
+    "count": 100,
+    "license": "mit"
+  },
+  "generation": {
+    "enable_thinking": false,
+    "max_new_tokens": 256,
+    "batch_size": 32,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "seed": 1234,
+    "instruction": "Solve the problem step by step. Put the final numeric answer on its own line exactly as: #### <number>"
+  },
+  "metrics": {
+    "accuracy": 0.44,
+    "accuracy_ci95": [
+      0.35,
+      0.54
+    ],
+    "correct": 44,
+    "count": 100,
+    "marker_present_rate": 0.75,
+    "terminal_marker_present_rate": 0.69,
+    "parsed_answer_rate": 0.57,
+    "completion_rate": 0.71,
+    "truncation_rate": 0.29,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ambiguous": 9,
+      "ok": 57,
+      "missing": 31,
+      "malformed": 3
+    },
+    "mean_response_tokens": 190.99,
+    "elapsed_seconds": 34.20436133816838
+  },
+  "memory": {
+    "device_type": "cuda",
+    "start_allocated_bytes": 6260261888,
+    "end_allocated_bytes": 11905926144,
+    "peak_bytes": 13747293184,
+    "peak_method": "torch.cuda.max_memory_allocated",
+    "driver_allocated_bytes_at_end": 17800626176,
+    "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+  },
+  "parameter_bytes": 6259722240,
+  "environment": {
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "transformers": "5.23.0"
+  },
+  "gpu": "NVIDIA RTX A6000",
+  "notes": [
+    "Strict grading: only an explicit final-line ####, one-line \\boxed{}, or Answer: marker counts.",
+    "Marker-present, parsed-answer, completion and accuracy rates are separate.",
+    "Thinking mode requires a closed </think>; unfinished reasoning is never graded.",
+    "Full prompt/response token ids and decoded text are saved for regrading.",
+    "Parser version: 3.0.0."
+  ]
+}

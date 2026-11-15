@@ -1,0 +1,12 @@
+{
+  "manifest": "experiments/gate9/regraded_v3/integrity_manifest_w3g32.json",
+  "parser_version": "3.0.0",
+  "passed": true,
+  "results": [
+    {
+      "name": "q1_w3g32_s42_nonthink",
+      "passed": true,
+      "problems": []
+    }
+  ]
+}

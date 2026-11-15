@@ -43,3 +43,5 @@ corrected protocol is `GPU_RUNBOOK_AUDIT.md`; new runs write to `experiments/gat
 | 1.7B T0/Q0/Q1 | exploratory corrected arm | **T0/Q0 baselines done; Q1 stopped for Checkpoint A** (`gate8/test_1p7b_*`) |
 | 2026-11-15 | 8 | seed-43 matched Q1/Q2 | `scripts/train_matched.py --seed 43` | `experiments/gate8/m_q*_s43.*`, `regraded_v3/*s43*` | prompt hashes match; Q1 30.68 PPL / 35% GSM; Q2 30.72 / 43%; paired +8 pts, p=0.17 |
 | 2026-11-15 | 8 | W3 matched Q1 | `scripts/train_matched.py --bits 3 --arm q1` | `experiments/gate8/m_q1_w3_s42.*` | val 62.42 PPL, test 88.24, GSM 0%; not generative |
+| 2026-11-15 | 9 | W3-G32 matched Q1 | `scripts/train_matched.py --bits 3 --group-size 32` | `experiments/gate9/*`, `reports/w3g32_results.md` | val 40.78 / test 51.43 PPL (G128: 62.42/88.24); GSM 0%; checkpoint backup verified |
+| 2026-11-15 | 8 | 1.7B controlled check | tokenizer + probe + `train_matched.py --arm q1` on A6000 | `experiments/gate8/*1p7b*`, `reports/1p7b_results.md` | T0 19.53 / Q0 25.41 / Q1 19.47 test PPL; GSM 58/44/42%; probe peak 28.6GB |

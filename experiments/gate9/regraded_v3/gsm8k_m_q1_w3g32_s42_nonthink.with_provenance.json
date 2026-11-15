@@ -1,0 +1,80 @@
+{
+  "regraded_from": "experiments/gate9/gsm8k_m_q1_w3g32_s42_nonthink.generations.jsonl",
+  "source_sha256": "e300d944fa0ba8bd63c172f6568143333ec378504994ebebfb9d6f799581b17c",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.0,
+    "accuracy_ci95": [
+      0.0,
+      0.0
+    ],
+    "correct": 0,
+    "count": 100,
+    "marker_present_rate": 0.01,
+    "terminal_marker_present_rate": 0.01,
+    "parsed_answer_rate": 0.0,
+    "completion_rate": 0.31,
+    "truncation_rate": 0.69,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 99,
+      "malformed": 1
+    },
+    "mean_response_tokens": 178.53
+  },
+  "old_metrics": {
+    "accuracy": 0.0,
+    "accuracy_ci95": [
+      0.0,
+      0.0
+    ],
+    "correct": 0,
+    "count": 100,
+    "marker_present_rate": 0.01,
+    "terminal_marker_present_rate": 0.01,
+    "parsed_answer_rate": 0.0,
+    "completion_rate": 0.31,
+    "truncation_rate": 0.69,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 99,
+      "malformed": 1
+    },
+    "mean_response_tokens": 178.53,
+    "elapsed_seconds": 38.27951381797902
+  },
+  "changed_examples": [],
+  "changed_count": 0,
+  "provenance": {
+    "generated_from": "experiments/gate9/regraded_v3/gsm8k_m_q1_w3g32_s42_nonthink.json",
+    "artifact_sha256": "a7dffca34e83f3025fc9e16009021654ff37ef2a7c04c4e410f931ae83263e15",
+    "parser_version": "3.0.0",
+    "source_sha256": "e300d944fa0ba8bd63c172f6568143333ec378504994ebebfb9d6f799581b17c"
+  },
+  "checkpoint": {
+    "path": "checkpoints/m_q1_w3g32_s42_best.pt",
+    "sha256": "81505d2adf25616bac7f1a5c4eb360177fa2ee2acf05d812b027a4cc32c4fb23",
+    "step": 150,
+    "val_nll": 3.7082633152604103,
+    "inference_weights": "checkpoints/m_q1_w3g32_s42_best.safetensors",
+    "inference_sha256": "9beafb6d180c86cf747bbf475682f81be2782779053bdd951d81c2a31403ae29",
+    "quantization": {
+      "bits": 3,
+      "group_size": 32,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  }
+}
