@@ -94,3 +94,19 @@ def test_missing_answer_region_after_close():
     parsed = parse_final_answer("reasoning</think>  ", thinking_mode=True)
     assert parsed.status == "missing"
     assert parsed.thinking_closed
+
+
+def test_qwen3_tokenizer_markers_when_cached():
+    """Verify marker token ids against the pinned tokenizer when it is local."""
+    from transformers import AutoTokenizer
+
+    try:
+        tok = AutoTokenizer.from_pretrained(
+            "Qwen/Qwen3-0.6B",
+            revision="c1899de289a04d12100db370d81485cdf75e47ca",
+            local_files_only=True,
+        )
+    except Exception:
+        pytest.skip("pinned tokenizer not in the local cache")
+    assert tok.encode("<think>", add_special_tokens=False) == [151667]
+    assert tok.encode("</think>", add_special_tokens=False) == [151668]
