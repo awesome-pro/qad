@@ -1,0 +1,751 @@
+{
+  "created_utc": "2026-11-15T05:08:41.248485+00:00",
+  "git_commit": "2858e3200f888c22503dc1711c945d2ee95db0d5",
+  "model": {
+    "id": "Qwen/Qwen3-0.6B",
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    }
+  },
+  "tokenizer": {
+    "id": "Qwen/Qwen3-0.6B",
+    "vocab_size": 151643,
+    "eos_token_id": 151645,
+    "pad_token_id": 151643
+  },
+  "prompts": {
+    "path": "data/cache/prompts/openthoughts_prompts.jsonl",
+    "num_prompts": 8,
+    "ids_sha256": "a423d84a14467fe98bc52be345b7db23b34521da925f98d3c1b618a8cd0a00c3"
+  },
+  "generation": {
+    "do_sample": true,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_new_tokens": 256,
+    "min_new_tokens": 32,
+    "seed_per_prompt": "42+prompt_index (identical across configs)",
+    "note": "fixed seed does not guarantee identical trajectories across different models"
+  },
+  "environment": {
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "torch": "2.13.0+cu129",
+    "transformers": "5.23.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "configs": {
+    "bf16": {
+      "quantization": null,
+      "parameter_bytes": 1192099840,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0039525691699604515,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.52734375,
+            "distinct_2": 0.8509803921568627
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. The task is to determine if all three people (Chef, head server, sous-chef) can communicate with each other using transceivers that work in a certain way. The key here is understanding the communication rules and figuring out the conditions under which this is possible.\n\nFirst, let's restate the problem. The transceivers have a limited range. If two transceivers are too far apart, they can't communicate directly. However, if there's another transceiver that's close enough to both, they can communicate through that third one. So, for three people, we need to check if there's a third transceiver that can act as an intermediary between two of them.\n\nThe input gives us three lines per test case: R (the direct communication range), then the positions of Chef, head server, and sous-chef. Each test case's output is \"yes\" or \"no\".\n\nSo, the approach would be to:\n\n1. For each test case, check if there exists a transceiver that is w"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.12648221343873522,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.4296875,
+            "distinct_2": 0.7098039215686275
+          },
+          "text": "<think>\nOkay, let's see. The task is to create an executable Python function that takes input pairs (A, B) and prints their GCD. The function needs to handle very large numbers, up to 250 digits. The existing GCD function is Euclidean, which works for numbers up to 10^250. But wait, the problem says that Felman's algorithm is supposed to handle numbers with up to 250 digits. So the function needs to be efficient for such big numbers.\n\nFirst, the function needs to read from stdin. The input starts with a number of lines, then each line has two numbers. So I need to read that input first. Then, for each pair, compute the GCD.\n\nBut wait, the problem mentions that the function should be generated from the given prompt. So the function is already defined in the prompt. Let me check the prompt again. The function is called gcd(int a, int b), which is the Euclidean algorithm. But Felman's algorithm is supposed to handle numbers with up to 250 digits. However, the existing function works for n"
+        },
+        {
+          "prompt_index": 2,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.A Little Elephant from the Zoo of Lviv likes lucky strings, i.e., the strings that consist only of the lucky digits 4 an",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.07114624505928857,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.4765625,
+            "distinct_2": 0.7803921568627451
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. The task is to find the number of balanced substrings in a given lucky string (composed only of 4s and 7s). A substring is balanced if there's at least one integer X (1 \u2264 X \u2264 M, where M is the length of the substring) such that the number of 4s in T[1, X-1] equals the number of 7s in T[X, M]. \n\nFirst, let's understand what exactly constitutes a balanced substring. For example, the substring S[1, 4] (assuming M=4) would have 1 4 and 1 7. Similarly, S[5, 7] would have 1 4 and 1 7. So, any substring that has a certain number of 4s and 7s in specific ranges would count.\n\nBut how do we efficiently check all possible substrings? Given that the length can be up to 1e5, a brute-force approach checking every possible substring is O(N^2), which would be way too slow for N=1e5. So we need a smarter way.\n\nLet me think about the problem. Let's"
+        },
+        {
+          "prompt_index": 3,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Given a string s. Can you make it a palindrome by deleting exactly one character? Note that size of the string after del",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0039525691699604515,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.51171875,
+            "distinct_2": 0.8784313725490196
+          },
+          "text": "<think>\nOkay, let's see. I need to create a Python function that takes a string and checks if deleting exactly one character makes it a palindrome. The input has multiple test cases, and for each, I have to output YES or NO.\n\nFirst, I need to understand what a palindrome is. A palindrome is a string that reads the same forwards and backwards. So, for example, \"abba\" is a palindrome, but \"abc\" isn't.\n\nThe problem says to delete exactly one character. So the original string length is n, after deletion it's n-1. The output is YES if after deleting one character, the resulting string is a palindrome.\n\nLet me think about how to approach this. For each test case, I need to check all possible positions where deleting a character would result in a palindrome. If there's at least one such position, output YES, else NO.\n\nBut how do I check that efficiently? For each possible deletion position (each character in the string), I can create a new string by removing that character and check if it's a"
+        },
+        {
+          "prompt_index": 4,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An established group of scientists are working on finding solution to NP hard problems. They claim Subset Sum  as an NP-",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0,
+            "max_repeated_4gram": 1,
+            "distinct_1": 0.48828125,
+            "distinct_2": 0.8823529411764706
+          },
+          "text": "<think>\nOkay, let's see. I need to write a Python function that checks if a subset of a given set sums up to a specific number K. The input is T test cases, each with N and K, and a list of N non-negative integers. The output for each case is 1 if a subset exists, 0 otherwise.\n\nFirst, I remember that this is a classic subset sum problem. The standard approach for this is dynamic programming. Let me think about how to implement that.\n\nSo, the steps would be: for each test case, check all possible subsets to see if any of them sum to K. But with N up to 1000, a brute-force approach would be O(2^N), which is impossible. So dynamic programming is necessary here.\n\nThe dynamic programming approach uses a boolean array where each element represents whether a subset sum up to that index exists. For each element in the list, we update the array by considering including that element or not. For example, for each number in the set, we loop through the possible sums and update the array accordingl"
+        },
+        {
+          "prompt_index": 5,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Let's call a string a phone number if it has length 11 and fits the pattern \"8xxxxxxxxxx\", where each \"x\" is replaced by",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.10671936758893286,
+            "max_repeated_4gram": 8,
+            "distinct_1": 0.39453125,
+            "distinct_2": 0.7019607843137254
+          },
+          "text": "<think>\nOkay, let's see. I need to write a Python function that takes a string of digits and determines how many phone numbers can be made. The phone number has to be 11 digits long, in the format \"8xxxxxxxxxx\", where each 'x' is a digit. And each card can be used once.\n\nFirst, I need to check if the input string has at least 11 digits. If not, output 0 immediately. Because even if you have enough digits, you can't make a phone number.\n\nWait, but what if the input is exactly 11 digits? Then the maximum is 1. Because each phone number uses exactly one of those 11 digits. So that's straightforward.\n\nBut what if the input has more than 11 digits? Well, the problem says that the phone number is exactly 11 digits. So even if there are more, you can't make more than 1 phone number. Because each phone number uses 11 digits. So regardless of the input length, the maximum is 1 if there are at least 11 digits, else 0.\n\nSo the first step is to check the length of the input string. If it's less th"
+        },
+        {
+          "prompt_index": 6,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.You are given q queries in the following form:\n\nGiven three integers l_i, r_i and d_i, find minimum positive integer x_i",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.06324110671936756,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.4453125,
+            "distinct_2": 0.7568627450980392
+          },
+          "text": "<think>\nOkay, let's see. I need to generate a Python function that takes stdin and outputs the correct answers for each query. Each query gives l, r, d, and I have to find the minimum positive integer x_i that's divisible by d and not in the segment [l, r].\n\nFirst, let's understand the problem. For each query, find the smallest x that meets two conditions: x is divisible by d, and x is not between l and r (inclusive). \n\nThe straightforward approach for each query would be to check numbers starting from d, incrementing, and find the first one that's not in [l, r]. However, since l and r can be up to 1e9, a brute-force approach for each query would be too slow. Especially for q up to 500, which is manageable, but perhaps there's a smarter way.\n\nWait, but for each query, the possible x values can be up to r, but since d can be up to 1e9, maybe checking numbers starting from d and checking if they are in the range would be feasible. Let's think: for each query, the minimum x is d if d is l"
+        },
+        {
+          "prompt_index": 7,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An array of integers p_{1},p_{2}, \u2026,p_{n} is called a permutation if it contains each number from 1 to n exactly once. F",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0,
+            "max_repeated_4gram": 1,
+            "distinct_1": 0.44140625,
+            "distinct_2": 0.8470588235294118
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. The task is to restore a permutation based on the given array of sums s. \n\nFirst, I need to understand what the problem is asking. The permutation is an array where each element from 1 to n appears exactly once. The s array is defined such that for each position i, s_i is the sum of all elements before i that are smaller than p_i. The goal is to find the original permutation from this s array.\n\nLet me think about the properties of such a permutation. For example, in the first example where all s_i are zero, the permutation is in reverse order, which makes sense because each element is smaller than the next. But in another example, like the second input where s is [0, 1], the output is [1, 2]. Here, the second element is 2, which is larger than 1, so the sum before is just 1. \n\nNow, how can I reconstruct the permutation from the s array? Let's think about the structure of the permutation. Each element p_i contributes to s_"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 256.0,
+        "mean_content_tokens": 256.0,
+        "mean_repetition_4gram": 0.04693675889328064,
+        "mean_max_repeated_4gram": 2.875,
+        "mean_distinct_2": 0.8009803921568628,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 8,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 56.88023223821074,
+      "memory": {
+        "device_type": "cuda",
+        "start_allocated_bytes": 1192115200,
+        "end_allocated_bytes": 1200650240,
+        "peak_bytes": 1341724672,
+        "peak_method": "torch.cuda.max_memory_allocated",
+        "driver_allocated_bytes_at_end": 1451229184,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    },
+    "w3a16_g128": {
+      "quantization": {
+        "bits": 3,
+        "group_size": 128,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9407114624505929,
+            "max_repeated_4gram": 210,
+            "distinct_1": 0.01953125,
+            "distinct_2": 0.03529411764705882
+          },
+          "text": "- 3\n- 0\n- 0\n- 0\n- 0\n- 0\n- 0\n- 0\n- 0\n- 0  0 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9604743083003953,
+            "max_repeated_4gram": 235,
+            "distinct_1": 0.015625,
+            "distinct_2": 0.023529411764705882
+          },
+          "text": "   33\n   33\n   33\n33\n3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333"
+        },
+        {
+          "prompt_index": 2,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.A Little Elephant from the Zoo of Lviv likes lucky strings, i.e., the strings that consist only of the lucky digits 4 an",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9881422924901185,
+            "max_repeated_4gram": 251,
+            "distinct_1": 0.01171875,
+            "distinct_2": 0.011764705882352941
+          },
+          "text": " 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "prompt_index": 3,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Given a string s. Can you make it a palindrome by deleting exactly one character? Note that size of the string after del",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9209486166007905,
+            "max_repeated_4gram": 78,
+            "distinct_1": 0.046875,
+            "distinct_2": 0.06274509803921569
+          },
+          "text": "\u65e5\u65f6\n\u5b9a\u6570\uff0c\u65e5\u5316\u6709 3 \u4e00 \u4e09 \u4e09 \u4e09  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00  \u4e00"
+        },
+        {
+          "prompt_index": 4,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An established group of scientists are working on finding solution to NP hard problems. They claim Subset Sum  as an NP-",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9881422924901185,
+            "max_repeated_4gram": 251,
+            "distinct_1": 0.01171875,
+            "distinct_2": 0.011764705882352941
+          },
+          "text": "\uff08100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "prompt_index": 5,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Let's call a string a phone number if it has length 11 and fits the pattern \"8xxxxxxxxxx\", where each \"x\" is replaced by",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9841897233201581,
+            "max_repeated_4gram": 250,
+            "distinct_1": 0.015625,
+            "distinct_2": 0.01568627450980392
+          },
+          "text": "\u7684\n\n10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "prompt_index": 6,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.You are given q queries in the following form:\n\nGiven three integers l_i, r_i and d_i, find minimum positive integer x_i",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9762845849802372,
+            "max_repeated_4gram": 248,
+            "distinct_1": 0.015625,
+            "distinct_2": 0.023529411764705882
+          },
+          "text": " 0\n0100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "prompt_index": 7,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An array of integers p_{1},p_{2}, \u2026,p_{n} is called a permutation if it contains each number from 1 to n exactly once. F",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.9644268774703557,
+            "max_repeated_4gram": 114,
+            "distinct_1": 0.01171875,
+            "distinct_2": 0.0196078431372549
+          },
+          "text": "  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0. 0.  0. 0. 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 256.0,
+        "mean_content_tokens": 256.0,
+        "mean_repetition_4gram": 0.9654150197628458,
+        "mean_max_repeated_4gram": 204.625,
+        "mean_distinct_2": 0.025490196078431372,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 8,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 62.65473940875381,
+      "memory": {
+        "device_type": "cuda",
+        "start_allocated_bytes": 2081454080,
+        "end_allocated_bytes": 3843061760,
+        "peak_bytes": 3985495040,
+        "peak_method": "torch.cuda.max_memory_allocated",
+        "driver_allocated_bytes_at_end": 4148166656,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    },
+    "w3a16_g32": {
+      "quantization": {
+        "bits": 3,
+        "group_size": 32,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.7509881422924901,
+            "max_repeated_4gram": 22,
+            "distinct_1": 0.125,
+            "distinct_2": 0.16862745098039217
+          },
+          "text": ":\nbegin_of_solution\n\nIn the Solution section of the Final_solution.\n\nIn the End.\n\nNow, you can do the following:\n\nIn the Solution section of the Step-by-step Analysis of the Instructional Alignment of the Final_solution.\n\nIn the End.\n\nIn the End.\n\nNow, you can do the following:\n\nIn the End.\n\nIn the End.\n\nIn the Solution section of the Solution.\n\nThe Final_solution.\n\nIn the End.\n\nIn the End.\n\nIn the End.\n\nNow, you can do the following:\n\nIn the Solution section of the Solution.\n\nThe Final_solution.\n\nIn the End.\n\nNow, you can do the following:\n\nIn the End.\n\nNow, you can do the following:\n\nIn the End.\n\nIn the End.\n\nNow, you can do the following:\n\nIn the End.\n\nIn the End.\n\nIn the Solution.\n\nIn the End.\n\nNow, you can do the following:\n\nIn the Solution.\n\nIn the End.\n\nIn the End.\n\nNow, you can do the following: In the Final_solution.\n\nIn the End.\n\nIn the End.\n\nIn the End.\n\nNow, you can do the following: In the End.\n\nIn the End.\n\nNow, you can do the following: In the End.\n\nIn the Solution.\n\nIn "
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8379446640316206,
+            "max_repeated_4gram": 33,
+            "distinct_1": 0.08203125,
+            "distinct_2": 0.12156862745098039
+          },
+          "text": ":\n:\n\nSo, let's see. The following is the question, and the following is the answer.\n\nSo, the answer is: 2 from 1, 2 from 1, and 2 from 1, and 2 from 1, and 2 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 2 from 1, and 2 from 1, and 2 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 2 from 1, and 2 from 1, and 2 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 1 from 1, and 2 from 1, and 2 from 1, and 2 from 1, and 1 from 1, and 1 from 1, and 2 from 1, and 2 from 1, and 2 from 1, and 1 from 1,"
+        },
+        {
+          "prompt_index": 2,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.A Little Elephant from the Zoo of Lviv likes lucky strings, i.e., the strings that consist only of the lucky digits 4 an",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8181818181818181,
+            "max_repeated_4gram": 22,
+            "distinct_1": 0.10546875,
+            "distinct_2": 0.13333333333333333
+          },
+          "text": "\u099d\n\nNow, the Solution starts here.\n\nThe solution is composed of the following steps: (1) (A) - (1) - (B) - (A) - (C) - (A) - (X) - (A) - (C) - (A) - (X) - (A) - (R) - (C) - (A) - (X) - (C) - (A) - (C) - (X) - (A) - (R) - (C) - (A) - (X) - (A) - (R) - (C) - (A) - (X) - (A) - (R) - (C) - (A) - (X) - (A) - (R) - (C) - (A) - (X) - (R) - (C) - (A) - (X) - (A) - (R) - (C) - (A) - (X) - (R) - (C) - (A) - (R) - (C) - (A) - (X) - (A) - (R) - (A"
+        },
+        {
+          "prompt_index": 3,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Given a string s. Can you make it a palindrome by deleting exactly one character? Note that size of the string after del",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8972332015810277,
+            "max_repeated_4gram": 114,
+            "distinct_1": 0.05078125,
+            "distinct_2": 0.0784313725490196
+          },
+          "text": "::\nAnswer\nLet\nNow, consider the following, and the following, and consider, and now, and the answer is, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and,"
+        },
+        {
+          "prompt_index": 4,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An established group of scientists are working on finding solution to NP hard problems. They claim Subset Sum  as an NP-",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8656126482213439,
+            "max_repeated_4gram": 66,
+            "distinct_1": 0.0859375,
+            "distinct_2": 0.10980392156862745
+          },
+          "text": ": X\n: 0\n: 1\n\nNow, solve the question with the given input and output.\n\nThe Answer is:\n0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
+        },
+        {
+          "prompt_index": 5,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Let's call a string a phone number if it has length 11 and fits the pattern \"8xxxxxxxxxx\", where each \"x\" is replaced by",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8181818181818181,
+            "max_repeated_4gram": 50,
+            "distinct_1": 0.08984375,
+            "distinct_2": 0.12941176470588237
+          },
+          "text": "arking\n\nClosed, without further progress.\n\nNow, consider the following, consider the following, and consider the following:\n\nThe final solution is now.\n\nNow, consider the following, and consider the following, and consider the following as above.\n\nBut, consider, and, as follows, and, as follows, as above, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follows, and, as follows, as follow"
+        },
+        {
+          "prompt_index": 6,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.You are given q queries in the following form:\n\nGiven three integers l_i, r_i and d_i, find minimum positive integer x_i",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8616600790513834,
+            "max_repeated_4gram": 24,
+            "distinct_1": 0.0625,
+            "distinct_2": 0.10196078431372549
+          },
+          "text": ":\n:\n: p y n i b o t i n k w i n g f o r t i o n k w i n g f o r t i o n k k w i n g f o r t i o n k k w i n g f o r t i o n k k w i n g f o r t i o n k k w i n g f o r t i o n k k w i n a q w i n g f o r t i o n k k w i n a q w i n g f o r t i o n k k w i a q w i n g f o r t i o n k k w i a q w i n g f o r t i o n k k w i a q w i n g f o r t i o n k k w i a q w i n a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i a q w i"
+        },
+        {
+          "prompt_index": 7,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An array of integers p_{1},p_{2}, \u2026,p_{n} is called a permutation if it contains each number from 1 to n exactly once. F",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.8616600790513834,
+            "max_repeated_4gram": 219,
+            "distinct_1": 0.109375,
+            "distinct_2": 0.12941176470588237
+          },
+          "text": ":\n:\n\nNow, try to solve the following question through the above steps as above.\n\n### Final Solution\n\nLet's start with the following:\n\n**6.1.1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 256.0,
+        "mean_content_tokens": 256.0,
+        "mean_repetition_4gram": 0.8389328063241107,
+        "mean_max_repeated_4gram": 68.75,
+        "mean_distinct_2": 0.12156862745098039,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 8,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 63.30740860803053,
+      "memory": {
+        "device_type": "cuda",
+        "start_allocated_bytes": 2081454080,
+        "end_allocated_bytes": 3844814848,
+        "peak_bytes": 3988106240,
+        "peak_method": "torch.cuda.max_memory_allocated",
+        "driver_allocated_bytes_at_end": 4169138176,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    },
+    "w4a16_g128": {
+      "quantization": {
+        "bits": 4,
+        "group_size": 128,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.055335968379446654,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.44140625,
+            "distinct_2": 0.7568627450980392
+          },
+          "text": "thinking:\nI need to write a Python function that takes the input, processes each test case, and outputs the correct answer based on the given conditions. Let's break down the problem step by step.\n\nFirst, I need to understand the communication rules. The problem states that if there's a third transceiver (either the head server or the sous-chef), then two can communicate directly. So, the key is to determine if there exists a common third transceiver that allows all three to communicate.\n\nThe problem says that if two are too far apart, they cannot communicate directly. So, for all three to be able to communicate, there must be a common third transceiver that allows them all to communicate. This would require that each pair (Chef and head server, Chef and souschef, head server and souschef) must have a common third transceiver.\n\nThe first test case is when R = 1. In this case, the distance between the head server and the souschef is 1 meter. If there's a common third transceiver, then t"
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.0513833992094862,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.3984375,
+            "distinct_2": 0.7333333333333333
+          },
+          "text": "\u0639\u0627\u0644\u0627\u0626\u0642\n<think>\nOkay, let's tackle this problem. So, the task is to write a Python function that takes the number of test cases, then for each test case, reads two integers A and B, computes their GCD, and prints the result. \n\nFirst, I need to understand the problem correctly. The function should be able to handle multiple test cases efficiently. The given algorithm involves computing the GCD using the Euclidean algorithm, which is exactly what's needed here. \n\nThe function provided for calculating GCD is the Euclidean algorithm's implementation, which is the same as the one given in the problem. So, the function's definition is the same as the one in the problem. \n\nNow, the function's input is a number of lines, each with two integers A and B. For each pair, compute the GCD of A and B. \n\nThe example shows that for input 2, the output is 2 and then 1. Let's check that. \n\nThe input for the first test case is 2 and 6, which GCD is 2. The second line's input is 10 and 11, GCD is 1. Outputs"
+        },
+        {
+          "prompt_index": 2,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.A Little Elephant from the Zoo of Lviv likes lucky strings, i.e., the strings that consist only of the lucky digits 4 an",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.07905138339920947,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.4609375,
+            "distinct_2": 0.796078431372549
+          },
+          "text": "eval\nLet\u2019s think about this problem. \n\nThe task requires us to find the number of balanced substrings in a given string S of the form 4747477. Let's break down the problem. \n\nFirst, a substring is balanced if it satisfies the condition of having an equal number of '4's and '7's. The example given in the problem shows that for a substring to be balanced, there must be an equal number of '4's and '7's.\n\nThe key insight here is to identify for each possible substring (i.e., each possible pair of indices (L, R)) whether the substring is balanced. This can be done by checking for each possible substring if the count of '4's and '7's is equal.\n\nLet's think about how to approach this. The solution involves checking all possible substrings and counting those that meet the balanced condition.\n\nFor each test case, we can:\n1. Generate the count of balanced substrings.\n2. Output the result for each test case.\n\nThe solution involves generating the count of balanced substrings for each test case and"
+        },
+        {
+          "prompt_index": 3,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Given a string s. Can you make it a palindrome by deleting exactly one character? Note that size of the string after del",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.1620553359683794,
+            "max_repeated_4gram": 5,
+            "distinct_1": 0.37109375,
+            "distinct_2": 0.6431372549019608
+          },
+          "text": "<think>\nOkay, let's see. The problem is to generate a Python function that, given a string s, can delete exactly one character to make it a palindrome. And for each test case, output YES or NO based on whether such a deletion exists.\n\nFirst, I need to figure out the conditions under which deleting exactly one character will result in a palindrome. \n\nSo, the function's purpose is to check for each test case if there's a way to delete exactly one character to make the string a palindrome. \n\nLet me think about the steps. \n\nThe main task is to determine for each input string whether it's possible to delete exactly one character and have a palindrome. \n\nThe key here is to check for each string s: \n\n1. If s has length 1, then it's trivial. If the input is a palindrome, then the output is YES. \n\n2. Else, check if there's a way to delete exactly one character. \n\nWait, the problem says to delete exactly one character. So, for each test case, the output is YES if there's a way to delete one char"
+        },
+        {
+          "prompt_index": 4,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An established group of scientists are working on finding solution to NP hard problems. They claim Subset Sum  as an NP-",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.32806324110671936,
+            "max_repeated_4gram": 6,
+            "distinct_1": 0.3046875,
+            "distinct_2": 0.5137254901960784
+          },
+          "text": "missions\nI'm not sure about the question. Let me try again.\nThe problem is to determine whether there exists a subset of a given set S whose sum is exactly K. The solution to this is to check if the sum of all elements in S is equal to K. The solution is to check if the sum of all elements in S is equal to K.\n\nThe input is a set S of non-negative integers, and for each test case, we need to find if there exists a subset whose sum equals K. This can be done by checking if the sum of all elements in S is equal to K. Therefore, for each test case, we can simply output 0 if the sum is not equal to K, and 1 otherwise.\n\nThe output is to print for each test case whether there exists a subset whose sum equals K. The solution is to check if the sum of all elements in S is equal to K. If not, output 0. If yes, output 1.\n\nI think that the solution is to check if the sum of all elements in S is equal to K. If it is, then output 1, else 0.\nThe solution is to check if the sum of all elements in S is"
+        },
+        {
+          "prompt_index": 5,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Let's call a string a phone number if it has length 11 and fits the pattern \"8xxxxxxxxxx\", where each \"x\" is replaced by",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.06324110671936756,
+            "max_repeated_4gram": 5,
+            "distinct_1": 0.39453125,
+            "distinct_2": 0.7215686274509804
+          },
+          "text": "<think>\nOkay, let's see. The problem is about generating the maximum number of phone numbers from given cards. Each card must be used in at most one phone number, and we need to output how many phone numbers can be made. If not possible, output 0.\n\nFirst, I need to figure out the constraints. The phone numbers must follow the pattern \"8xxxxxxxxxx\" with 11 digits. Each card is a digit, and we can use them to form these numbers. The key here is to find how many 11-digit numbers (since the pattern is length 11) can be formed using the given digits. \n\nThe pattern requires that each phone number has exactly 11 digits. So, for each possible 11-digit number, we need to check if it's valid. The pattern \"8xxxxxxxxxx\" means that the first digit is 8, and the remaining 10 digits are each a digit. So, the 11-digit number is formed by the 8 and then 10 more digits. \n\nSo, the approach is to find combinations of 11-digit numbers that can be formed with the given digits. The maximum number of phone nu"
+        },
+        {
+          "prompt_index": 6,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.You are given q queries in the following form:\n\nGiven three integers l_i, r_i and d_i, find minimum positive integer x_i",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.12252964426877466,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.359375,
+            "distinct_2": 0.6745098039215687
+          },
+          "text": "<think>\nOkay, let's see. I need to solve these queries about finding the minimum positive integer x that meets certain conditions. The problem says for each query, given l, r, d, find the minimum x such it's divisible by d and not in the segment [l, r]. \n\nFirst, I need to understand the conditions. The function should take the given queries and return answers. The key points here are to find for each query (l, r, d) the minimum x that satisfies the divisibility and not in the segment.\n\nWait, the problem says that for each query given, there are three integers l, r, d. So for each query, I have to compute that answer. The output is a list of answers for each query.\n\nLet me think about the problem. For a given query (l, r, d), what is the x? The x must be a positive integer, not divisible by d, and not in the segment [l, r]. Also, x must be the smallest such number.\n\nWait, the problem says: find x such that x is divisible by d and x is not in the segment [l, r]. So x must be a number tha"
+        },
+        {
+          "prompt_index": 7,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An array of integers p_{1},p_{2}, \u2026,p_{n} is called a permutation if it contains each number from 1 to n exactly once. F",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.07114624505928857,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.4140625,
+            "distinct_2": 0.7372549019607844
+          },
+          "text": "\u043d\u0438\u0447\u0435\u0433\u043e\nOkay, let's try to figure out how to solve this problem. The task is to restore the permutation of numbers from 1 to n, given the array s of sums for each index. \n\nFirst, I need to understand what the s array represents. Each element s_i is the sum of all p_j for j < i, where p_j is smaller than p_i. So, for each i, s_i is computed based on the previous elements in the permutation. \n\nThe key here is to find a permutation p where each i's s_i is exactly the sum of the elements before the i-th position that are smaller than p_i. \n\nGiven that the array s is a valid permutation, we need to find the correct p values. \n\nLet me think about the structure of the permutation. For each i, the s_i is the sum of elements before the i-th position that are smaller. This seems to be related to the structure of the permutation. \n\nThe problem says that the array s corresponds to a valid permutation. So, we need to reconstruct p. \n\nI recall that in permutations, the elements are often arranged in "
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 256.0,
+        "mean_content_tokens": 256.0,
+        "mean_repetition_4gram": 0.11660079051383399,
+        "mean_max_repeated_4gram": 3.875,
+        "mean_distinct_2": 0.6970588235294117,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 8,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 62.71529567008838,
+      "memory": {
+        "device_type": "cuda",
+        "start_allocated_bytes": 2081454080,
+        "end_allocated_bytes": 3844814848,
+        "peak_bytes": 3988106240,
+        "peak_method": "torch.cuda.max_memory_allocated",
+        "driver_allocated_bytes_at_end": 4169138176,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    }
+  },
+  "notes": [
+    "Descriptive only: 8 prompts, one seed, stochastic sampling.",
+    "Prompts are the first N rows of the pinned OpenThoughts pool; identical for all configs."
+  ]
+}

@@ -170,7 +170,11 @@ def main() -> None:
     memory["parameter_bytes"] = {
         "teacher": parameter_bytes(teacher),
         "student": parameter_bytes(student),
-        "note": "teacher and student are the same object for T0",
+        "note": (
+            "teacher and student are the same object for T0"
+            if student is teacher
+            else "teacher and quantized student are separate objects"
+        ),
     }
 
     result = {

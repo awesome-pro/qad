@@ -1,0 +1,105 @@
+{
+  "created_utc": "2026-11-15T05:08:58.879652+00:00",
+  "git_commit": "2858e3200f888c22503dc1711c945d2ee95db0d5",
+  "model": {
+    "id": "Qwen/Qwen3-0.6B",
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    }
+  },
+  "quantization": {
+    "bits": 3,
+    "group_size": 128,
+    "granularity": "per_group",
+    "scheme": "symmetric",
+    "scale_floor": 1e-08
+  },
+  "trainable_parameters": 440401920,
+  "wrapped_modules": 196,
+  "optimizer": {
+    "name": "AdamW",
+    "lr": 1e-05,
+    "betas": [
+      0.9,
+      0.95
+    ],
+    "weight_decay": 0.0
+  },
+  "prompts": {
+    "path": "data/cache/prompts/openthoughts_prompts.jsonl",
+    "ids_sha256": "6bed191a639df51c3206895a878e758d79bcffda5325eeec13f9beeef2b900c0",
+    "steps": 3,
+    "usable": 16
+  },
+  "max_seq_len": 1024,
+  "steps": [
+    {
+      "step": 0,
+      "loss": 4.519147872924805,
+      "grad_norm": 179.92616271972656,
+      "grad_finite": true,
+      "prompt_len": 747,
+      "response_len": 277,
+      "tokens_scored": 277,
+      "step_seconds": 0.7289352966472507
+    },
+    {
+      "step": 1,
+      "loss": 2.9044442176818848,
+      "grad_norm": 75.58165740966797,
+      "grad_finite": true,
+      "prompt_len": 489,
+      "response_len": 535,
+      "tokens_scored": 535,
+      "step_seconds": 0.29221093468368053
+    },
+    {
+      "step": 2,
+      "loss": 2.633296251296997,
+      "grad_norm": 60.199256896972656,
+      "grad_finite": true,
+      "prompt_len": 873,
+      "response_len": 151,
+      "tokens_scored": 151,
+      "step_seconds": 0.2562267640605569
+    }
+  ],
+  "elapsed_seconds": 1.3024309109896421,
+  "tokens_per_second": 739.3866283995608,
+  "memory": {
+    "device_type": "cuda",
+    "start_allocated_bytes": 3273422848,
+    "end_allocated_bytes": 8580111360,
+    "peak_bytes": 10004445184,
+    "peak_method": "torch.cuda.max_memory_allocated",
+    "driver_allocated_bytes_at_end": 10116661248,
+    "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+  },
+  "parameter_bytes": {
+    "teacher": 1192099840,
+    "student": 2072903680
+  },
+  "assertions": {
+    "teacher_gradients_absent": true,
+    "student_gradients_finite": true,
+    "quantized_forward_active": true,
+    "master_weights_changed": true,
+    "loss_finite": true
+  },
+  "environment": {
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "torch": "2.13.0+cu129",
+    "transformers": "5.23.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "notes": [
+    "Probe only: a few steps on fixed gold completions, not QAD training.",
+    "Memory is process-level; parameter bytes are reported separately."
+  ]
+}

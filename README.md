@@ -31,20 +31,20 @@ normalization layers, attention biases (none in Qwen3).
 | 0. Reference quantizer, losses, wrapping + tests | **done locally** (98 collected, 97 pass + 1 CUDA-only skip) |
 | 1. Checkpoint inventory, fixed eval data, T0/Q0 smoke | **done locally** (not reportable) |
 | 1.5. W3A16 degradation diagnosis (BF16/W4/W3-G32/G64/G128, attn vs MLP) | **done locally** — see [diagnosis](experiments/gate15/DIAGNOSIS.md) |
-| 2. Official T0 + Q0 on the held-out set, memory accounting | **next** (first GPU session) |
-| 3. Offline QAD, checkpoint round-trip | needs GPU |
+| 2. Official baseline (4 configs), generation diagnostic, training probe | **done on CUDA** (RTX A5000 24 GB) |
+| 3. Offline QAD on W4A16-G128, checkpoint round-trip | **next** (needs approval) |
 | 4. Rollouts + on-policy Q2 | needs GPU |
 | 5. Benchmark subsets, report | needs GPU |
 
-Local Gate 1.5 establishes that the W3A16-G128 degradation is intrinsic to
-pure RTN, not a wrapper bug: BF16 ppl 22.4, W4A16 ppl 30.7, W3A16-G32 96.5,
-G64 223.2, G128 754.4 on 65,472 held-out tokens. W3-G128 is therefore the
-**aggressive RTN baseline**, not a locked QAD initialization; W3-G32, W4-G128
-and a stronger W3 initialization remain options. Next is the official CUDA
-baseline for BF16/W3-G128/W3-G32/W4-G128, a fixed-prompt generation diagnostic,
-and a short gradient/memory probe — no QAD training until the probe is
-reviewed. Details in `experiments/gate15/DIAGNOSIS.md`; no model-quality number
-from the Mac is reportable.
+Gate 2 confirms the order on CUDA (A5000 24 GB, full 256-block held-out set):
+BF16 ppl 22.26, W4A16-G128 30.59, W3A16-G32 94.44, W3A16-G128 723.98.
+W3-G128 generation is degenerate repetition (4-gram 0.965 vs 0.047 BF16); W4
+stays readable (0.117). The 3-step probe passes every assertion at 9.32 GiB
+peak on both W4 and W3. W3-G128 is therefore the **aggressive RTN baseline**,
+and **W4A16-G128 is the pipeline-verification arm**; W3-G32 and a stronger W3
+initialization remain separate options. Details:
+`experiments/gate15/DIAGNOSIS.md` and `experiments/gate2/README.md`. No QAD
+training has run.
 
 ## Environment
 

@@ -1,0 +1,110 @@
+START Sun Nov 15 05:02:24 UTC 2026
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6224.93it/s]
+model             Qwen/Qwen3-0.6B @ c1899de289a04d12100db370d81485cdf75e47ca
+parameters        596,049,920 total
+  quantizable     440,401,920 (73.9%)
+  frozen          155,648,000
+linear modules    197 (196 quantizable)
+tied embeddings   True
+categories        {'embedding': 155582464, 'other': 440401920, 'norm': 65536}
+tokenizer         vocab=151643 eos=151645 pad=151643 template_sha=a55ee1b16601
+
+written to experiments/gate2/inventory_cuda.json
+
+first 8 of 197 Linear modules:
+  model.layers.0.self_attn.q_proj                         [2048, 1024] quantizable=True
+  model.layers.0.self_attn.k_proj                         [1024, 1024] quantizable=True
+  model.layers.0.self_attn.v_proj                         [1024, 1024] quantizable=True
+  model.layers.0.self_attn.o_proj                         [1024, 2048] quantizable=True
+  model.layers.0.mlp.gate_proj                            [3072, 1024] quantizable=True
+  model.layers.0.mlp.up_proj                              [3072, 1024] quantizable=True
+  model.layers.0.mlp.down_proj                            [1024, 3072] quantizable=True
+  model.layers.1.self_attn.q_proj                         [2048, 1024] quantizable=True
+INVENTORY_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5535.71it/s]
+{
+  "nll": 3.102654058486223,
+  "perplexity": 22.256944193106865,
+  "forward_kl_teacher_student": 0.0
+}
+teacher self-KL (two pass): 0.000e+00
+tokens=261,888 elapsed=16.9s (15521 tok/s)
+memory: 2323372544 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate2/t0_bf16.json
+T0_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4471.11it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6848.69it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 6.584767542779446,
+  "perplexity": 723.9827330909653,
+  "forward_kl_teacher_student": 3.8673739209771156
+}
+tokens=261,888 elapsed=23.3s (11247 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate2/q0_w3a16_g128.json
+W3G128_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6029.53it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7186.85it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 4.547955621033907,
+  "perplexity": 94.43914143254192,
+  "forward_kl_teacher_student": 1.6692800782620907
+}
+tokens=261,888 elapsed=23.4s (11182 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate2/q0_w3a16_g32.json
+W3G32_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4882.61it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6818.15it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.420653283596039,
+  "perplexity": 30.589392043043865,
+  "forward_kl_teacher_student": 0.4057250702753663
+}
+tokens=261,888 elapsed=23.4s (11169 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate2/q0_w4a16_g128.json
+W4G128_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6649.65it/s]
+bf16             len=256 rep4=0.047 premature=0 cap=8 time=57s
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 8224.96it/s]
+w3a16_g128       len=256 rep4=0.965 premature=0 cap=8 time=63s
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7922.63it/s]
+w3a16_g32        len=256 rep4=0.839 premature=0 cap=8 time=63s
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 9142.85it/s]
+w4a16_g128       len=256 rep4=0.117 premature=0 cap=8 time=63s
+written experiments/gate2/generation_diagnostics.json
+GENERATION_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5840.18it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7744.59it/s]
+step 0: loss=0.589144 grad_norm=4.871e+01 responses=277 0.8s
+step 1: loss=0.339804 grad_norm=1.524e+01 responses=535 0.3s
+step 2: loss=0.373730 grad_norm=3.137e+01 responses=151 0.3s
+{
+  "teacher_gradients_absent": true,
+  "student_gradients_finite": true,
+  "quantized_forward_active": true,
+  "master_weights_changed": true,
+  "loss_finite": true
+}
+written experiments/gate2/training_probe_w4a16_g128.json
+PROBE_W4_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5466.71it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 8749.97it/s]
+step 0: loss=4.519148 grad_norm=1.799e+02 responses=277 0.7s
+step 1: loss=2.904444 grad_norm=7.558e+01 responses=535 0.3s
+step 2: loss=2.633296 grad_norm=6.020e+01 responses=151 0.3s
+{
+  "teacher_gradients_absent": true,
+  "student_gradients_finite": true,
+  "quantized_forward_active": true,
+  "master_weights_changed": true,
+  "loss_finite": true
+}
+written experiments/gate2/training_probe_w3a16_g128.json
+PROBE_W3_DONE
+ALL_DONE Sun Nov 15 05:08:59 UTC 2026

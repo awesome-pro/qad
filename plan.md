@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** Gate 0, local Gate 1, and the Gate 1.5 degradation diagnosis are done — 98 tests collected (97 pass, 1 CUDA-only skipped), checkpoint inventory, fixed data, chunked losses, disabled-wrap equivalence, quantizer sweep. No GPU has been used. Gate 2 onward is proposed; see §6.4 for what is measured.
+- **Status:** Gate 0, Gate 1, Gate 1.5 and the Gate 2 CUDA baseline/probe are done — 98 tests collected (97 pass, 1 CUDA-only skipped), checkpoint inventory, fixed data, chunked losses, disabled-wrap equivalence, quantizer sweep, official 4-config baseline, generation diagnostic and 3-step probe. No QAD training has run; see §6.4–6.5 for what is measured.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -368,7 +368,7 @@ separate decisions after the primary result.
 | 0 | Reference quantizer + tests | **DONE**: 98 tests collected (97 pass, 1 CUDA-only skipped); quantizer, masks/alignment, chunked-loss equivalence, checkpoint inventory, wrapping, device preservation, cache invalidation, data EOS policy, memory sampler | local CPU | 0 |
 | 1 | Model loading, checkpoint inventory, fixed eval sets, T0 baseline | **DONE (local)**: inventory confirmed (§5.2); FineWeb-Edu 256×1,024 tokens and 3,000 OpenThoughts prompts pinned by hash; chunked losses match naive to 1e-6; teacher self-KL computed = 0; local T0/Q0 smoke only, **not reportable**. Official T0 runs in Gate 2 | local MPS | 0 |
 | 1.5 | W3A16 degradation diagnosis | **DONE (local)**: disabled-wrap equivalence exact (0.0 logit/NLL diff); BF16/W4A16/W3A16-G32/G64/G128 plus attention-only and MLP-only on 65,472 tokens; teacher self-KL computed from two passes = 0; revisions resolved; memory reporting corrected; EOS-after-truncation fixed | local MPS | 0 |
-| 2 | Official baseline + generation diagnostic + gradient/memory probe | full 256-block eval of BF16, W3A16-G128, W3A16-G32, W4A16-G128 on identical data; fixed-prompt generation diagnostic (repetition, premature EOS, examples); 3-step offline-KL probe with teacher-frozen and finite-gradient assertions, cache invalidation, CUDA peak memory; no QAD training | GPU 24 GB | 1.5–2 |
+| 2 | Official baseline + generation diagnostic + gradient/memory probe | **DONE (CUDA)**: full 256-block eval of BF16, W3A16-G128, W3A16-G32, W4A16-G128; generation diagnostic; 3-step probe at W4 and W3 with all assertions true; ~7 min of GPU compute | GPU 24 GB | 1.5–2 |
 | 3 | `losses.py` + offline QAD (Q1) + checkpointing | chunked-loss equivalence tests pass on a tiny model (loss and all gradients vs a naive reference); teacher byte-identical, `grad is None`; student grads finite; quantized forward active in train and eval; training objective finite and non-increasing on average over the first 20 steps (diagnostic; a flat curve is reported, not treated as failure); checkpoint reloads and reproduces | GPU 24 GB | 2–3 |
 | 4 | Rollouts + on-policy Q2 | index/mask tests pass; teacher and student score identical tokens; no gradient through sampling; cache invalidated between step and rollout; rollouts change after an update; Q2 completes at the matched response-token budget | GPU 24 GB | 2–3 |
 | 4b | Q3 sampled reverse KL (optional, separate decision) | same as Gate 4; estimator sign test; `KL_hat` and surrogate logged separately | GPU 24 GB | 1.5–2 |
@@ -493,6 +493,31 @@ improve a metric** — see §8.4.
   tractable initialization (W4A16-G128 is the leading candidate), with W3-G32
   and a stronger W3 initialization preserved as separate options. See §13
   item 9 and the diagnosis document.
+
+---
+
+### 6.5 Gate 2 results (official CUDA, RTX A5000 24 GB)
+
+Full 256-block held-out set (261,888 scored positions), identical data/masks.
+
+| config | NLL | PPL | KL(T‖S) | peak GPU |
+|---|---:|---:|---:|---:|
+| BF16 | 3.1027 | 22.26 | 0.0000 | 2.16 GiB |
+| W3A16-G128 | 6.5848 | 723.98 | 3.8674 | 5.73 GiB |
+| W3A16-G32 | 4.5480 | 94.44 | 1.6693 | 5.73 GiB |
+| W4A16-G128 | 3.4207 | 30.59 | 0.4057 | 5.73 GiB |
+
+- T0 two-pass self-KL is exactly 0; the CUDA inventory matches the Mac
+  inventory exactly; the eval hash matches Gate 1.
+- Generation (8 fixed prompts, same settings/seed): 4-gram repetition
+  0.047 (BF16), 0.965 (W3-G128), 0.839 (W3-G32), 0.117 (W4); all 8/8 hit the
+  256-token cap, so premature-EOS is uninformative at this cap.
+- Probe (3 AdamW steps, offline forward KL on gold completions): W4 losses
+  0.589 → 0.340 → 0.374, W3 4.519 → 2.904 → 2.633; 9.32 GiB peak for both; all
+  assertions true (teacher frozen, finite gradients, quantization active,
+  masters changed).
+- Details and caveats (including a known `parameter_bytes.note` metadata bug in
+  the Q0 JSONs, values correct): `experiments/gate2/README.md`.
 
 ---
 
@@ -746,36 +771,31 @@ rule, not a correctness gate). Still open:
    recovery from pure RTN at W3" strong enough for the trial, or is a stronger
    initialization needed? The Gate 1.5 diagnosis (W3 ppl 754 vs W4 ppl 30.7)
    suggests W3 RTN leaves little recoverable margin.
-9. **QAD initialization.** W3A16-G128 is the aggressive RTN baseline, not a
-   locked initialization: Gate 1.5 spans ppl 754 (W3-G128), 96 (W3-G32) and 31
-   (W4-G128) against 22 BF16. Preserve W3-G32, W4-G128 and a stronger W3
-   initialization as options; verify the QAD pipeline on a tractable
-   initialization (likely W4-G128) before committing most compute to W3-G128.
-   Confirm which arm is the pipeline-verification arm and keep the others
-   pre-registered, not silently substituted.
+9. **QAD initialization.** Gate 2 confirms the Gate 1.5 ordering on CUDA:
+   W3-G128 ppl 724, W3-G32 94.4, W4-G128 30.6, BF16 22.3, and W3-G128
+   generation is degenerate repetition (4-gram 0.965 vs 0.047 BF16). Recommend
+   **W4A16-G128 as the pipeline-verification arm** (offline Q1 first), with
+   W3-G128 retained as the aggressive baseline and W3-G32 available if W3 codes
+   are required. Confirm before Stage 2 spending.
 
 ---
 
-## 14. Immediate next step (Gate 2, first paid session)
+## 14. Immediate next step (Gate 3, QAD on W4A16-G128)
 
-Local Gate 1.5 is complete. The next step is one GPU session with **no QAD
-training**:
+Gate 2 is complete and the artifacts are verified. The next session, only after
+explicit approval, is a short matched-budget offline QAD run (Q1) on
+**W4A16-G128**, not W3-G128:
 
-1. Rent 1× RTX 4090 24 GB (fallback L40S 48 GB), 50 GB container disk, 50 GB
-   network volume at `/workspace`; see `GPU_RUNBOOK.md`.
-2. Transfer the bundle (`scripts/package_for_gpu.sh`), bootstrap
-   (`scripts/bootstrap_gpu.sh`), verify `torch.cuda.is_available()`.
-3. Official baseline on the full 256-block held-out set for **BF16, W3A16-G128,
-   W3A16-G32 and W4A16-G128**, with identical eval data and masks; record NLL,
-   forward KL, CUDA peak memory and parameter bytes.
-4. Fixed-prompt generation diagnostic for the same four configs: repetition,
-   premature EOS, hit-cap rate, saved examples, identical prompts/settings.
-5. Short gradient/memory probe: 3 AdamW steps of offline forward KL on fixed
-   gold completions at one tractable quantization (W4-G128 first; W3A16-G128
-   optionally), checking teacher-frozen, finite gradients, active quantization,
-   cache invalidation and CUDA peak memory.
-6. Assert inventory and revision hashes match the local records; copy artifacts
-   back, verify checksums, terminate the pod.
+1. Reuse the pinned data, teacher and quantization config; save a fresh Q0
+   checkpoint for W4.
+2. Offline forward KL on fixed gold completions, identical prompt pool and
+   response-token budget as the future on-policy arm; no CE term.
+3. Start with a short probe-scale run (e.g. 20–30 steps) to confirm loss
+   behaviour and memory, then extend only if the probe is clean.
+4. Fixed validation NLL/KL every N steps; checkpoint/reload check; no full
+   QAD run until the run card and budget are reviewed.
+5. W3-G128 remains the aggressive baseline; W3-G32 and a stronger W3
+   initialization stay as separate, pre-registered options.
 
-Expected duration ~1.5–2 h, hard timeout 4 h. No full QAD run starts until the
-probe is reviewed and the initialization arm is confirmed.
+No GPU session should start without a reviewed run card; terminate the pod
+after artifacts are copied.
