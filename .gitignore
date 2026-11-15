@@ -35,3 +35,6 @@ qad_gpu_bundle.tgz
 
 # matplotlib cache
 .mplconfig/
+
+# local notes
+internal/

@@ -164,7 +164,7 @@ Hypotheses, not established results:
 ## 7. Reproduction and artifacts
 
 - Environment/setup: `README.md`, `docs/parser_spec_v3.md`,
-  `GPU_RUNBOOK_AUDIT.md`.
+  `docs/gpu_guide.md`.
 - Strict GSM8K evaluator: `scripts/eval_gsm8k_strict.py` (frozen v3.0.0).
 - Matched training: `scripts/train_matched.py`; matching check:
   `scripts/check_matched.py`.

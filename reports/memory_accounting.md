@@ -1,6 +1,6 @@
 # Theoretical storage accounting
 
-These are **theoretical packed-model sizes** computed from parameter shapes and the declared quantizer metadata. They are not measured packed artifacts and do not imply inference speedups. Measured training memory is reported separately in `reports/findings.md`.
+These are **theoretical packed-model sizes** computed from parameter shapes and the declared quantizer metadata. They are not measured packed artifacts and do not imply inference speedups. Measured training memory is reported separately in `reports/archive/findings.md`.
 
 | model | config | total params | quantized params | payload MiB | metadata MiB | total GiB | eff bits/weight | vs BF16 |
 |---|---|---:|---:|---:|---:|---:|---:|---:|

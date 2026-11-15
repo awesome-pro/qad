@@ -81,9 +81,23 @@ Exact seeds, hashes and run configurations are in the run JSONs under
 - Results audit: [`reports/final_audit.md`](reports/final_audit.md)
 - W3 failure analysis: [`reports/w3_failure_analysis.md`](reports/w3_failure_analysis.md)
 - Parser spec: [`docs/parser_spec_v3.md`](docs/parser_spec_v3.md)
-- 1.7B handoff: [`GPU_RUNBOOK_1P7B.md`](GPU_RUNBOOK_1P7B.md)
-- Historical pilot: [`reports/findings.md`](reports/findings.md) (legacy parser; labelled)
+- GPU reproduction: [`docs/gpu_guide.md`](docs/gpu_guide.md)
+- Research brief: [`docs/research_brief.md`](docs/research_brief.md)
+- Historical pilot: [`reports/archive/findings.md`](reports/archive/findings.md) (legacy parser; labelled)
 - Experiment registry: [`experiments/index.md`](experiments/index.md)
+
+## Project layout
+
+```text
+src/qwen_qad/        quantizer, models, losses, data, checkpoints, evaluation
+scripts/             data prep, baselines, matched QAD, strict GSM8K, verification
+tests/               unit/integration tests
+experiments/         run artifacts, grouped by gate (canonical: gate8/gate9)
+data/manifests/      pinned data/split manifests
+docs/                frozen parser spec, GPU guide, research brief
+reports/             final report, audit, failure analysis, figures
+reports/archive/     historical/pilot reports kept for provenance
+```
 
 ## Tests
 
