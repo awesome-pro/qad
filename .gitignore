@@ -32,3 +32,6 @@ qad_gpu_bundle.tgz
 
 # os
 .DS_Store
+
+# matplotlib cache
+.mplconfig/

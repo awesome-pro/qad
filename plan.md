@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** original Gates 0–6 complete; audit corrections (review.md) partly landed on the Mac — strict GSM8K evaluator, matched Q1/Q2 trainer, disjoint val/test splits, best/final checkpoints, statistics, portable weight export. 142 tests collected (141 pass, 1 CUDA-only skip). Corrected GPU runs are pending; see §15 and `GPU_RUNBOOK_AUDIT.md`. No publication claims.
+- **Status:** research and finalization complete. Canonical results use frozen parser v3.0.0 and matched seeds 42/43; final report: `reports/FINAL_RESEARCH_REPORT.md`. 175 tests collected (173 pass, 2 environment skips). Historical pilot results are labelled separately.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -892,7 +892,7 @@ run on a GPU; **blocked** = cannot be completed with available artifacts.
 | P5 | API-correctness tests (sampling uses current weights, modes, masks, EOS) | **done (Mac)**: `test_generation_correctness.py`, existing training/freeze tests |
 | P6 | realistic memory accounting | **done (Mac)**: `reports/memory_accounting.md`; no packed artifact claimed |
 | P7 | statistics | **done (Mac) in evaluator**: bootstrap CI, paired difference CI, McNemar |
-| P8 | updated report | **pending reviewer approval**: Checkpoint A report written; old GSM numbers labelled historical |
+| P8 | updated report | **done**: `reports/FINAL_RESEARCH_REPORT.md`; final audit and W3 failure analysis included |
 
 Old artifacts (`experiments/gate2`–`gate7`, old `reports/findings.md` tables) are
 preserved and labelled historical. New corrected runs use `experiments/gate8`.
@@ -900,12 +900,11 @@ preserved and labelled historical. New corrected runs use `experiments/gate8`.
 **Status:** parser v3.0.0 is frozen (`docs/parser_spec_v3.md`); final seed-42
 regrade is in `reports/parser_v3_final.md`. Seed-43 matched results are in
 `reports/seed43_results.md` (Q1 35%, Q2 43%, paired p=0.17; integrity passed).
-Matched W3 Q1 is complete (`reports/w3_matched_results.md`): validation PPL
-62.42, test PPL 88.24, strict GSM8K 0%; not generative. Corrected 1.7B is complete (`reports/1p7b_results.md`): test PPL 19.47 (T0 19.53, Q0 25.41), GSM 42% vs Q0 44%/T0 58%; likelihood recovered, task accuracy not. Stronger init remains next. handoff checklist in
-`GPU_RUNBOOK_1P7B.md`. Next main research effort: stronger W3 initialization
-(W3-G32 / GPTQ-AWQ / block-wise QAT), see `reports/research_summary.md`.
-Seed-43/W3 checkpoint backup is **blocked**: A5000 became unreachable before
-verification; see `reports/checkpoint_backup_status.md`.
+Matched W3-G128 and W3-G32 results are in `reports/w3_matched_results.md` and
+`reports/w3g32_results.md`. The corrected 1.7B result is in
+`reports/1p7b_results.md`: test PPL 19.47, GSM 42% vs Q0 44%/T0 58%. Final
+report: `reports/FINAL_RESEARCH_REPORT.md`. Stronger W3 initialization is the
+proposed next direction, not part of this pilot.
 
 ---
 
