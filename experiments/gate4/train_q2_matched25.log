@@ -1,0 +1,40 @@
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5019.66it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 8091.39it/s]
+step 0 (Q0) validation: {'nll': 3.422480195760727, 'perplexity': 30.645327254279152, 'kl': 0.40539090894162655, 'tokens': 65472}
+step 1: loss=0.52962 lr=4.00e-06 grad=24.26 rollouts=32 tokens=3992 gen=5.7s total=11.9s
+step 2: loss=1.74000 lr=6.00e-06 grad=184.55 rollouts=32 tokens=3299 gen=5.6s total=11.3s
+step 3: loss=0.40054 lr=8.00e-06 grad=19.02 rollouts=32 tokens=4096 gen=6.3s total=12.2s
+step 4: loss=0.31112 lr=1.00e-05 grad=11.05 rollouts=32 tokens=4096 gen=5.6s total=11.4s
+step 5: loss=0.26144 lr=1.00e-05 grad=6.34 rollouts=32 tokens=4096 gen=5.5s total=11.5s
+step 6: loss=0.23881 lr=9.94e-06 grad=5.63 rollouts=32 tokens=4096 gen=6.2s total=12.1s
+step 7: loss=0.23827 lr=9.76e-06 grad=5.48 rollouts=32 tokens=4096 gen=5.9s total=12.0s
+step 8: loss=0.22619 lr=9.46e-06 grad=4.96 rollouts=32 tokens=4096 gen=5.8s total=11.8s
+step 9: loss=0.20146 lr=9.05e-06 grad=4.75 rollouts=32 tokens=4096 gen=5.9s total=11.9s
+step 10: loss=0.19423 lr=8.54e-06 grad=4.28 rollouts=32 tokens=4096 gen=6.0s total=12.0s
+step 11: loss=0.20307 lr=7.94e-06 grad=4.74 rollouts=32 tokens=4096 gen=5.9s total=11.8s
+step 12: loss=0.18176 lr=7.27e-06 grad=3.94 rollouts=32 tokens=4096 gen=5.9s total=12.1s
+step 13: loss=0.16017 lr=6.55e-06 grad=3.36 rollouts=32 tokens=4096 gen=6.6s total=12.6s
+step 14: loss=0.17253 lr=5.78e-06 grad=4.07 rollouts=32 tokens=4096 gen=6.0s total=12.0s
+step 15: loss=0.17072 lr=5.00e-06 grad=3.94 rollouts=32 tokens=4096 gen=5.8s total=11.8s
+step 16: loss=0.16364 lr=4.22e-06 grad=3.92 rollouts=32 tokens=4096 gen=5.9s total=11.8s
+step 17: loss=0.16301 lr=3.45e-06 grad=3.87 rollouts=32 tokens=4096 gen=5.8s total=11.7s
+step 18: loss=0.15762 lr=2.73e-06 grad=3.85 rollouts=32 tokens=4096 gen=5.9s total=11.9s
+step 19: loss=0.16137 lr=2.06e-06 grad=3.71 rollouts=32 tokens=4096 gen=6.0s total=11.9s
+step 20: loss=0.17350 lr=1.46e-06 grad=4.10 rollouts=32 tokens=4096 gen=5.6s total=11.4s
+step 21: loss=0.15587 lr=1.00e-06 grad=3.58 rollouts=32 tokens=4096 gen=6.2s total=12.2s
+step 22: loss=0.15492 lr=1.00e-06 grad=3.70 rollouts=32 tokens=4096 gen=5.7s total=11.7s
+step 23: loss=0.15893 lr=1.00e-06 grad=3.58 rollouts=32 tokens=4096 gen=5.6s total=11.7s
+step 24: loss=0.16444 lr=1.00e-06 grad=3.41 rollouts=32 tokens=4096 gen=5.9s total=12.0s
+step 25: loss=0.14512 lr=1.00e-06 grad=3.29 rollouts=32 tokens=4096 gen=5.7s total=11.6s
+step 25 validation: {'nll': 3.2999581396579742, 'perplexity': 27.111504000073694, 'kl': 0.3087600041180849, 'tokens': 65472}
+{
+  "teacher_gradients_absent": true,
+  "student_gradients_finite": true,
+  "quantized_forward_active": true,
+  "loss_finite": true,
+  "rollout_refreshed": true,
+  "aborted": null
+}
+budget: {'response_tokens_seen': 101499, 'q1_response_tokens': 102094, 'ratio_vs_q1': 0.9941720375340373}
+checkpoint: {'saved': True, 'path': 'checkpoints/q2_w4a16_g128_matched25_step25.pt', 'bytes': 5596438579, 'keys_match': True, 'sample_key': 'model.layers.0.self_attn.q_proj.weight', 'sample_max_abs_diff': 0.0, 'optimizer_state_present': True}
+written experiments/gate4/q2_w4a16_g128_matched25.json

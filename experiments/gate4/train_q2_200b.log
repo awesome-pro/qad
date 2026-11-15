@@ -1,0 +1,13 @@
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4920.90it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 8119.94it/s]
+step 0 (Q0) validation: {'nll': 3.422480195760727, 'perplexity': 30.645327254279152, 'kl': 0.40539090894162655, 'tokens': 65472}
+step 1: loss=0.52962 lr=1.00e-06 grad=24.26 rollouts=32 tokens=3992 gen=5.8s total=11.7s
+step 2: loss=1.78787 lr=1.50e-06 grad=189.85 rollouts=32 tokens=3379 gen=5.6s total=11.3s
+step 3: loss=0.41143 lr=2.00e-06 grad=17.89 rollouts=32 tokens=4091 gen=5.7s total=11.5s
+step 4: loss=0.30139 lr=2.50e-06 grad=8.64 rollouts=32 tokens=4096 gen=5.7s total=11.5s
+step 5: loss=0.28306 lr=3.00e-06 grad=8.67 rollouts=32 tokens=4096 gen=5.6s total=11.4s
+step 6: loss=0.25853 lr=3.50e-06 grad=7.08 rollouts=32 tokens=4096 gen=5.9s total=11.8s
+step 7: loss=0.27634 lr=4.00e-06 grad=6.75 rollouts=32 tokens=4096 gen=5.7s total=11.7s
+step 8: loss=0.26725 lr=4.50e-06 grad=6.35 rollouts=32 tokens=4096 gen=5.6s total=11.5s
+step 9: loss=0.22924 lr=5.00e-06 grad=5.51 rollouts=32 tokens=4096 gen=5.7s total=11.6s
+step 10: loss=0.20618 lr=5.50e-06 grad=4.74 rollouts=32 tokens=4096 gen=5.6s total=11.5s

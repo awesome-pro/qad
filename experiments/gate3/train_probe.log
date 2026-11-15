@@ -1,0 +1,38 @@
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6638.08it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6215.38it/s]
+step 0 (Q0) validation: {'nll': 3.464044839143753, 'perplexity': 31.945931692368745, 'kl': 0.4089386351406574, 'tokens': 32736}
+step 1: loss=0.40702 lr=4.00e-06 grad=14.84 examples=4 tokens=4096 1.61s
+step 2: loss=0.34359 lr=6.00e-06 grad=7.65 examples=4 tokens=4096 1.44s
+step 3: loss=0.25474 lr=8.00e-06 grad=6.57 examples=4 tokens=4096 1.36s
+step 4: loss=0.26236 lr=1.00e-05 grad=5.96 examples=4 tokens=4096 1.43s
+step 5: loss=0.23273 lr=1.00e-05 grad=5.30 examples=4 tokens=4096 1.36s
+step 6: loss=0.19310 lr=9.94e-06 grad=4.73 examples=4 tokens=4096 1.36s
+step 7: loss=0.21967 lr=9.76e-06 grad=4.50 examples=4 tokens=4096 1.39s
+step 8: loss=0.20262 lr=9.46e-06 grad=4.48 examples=4 tokens=4096 1.41s
+step 9: loss=0.16718 lr=9.05e-06 grad=3.71 examples=4 tokens=4096 1.35s
+step 10: loss=0.17073 lr=8.54e-06 grad=3.89 examples=4 tokens=4096 1.42s
+step 11: loss=0.18097 lr=7.94e-06 grad=4.48 examples=4 tokens=4096 1.40s
+step 12: loss=0.18074 lr=7.27e-06 grad=3.97 examples=4 tokens=4096 1.38s
+step 13: loss=0.15258 lr=6.55e-06 grad=3.63 examples=4 tokens=4096 1.37s
+step 14: loss=0.16821 lr=5.78e-06 grad=4.21 examples=4 tokens=4096 1.41s
+step 15: loss=0.16471 lr=5.00e-06 grad=4.53 examples=4 tokens=4096 1.39s
+step 16: loss=0.17468 lr=4.22e-06 grad=3.57 examples=4 tokens=4096 1.37s
+step 17: loss=0.15981 lr=3.45e-06 grad=3.81 examples=4 tokens=3886 1.36s
+step 18: loss=0.16125 lr=2.73e-06 grad=3.17 examples=4 tokens=4096 1.39s
+step 19: loss=0.17019 lr=2.06e-06 grad=4.12 examples=4 tokens=4096 1.41s
+step 20: loss=0.15795 lr=1.46e-06 grad=3.19 examples=4 tokens=4096 1.36s
+step 21: loss=0.14666 lr=1.00e-06 grad=3.05 examples=4 tokens=4096 1.40s
+step 22: loss=0.14764 lr=1.00e-06 grad=3.01 examples=4 tokens=4096 1.38s
+step 23: loss=0.16511 lr=1.00e-06 grad=3.46 examples=4 tokens=4096 1.43s
+step 24: loss=0.16089 lr=1.00e-06 grad=3.17 examples=4 tokens=4096 1.38s
+step 25: loss=0.14052 lr=1.00e-06 grad=2.74 examples=4 tokens=4000 1.37s
+step 25 validation: {'nll': 3.337788701057434, 'perplexity': 28.15679472308757, 'kl': 0.2926040440797806, 'tokens': 32736}
+{
+  "teacher_gradients_absent": true,
+  "student_gradients_finite": true,
+  "quantized_forward_active": true,
+  "loss_finite": true,
+  "aborted": null
+}
+checkpoint: {'saved': True, 'path': 'checkpoints/q1_w4a16_g128_probe_step25.pt', 'bytes': 5596434963, 'keys_match': True, 'sample_key': 'model.layers.0.self_attn.q_proj.weight', 'sample_max_abs_diff': 0.0, 'optimizer_state_present': True}
+written experiments/gate3/q1_w4a16_g128_probe.json

@@ -28,13 +28,13 @@ normalization layers, attention biases (none in Qwen3).
 
 | Increment | State |
 |---|---|
-| 0. Reference quantizer, losses, wrapping + tests | **done locally** (98 collected, 97 pass + 1 CUDA-only skip) |
+| 0. Reference quantizer, losses, wrapping + tests | **done locally** (109 collected, 108 pass + 1 CUDA-only skip) |
 | 1. Checkpoint inventory, fixed eval data, T0/Q0 smoke | **done locally** (not reportable) |
 | 1.5. W3A16 degradation diagnosis (BF16/W4/W3-G32/G64/G128, attn vs MLP) | **done locally** — see [diagnosis](experiments/gate15/DIAGNOSIS.md) |
 | 2. Official baseline (4 configs), generation diagnostic, training probe | **done on CUDA** (RTX A5000 24 GB) |
-| 3. Offline QAD on W4A16-G128, checkpoint round-trip | **next** (needs approval) |
-| 4. Rollouts + on-policy Q2 | needs GPU |
-| 5. Benchmark subsets, report | needs GPU |
+| 3. Offline QAD on W4A16-G128, checkpoint round-trip | **done** (Q1-200: ppl 26.28, GSM8K 28%) |
+| 4. Rollouts + on-policy Q2 | **done at matched 25 steps** (ppl 27.17, GSM8K 16%); 200-step run in flight |
+| 5. Benchmark subset + report | **first pilot done** (100 GSM8K, `reports/findings.md`) |
 
 Gate 2 confirms the order on CUDA (A5000 24 GB, full 256-block held-out set):
 BF16 ppl 22.26, W4A16-G128 30.59, W3A16-G32 94.44, W3A16-G128 723.98.

@@ -1,0 +1,108 @@
+START Sun Nov 15 05:48:41 UTC 2026
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6537.34it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7664.18it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.2687912322580814,
+  "perplexity": 26.279554259283326,
+  "forward_kl_teacher_student": 0.2531887337099761
+}
+tokens=261,888 elapsed=23.3s (11246 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate5/eval_q1_200.json
+EVAL_Q1_200
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5505.15it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7588.30it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.2942070551216602,
+  "perplexity": 26.956030946521725,
+  "forward_kl_teacher_student": 0.30094839073717594
+}
+tokens=261,888 elapsed=23.3s (11223 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate5/eval_q1_128.json
+EVAL_Q1_128
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5073.07it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7887.22it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.302120041102171,
+  "perplexity": 27.170179802523496,
+  "forward_kl_teacher_student": 0.312439609086141
+}
+tokens=261,888 elapsed=23.4s (11185 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate5/eval_q2_25.json
+EVAL_Q2_25
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4815.65it/s]
+w4a16_g128       len=256 rep4=0.067 premature=0 cap=8 time=61s
+written experiments/gate5/gen_q1_200.json
+GEN_Q1
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6623.35it/s]
+w4a16_g128       len=256 rep4=0.053 premature=0 cap=8 time=62s
+written experiments/gate5/gen_q2.json
+GEN_Q2
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/7473 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 7473/7473 [00:00<00:00, 153760.28 examples/s]
+Generating test split:   0%|          | 0/1319 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1319/1319 [00:00<00:00, 151262.84 examples/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  93%|█████████▎| 289/311 [00:00<00:00, 2881.54it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2887.16it/s]
+{
+  "accuracy": 0.33,
+  "correct": 33,
+  "parsed": 98,
+  "parse_rate": 0.98,
+  "mean_response_len": 508.66,
+  "elapsed_seconds": 64.04819338163361
+}
+written experiments/gate5/gsm8k_t0.json
+GSM_T0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  91%|█████████▏| 284/311 [00:00<00:00, 2827.81it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 2722.25it/s]
+{
+  "accuracy": 0.01,
+  "correct": 1,
+  "parsed": 96,
+  "parse_rate": 0.96,
+  "mean_response_len": 512.0,
+  "elapsed_seconds": 75.20102737424895
+}
+written experiments/gate5/gsm8k_q0_w4.json
+GSM_Q0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4782.19it/s]
+{
+  "accuracy": 0.13,
+  "correct": 13,
+  "parsed": 99,
+  "parse_rate": 0.99,
+  "mean_response_len": 512.0,
+  "elapsed_seconds": 71.86815309105441
+}
+written experiments/gate5/gsm8k_q1_len128.json
+GSM_Q1_128
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4910.90it/s]
+{
+  "accuracy": 0.16,
+  "correct": 16,
+  "parsed": 100,
+  "parse_rate": 1.0,
+  "mean_response_len": 512.0,
+  "elapsed_seconds": 73.73498688498512
+}
+written experiments/gate5/gsm8k_q2.json
+GSM_Q2
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5438.20it/s]
+{
+  "accuracy": 0.28,
+  "correct": 28,
+  "parsed": 98,
+  "parse_rate": 0.98,
+  "mean_response_len": 505.93,
+  "elapsed_seconds": 72.02259501814842
+}
+written experiments/gate5/gsm8k_q1_200.json
+GSM_Q1_200
+DONE Sun Nov 15 05:59:42 UTC 2026

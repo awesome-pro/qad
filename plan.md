@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** Gate 0, Gate 1, Gate 1.5 and the Gate 2 CUDA baseline/probe are done — 98 tests collected (97 pass, 1 CUDA-only skipped), checkpoint inventory, fixed data, chunked losses, disabled-wrap equivalence, quantizer sweep, official 4-config baseline, generation diagnostic and 3-step probe. No QAD training has run; see §6.4–6.5 for what is measured.
+- **Status:** Gates 0–5 executed on Qwen3-0.6B W4A16-G128 (single seed): baseline, Q1 offline QAD, Q2 on-policy QAD at matched budget, checkpoint evaluation and a 100-example GSM8K check. A longer Q2 run is in flight. 109 tests collected (108 pass, 1 CUDA-only skip). See §6.4–6.6 and `reports/findings.md`; no publication claims yet.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -518,6 +518,34 @@ Full 256-block held-out set (261,888 scored positions), identical data/masks.
   masters changed).
 - Details and caveats (including a known `parameter_bytes.note` metadata bug in
   the Q0 JSONs, values correct): `experiments/gate2/README.md`.
+
+---
+
+### 6.6 Gate 3–5 pilot results (W4A16-G128, single seed)
+
+Held-out set (261,888 tokens), forward-KL QAD, no CE term:
+
+| Variant | NLL | PPL | KL(T‖S) | GSM8K (100) |
+|---|---:|---:|---:|---:|
+| T0 BF16 | 3.1027 | 22.26 | 0.0000 | 33% |
+| Q0 W4-G128 RTN | 3.4207 | 30.59 | 0.4057 | 1% |
+| Q1-128, 25 steps (offline) | 3.2942 | 26.96 | 0.3009 | 13% |
+| Q2, 25 steps (on-policy) | 3.3021 | 27.17 | 0.3124 | 16% |
+| Q1, 200 steps (offline) | 3.2688 | 26.28 | 0.2532 | 28% |
+
+- Q1-200 closes about half of the RTN NLL gap; GSM8K recovers from 1% to 28%
+  against 33% BF16.
+- The 25-step arms are matched at ~102K response tokens and 128-token responses:
+  offline is slightly better on NLL/KL, on-policy is 3 GSM8K points better.
+  Single seed, 100 examples: suggestive, not decisive.
+- Generation repetition returns toward BF16 (4-gram 0.117 Q0 → 0.067 Q1-200 /
+  0.053 Q2, BF16 0.047); all configs hit the 256-token cap.
+- Cost: Q1-200 313 s / 818,760 response tokens / 14.6 GiB; Q2-25 308 s /
+  101,499 tokens / 14.0 GiB; checkpoints 5.3–5.6 GB each (not committed).
+- Q2-200 (819K tokens) is running at the time of writing; its result is added
+  when complete.
+
+Full write-up: `reports/findings.md`.
 
 ---
 
