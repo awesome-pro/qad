@@ -39,14 +39,16 @@ Qwen3-1.7B (`70d244cc86ccca08cf5af4e1e306ecf908b1ad5e`). BF16 teacher, separate
 student initialized from the same checkpoint.
 
 **Quantization.** Symmetric signed per-group quantization of all quantizable
-`nn.Linear` weights, with FP32 master weights and identity STE. W4 codes −8…7;
-W3 codes −3…3. 196 projections plus the tied LM head are covered (197 modules).
-Scales are per group of 128 or 32 weights, one FP16 scale per group; there is no
-zero point. Embeddings and norms are not quantized. This is **fake
+`nn.Linear` weights, with FP32 master weights and identity STE. W4 codes
+−7…7; W3 codes −3…3. Exactly 196 projection modules are quantized; the tied
+LM head is excluded. Scales are computed in FP32 during training, one scale per
+group of 128 or 32 weights; the packed-size accounting's FP16 scale is a
+storage model, not the training dtype. Embeddings and norms are not quantized. This is **fake
 quantization**: it measures accuracy, not packed INT3/INT4 speed.
 
 **Distillation.** Forward KL(teacher‖student) on response tokens only, with the
-LM head applied in chunks and one backward pass; no cross-entropy term. Offline
+LM head applied in chunks; gradients are accumulated per example and one
+optimizer step is taken per training step; no cross-entropy term. Offline
 Q1 uses gold OpenThoughts completions truncated to 128 tokens. On-policy Q2
 generates fresh student rollouts each step (temperature 0.6, top-p 0.95,
 top-k 20, 128 new tokens), then applies the same forward KL. Q2 is forward KL on
@@ -90,7 +92,7 @@ QAD does not show an established advantage and uses extra rollout compute.
 
 | Run | Val PPL | Test PPL | Strict GSM8K |
 |---|---:|---:|---:|
-| W3-G128 Q0 | 724 | — | ~0% |
+| W3-G128 Q0 (matched protocol) | 766.84 | — | — |
 | W3-G128 QAD | 62.4 | 88.2 | 0% |
 | W3-G32 Q0 | 97.7 | 112.5 | — |
 | W3-G32 QAD | 40.8 | 51.4 | 0% |
@@ -172,4 +174,4 @@ Hypotheses, not established results:
 - Result integrity: `experiments/gate8/regraded_v3/integrity_report*.json`.
 - Final audit: `reports/final_audit.md`.
 - Checkpoint inventory: `reports/checkpoint_inventory.md`.
-- Historical reports remain in `reports/` and are labelled where superseded.
+- Historical reports remain in `reports/archive/` and are labelled where superseded.

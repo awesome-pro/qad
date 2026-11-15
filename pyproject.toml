@@ -8,10 +8,13 @@ dependencies = [
     "transformers>=4.51",
     "pyyaml>=6.0",
     "numpy>=1.26",
+    "datasets>=2.0",
+    "pyarrow>=14",
+    "safetensors>=0.4",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["pytest>=8.0", "matplotlib>=3.8"]
 
 [build-system]
 requires = ["setuptools>=68"]

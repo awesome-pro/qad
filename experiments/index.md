@@ -31,5 +31,5 @@ numbers used the legacy parser and are not canonical.
 `gate1`–`gate7` contain the first pilot: baseline, W3 degradation diagnosis,
 offline/online QAD at 25/200 steps, seed replication, rollout-length ablation and
 an independent 1.7B check. Their GSM8K numbers used a permissive parser and a
-512-token cap; they are labelled historical in `reports/findings.md`. Do not mix
+512-token cap; they are labelled historical in `reports/archive/findings.md`. Do not mix
 them with canonical strict results.

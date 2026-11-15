@@ -56,18 +56,20 @@ export UV_CACHE_DIR="$PWD/.uv-cache"
 uv venv --python 3.12 .venv
 uv pip install --python .venv/bin/python -e ".[dev]"
 
-# data (requires the pinned HF datasets; see scripts/prepare_data.py)
-python scripts/prepare_data.py
-python scripts/prepare_splits.py
+# Data preparation requires the pinned HF datasets and network access.
+.venv/bin/python scripts/prepare_data.py
+.venv/bin/python scripts/prepare_splits.py
 
-# baselines and matched QAD
-python scripts/baseline.py --variant T0 --device cuda --eval data/cache/eval/wikitext_test_ids.npy --out /tmp/t0.json
-python scripts/baseline.py --variant Q0 --bits 4 --group-size 128 --device cuda \
-  --eval data/cache/eval/wikitext_test_ids.npy --out /tmp/q0.json
-python scripts/train_matched.py --arm q1 --bits 4 --group-size 128 --steps 200 \
-  --prompts-per-step 32 --continuation-cap 128 --val-set data/cache/eval/fineweb_val_ids.npy \
-  --run-name q1 --out-dir experiments/gate8 --checkpoint-dir checkpoints
-python scripts/eval_gsm8k_strict.py --mode nonthinking --config-name q1 \
+# Baselines and matched QAD (CUDA pod; no model download for the test suite)
+.venv/bin/python scripts/baseline.py --variant T0 --device cuda \
+  --eval data/cache/eval/wikitext_test_ids.npy --out /tmp/t0.json
+.venv/bin/python scripts/baseline.py --variant Q0 --bits 4 --group-size 128 \
+  --device cuda --eval data/cache/eval/wikitext_test_ids.npy --out /tmp/q0.json
+.venv/bin/python scripts/train_matched.py --arm q1 --bits 4 --group-size 128 \
+  --steps 200 --prompts-per-step 32 --continuation-cap 128 \
+  --val-set data/cache/eval/fineweb_val_ids.npy --run-name q1 \
+  --out-dir experiments/gate8 --checkpoint-dir checkpoints
+.venv/bin/python scripts/eval_gsm8k_strict.py --mode nonthinking --config-name q1 \
   --bits 4 --checkpoint checkpoints/q1_best.pt --count 100 --out-prefix /tmp/gsm8k_q1
 ```
 
@@ -99,11 +101,22 @@ reports/             final report, audit, failure analysis, figures
 reports/archive/     historical/pilot reports kept for provenance
 ```
 
-## Tests
+## Setup smoke checks
+
+No large model download and no training are needed for these:
 
 ```bash
 .venv/bin/python -m pytest -q
+.venv/bin/python -c "import torch, transformers, datasets, pyarrow, matplotlib, qwen_qad; print('imports ok')"
+.venv/bin/python scripts/check_matched.py --help >/dev/null
 ```
 
-175 collected, 173 passed, 2 environment skips (CUDA-only quantizer test;
-pinned-tokenizer test when not cached).
+The test suite uses tiny local models. Expected: **175 collected, 173 passed,
+2 environment skips** (CUDA-only quantizer test; pinned-tokenizer test when the
+tokenizer is not cached).
+
+Figures can be regenerated from the committed JSON artifacts without a model:
+
+```bash
+MPLCONFIGDIR=.mplconfig .venv/bin/python scripts/make_figures.py
+```
