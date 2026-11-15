@@ -888,7 +888,7 @@ run on a GPU; **blocked** = cannot be completed with available artifacts.
 | P1 | matched Q1/Q2 schedule, tokens, context | **verified at Checkpoint A** (seed 42): `check_matched.py` passes, 0 prompt-hash mismatches, token ratio 1.0012 |
 | P2 | disjoint validation vs final test | **verified at Checkpoint A**: `fineweb_val_ids.npy`, `wikitext_test_ids.npy`, zero block overlap |
 | P3 | best/final checkpoint selection with reload | **verified at Checkpoint A**: best step 150 for both arms, best/final saved and hashed |
-| P4 | durable checkpoints | **in progress**: best `.pt` + best/final `.safetensors` copying to `checkpoints/gate8/`; remote hashes captured; old checkpoints lost |
+| P4 | durable checkpoints | **done for Checkpoint A**: Q1/Q2 best `.pt` + best `.safetensors` copied to `checkpoints/gate8/`; local=remote SHA-256; clean-process tensor restoration max diff 0.0 |
 | P5 | API-correctness tests (sampling uses current weights, modes, masks, EOS) | **done (Mac)**: `test_generation_correctness.py`, existing training/freeze tests |
 | P6 | realistic memory accounting | **done (Mac)**: `reports/memory_accounting.md`; no packed artifact claimed |
 | P7 | statistics | **done (Mac) in evaluator**: bootstrap CI, paired difference CI, McNemar |

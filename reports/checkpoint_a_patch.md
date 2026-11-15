@@ -104,11 +104,15 @@ and `test_m_q2_w4_s42_verified.json` (29.923 PPL, SHA `23c15270…`).
 
 Remote SHA-256 manifest: `checkpoints/gate8/SHA256SUMS.remote.txt`.
 
-Selected best optimizer checkpoints and best/final inference safetensors are
-being copied to `checkpoints/gate8/` (gitignored, outside ephemeral pod storage).
-The copy is bandwidth-limited (~7 MB/s). Final local hashes and clean-process
-restoration are recorded in `checkpoints/gate8/BACKUP_VERIFICATION.md` once the
-copy completes; no pod files are deleted before that verification.
+Selected best optimizer checkpoints and best inference safetensors are copied
+to `checkpoints/gate8/` (gitignored, outside ephemeral pod storage), with
+`SHA256SUMS.local.txt` matching the remote manifest for all four files.
+
+Clean-process restoration (`scripts/verify_backup_local.py`) passed for both
+arms: all 310 tensors compared, max absolute difference **0.0**. On-pod logits
+and held-out metrics also matched exactly for the same hashes. Details:
+`checkpoints/gate8/BACKUP_VERIFICATION.md` and
+`experiments/gate8/BACKUP_VERIFICATION.md`. No pod files were deleted.
 
 ## 7. Runbook and tests
 
