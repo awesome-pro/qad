@@ -1,10 +1,10 @@
-# Gate 1.5 diagnosis — why is W3A16 RTN so degraded?
+# Gate 1.5 diagnosis - why is W3A16 RTN so degraded?
 
 Status: **diagnostic, local (MPS, bf16)**. Not the official Gate 2 evaluation.
 
 - Current record (v2, with cosine similarity): `v2/gate15_diagnostics.json`,
   `v2/diagnostics.md`.
-- Original record (v1, no cosine): `archive_v1/` — preserved unchanged.
+- Original record (v1, no cosine): `archive_v1/` - preserved unchanged.
 - Command: `HF_HOME=.hf-cache .venv/bin/python scripts/gate15_diagnostics.py
   --out-dir experiments/gate15/v2 --limit-batches 16`
 - The run used the working tree committed as `7e3e35b` (the v2 JSON records
@@ -28,7 +28,7 @@ Status: **diagnostic, local (MPS, bf16)**. Not the official Gate 2 evaluation.
 
 | config | NLL | ppl | KL(T‖S) | quantized params | eff. bits | weight MSE | L2 rel-err L0 | L13 | L27 | cos L27 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| BF16 | 3.1101 | 22.42 | 0.0000 | — | — | — | 0.00 | 0.00 | 0.00 | 1.000 |
+| BF16 | 3.1101 | 22.42 | 0.0000 | - | - | - | 0.00 | 0.00 | 0.00 | 1.000 |
 | W4A16-G128 | 3.4242 | 30.70 | 0.4050 | 73.9% | 4.125 | 1.21e-05 | 0.168 | 0.099 | 0.410 | 0.932 |
 | W3A16-G32 | 4.5690 | 96.45 | 1.7002 | 73.9% | 3.500 | 4.33e-05 | 0.313 | 0.221 | 0.659 | 0.830 |
 | W3A16-G64 | 5.4083 | 223.24 | 2.6142 | 73.9% | 3.250 | 5.40e-05 | 0.353 | 0.252 | 0.788 | 0.772 |

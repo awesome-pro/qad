@@ -1,4 +1,4 @@
-# Qwen Low-Bit Quantization & Online QAD — Research and Engineering Brief
+# Qwen Low-Bit Quantization & Online QAD - Research and Engineering Brief
 
 ---
 
@@ -23,7 +23,7 @@ Read this file as a **research specification**, not a mandate to generate a larg
 
 ## 2. Research scope and priorities
 
-### Primary — reproducible baseline and offline QAD
+### Primary - reproducible baseline and offline QAD
 
 - Select a real pretrained dense Qwen causal LM and pin its exact model revision/tokenizer.
 - Establish **BF16 teacher baseline** on a fixed validation/test suite.
@@ -33,7 +33,7 @@ Read this file as a **research specification**, not a mandate to generate a larg
 - Compare post-training quality using **exactly the same** evaluation pipeline and held-out data.
 - Track theoretical effective packed weight storage, actual training GPU memory, and uncertainty about deployment memory.
 
-### Secondary — online/on-policy QAD
+### Secondary - online/on-policy QAD
 
 - Have the **current quantized student** generate rollouts from fixed prompt sources.
 - Evaluate **frozen teacher and trainable student on exactly the same visited prefixes**.
@@ -71,7 +71,7 @@ Read this file as a **research specification**, not a mandate to generate a larg
 | Modules | Start with selected linear projection weights; leave embeddings, normalization, and LM head unquantized | Simplifies debugging; report coverage and true effective model bits/weight. |
 | Student initialization | Copy pretrained weights exactly, then enable fake quantization | Isolates quantization-induced degradation. |
 | Teacher | Same checkpoint in BF16, `eval()` and fully frozen | All teacher outputs calculated without autograd. |
-| Offline loss | Forward KL `KL(teacher || student)` over valid next-token positions | Easiest auditable baseline; **not necessarily the loss used by an online-QAT paper**. |
+| Offline loss | Forward KL `KL(teacher ‖ student)` over valid next-token positions | Easiest auditable baseline; **not necessarily the loss used by an online-QAT paper**. |
 | Online loss | First implement same KL on student-generated prefixes for controlled comparison; separately evaluate sampled reverse-KL if reproducing a paper | Loss direction is a research variable, not an implementation detail. |
 | Data | A small legally usable train corpus; separate fixed validation/test texts and rollout prompts | Pin exact source, split, cleaning, license, tokenization. No leakage. |
 | Hardware | Approved RunPod CUDA GPU; choose using live availability/cost and peak-memory estimate | Don't hardcode GPU costs/specs. |
@@ -107,7 +107,7 @@ For W3, `qmin=-3`, `qmax=3`. For W2 under the same convention, `qmin=-1`, `qmax=
 - Quantization state/configuration survives save and reload; reloaded student produces matching outputs on a fixed test batch.
 - Any excluded modules and any padding/tail-group policy are enumerated in the report.
 
-### Memory accounting — three separate numbers
+### Memory accounting - three separate numbers
 
 1. **Raw weight payload**: `sum(number_of_quantized_weights * bits / 8)`.
 2. **Theoretical packed checkpoint**: payload + scale/zero-point metadata + unquantized parameters + alignment/packing overhead (where applicable). State if packing overhead is unknown.
@@ -162,25 +162,25 @@ For **on-policy rollouts** with prompt length `P` and generated continuation len
 
 These gates describe **dependencies and evidence**, not dates or delivery promises.
 
-### Gate A — Environment, model loading, and baseline
+### Gate A - Environment, model loading, and baseline
 
 **Build:** reproducible environment and deterministic baseline CLI; load tokenizer/model; read and record architecture/configuration; enumerate named modules and parameter shapes; print quantization-eligible modules; run BF16 NLL/KL sanity checks and fixed-prompt generations.
 
 **Acceptance:** exact model ID/revision, license and config recorded; forward logits shape `[B,T,V]`; deterministic evaluation on fixed inputs; teacher self-KL approximately zero; baseline metrics persisted to file.
 
-### Gate B — Standalone quantizer and isolated tests
+### Gate B - Standalone quantizer and isolated tests
 
 **Build:** pure PyTorch reference quantize/dequantize/fake-quantize functions, per-tensor/per-row/per-group options for testing, W3 chosen default, configurable scale policy, STE, numerical diagnostics.
 
 **Acceptance:** unit tests pass for group counts, extreme values, all-zero groups, negative weights, shape restoration, gradient behavior, reconstruction matching, and serialization. Keep a small mathematical reference test independent of the implementation.
 
-### Gate C — Quantized Qwen PTQ baseline
+### Gate C - Quantized Qwen PTQ baseline
 
 **Build:** selectively wrap/replace eligible linear layers *without changing the pretrained master weights*; expose config for module inclusion/exclusion; quantize student forward; evaluate frozen initial student; log effective coverage and expected memory.
 
 **Acceptance:** same-shape logits and finite loss; nonzero quantization error in selected weights; excluded modules unchanged; Q0 evaluated on precisely T0's held-out set; restart/reload reproduces Q0.
 
-### Gate D — Offline QAD
+### Gate D - Offline QAD
 
 **Build:** frozen BF16 teacher, QAT student initialized from teacher, correct teacher/student next-token KL loss, optimizer acting on student high-precision weights, fixed-prefix training data, gradient checkpointing or memory controls as necessary, checkpoint save/resume, fixed validation.
 
@@ -188,15 +188,15 @@ These gates describe **dependencies and evidence**, not dates or delivery promis
 
 **Training notes:** `zero_grad()` then forward/loss then `backward()` then `optimizer.step()`; ensure no gradients flow through teacher. Decide and document whether STE is identity throughout or clipped. A `detach()` scale may be appropriate for a baseline, but is not the only possible QAT method. Teacher probabilities/student log-probabilities may be computed in FP32 for numerical stability. Full-vocabulary `[B,T,V]` KL can be memory-intensive: inspect shape/cost and implement safe chunking or smaller microbatches before increasing sequence length.
 
-### Gate E — Online/on-policy QAD
+### Gate E - Online/on-policy QAD
 
 **Build:** prompt-source sampler; current student generates rollouts **without autograd**; preserve prompt/continuation boundaries and EOS masks; frozen teacher scores the student-visited prefixes; **recompute the student forward with autograd on those same tokens**; compute the stated KL objective; update student; generate new rollouts after updates; log rollout versions/configs.
 
 **Acceptance:** deterministic tiny-model test checks prefix/logit indices and masks; teacher/student score identical token sequences, not independently generated teacher continuations; no gradient path through discrete token sampling; gradients do reach quantized student via its re-evaluation; rollouts genuinely refresh with the current student; fixed held-out evaluation compares Q1 and Q2.
 
-**Research caveat:** the published *OnlineQAT* method uses a **sampled reverse-KL** signal with its own recipe. A first implementation that uses `KL(teacher || student)` on student prefixes demonstrates **on-policy data collection** but is **not an exact reproduction** of that paper. Label the algorithm accurately and implement/verify the paper-specific objective only as a separate variant.
+**Research caveat:** the published *OnlineQAT* method uses a **sampled reverse-KL** signal with its own recipe. A first implementation that uses `KL(teacher ‖ student)` on student prefixes demonstrates **on-policy data collection** but is **not an exact reproduction** of that paper. Label the algorithm accurately and implement/verify the paper-specific objective only as a separate variant.
 
-### Gate F — Validation, reporting, and optional export
+### Gate F - Validation, reporting, and optional export
 
 **Build:** aggregate plots/tables; record failures and uncertainties; clean one-command repro (environment, dataset preparation, baseline, train, evaluate); optional packed low-bit export if a compatible representation/backend can be verified; open-weight model card draft only if release is authorized.
 
@@ -339,7 +339,7 @@ Suggested result table (leave all entries blank until actually measured):
 
 | Variant | Fixed eval NLL ↓ | Teacher KL ↓ | Quality benchmark | Estimated packed weight MiB | Actual checkpoint MiB | Peak GPU MiB | Notes |
 |---|---:|---:|---:|---:|---:|---:|---|
-| T0 BF16 teacher | — | 0 baseline | — | N/A | — | — | |
-| Q0 W3A16 before QAD | — | — | — | — | — | — | |
-| Q1 W3A16 + offline QAD | — | — | — | — | — | — | |
-| Q2 W3A16 + online QAD (optional) | — | — | — | — | — | — | |
+| T0 BF16 teacher | - | 0 baseline | - | N/A | - | - | |
+| Q0 W3A16 before QAD | - | - | - | - | - | - | |
+| Q1 W3A16 + offline QAD | - | - | - | - | - | - | |
+| Q2 W3A16 + online QAD (optional) | - | - | - | - | - | - | |

@@ -1,4 +1,4 @@
-# Seed-43 / W3 checkpoint backup status — BLOCKED
+# Seed-43 / W3 checkpoint backup status - BLOCKED
 
 > **Superseded for final status by `reports/checkpoint_inventory.md`.** The
 > 1.7B safetensors backup was later completed and verified; the seed-43/W3-G128
@@ -45,7 +45,7 @@ requirement cannot be completed.
 
 No claim of clean-process restoration for seed-43/W3 is made.
 
-## Update — W3-G32 and 1.7B
+## Update - W3-G32 and 1.7B
 
 - **W3-G32:** fully backed up and clean-process verified
   (`checkpoints/gate9_w3g32/`, SHA-256 manifest, 310 tensors max diff 0.0).

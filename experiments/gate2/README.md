@@ -1,4 +1,4 @@
-# Gate 2 — official CUDA baseline, generation diagnostic and training probe
+# Gate 2 - official CUDA baseline, generation diagnostic and training probe
 
 Status: **complete**, one session on an RTX A5000 24 GB (RunPod), 2026-11-15.
 Artifacts are byte-identical to the pod copies; see `SHA256SUMS`.

@@ -1,4 +1,4 @@
-# Parser v3.0.0 — frozen GSM8K evaluation and final seed-42 regrade
+# Parser v3.0.0 - frozen GSM8K evaluation and final seed-42 regrade
 
 Status: **frozen**. Spec: `docs/parser_spec_v3.md`. Seed-42 models and
 generations were **not** regenerated or retrained.
@@ -85,7 +85,7 @@ Actions:
   - provenance metrics/parser/source/checkpoint SHA against canonical + run;
   - paired accuracy, counts, McNemar p, parser versions and source hashes.
 - Manifest: `experiments/gate8/regraded_v3/integrity_manifest.json`.
-- Report: `experiments/gate8/regraded_v3/integrity_report.json` — **passed**
+- Report: `experiments/gate8/regraded_v3/integrity_report.json` - **passed**
   for all six seed-42 summaries/provenance files and the paired comparison.
   The regenerated paired output is `paired_integrity.json`; the old
   `gsm8k_m_q1_vs_q2_s42_nonthink.json` is preserved.

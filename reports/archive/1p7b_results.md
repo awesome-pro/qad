@@ -41,6 +41,6 @@ the W4 RTN student (25.41). However, GSM8K does **not** improve: Q1 42% vs Q0
 - `experiments/gate8/m_q1_w4_1p7b.json`
 - `experiments/gate8/test_m_q1_w4_1p7b_verified.json`
 - `experiments/gate8/regraded_v3/gsm8k_*1p7b*` and
-  `integrity_report_1p7b.json` — **passed**
+  `integrity_report_1p7b.json` - **passed**
 - Best checkpoint hashes in `checkpoints/gate8_1p7b/` (backup progress/status
   must be verified before any claim of durability).

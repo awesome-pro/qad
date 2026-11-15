@@ -92,9 +92,9 @@ QAD does not show an established advantage and uses extra rollout compute.
 
 | Run | Val PPL | Test PPL | Strict GSM8K |
 |---|---:|---:|---:|
-| W3-G128 Q0 (matched protocol) | 766.84 | — | — |
+| W3-G128 Q0 (matched protocol) | 766.84 | - | - |
 | W3-G128 QAD | 62.4 | 88.2 | 0% |
-| W3-G32 Q0 | 97.7 | 112.5 | — |
+| W3-G32 Q0 | 97.7 | 112.5 | - |
 | W3-G32 QAD | 40.8 | 51.4 | 0% |
 | W4 QAD (reference) | 26.6 | 30.7 | 33–35% |
 

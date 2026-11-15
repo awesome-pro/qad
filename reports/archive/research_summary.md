@@ -1,4 +1,4 @@
-# Research summary — W4 recovery, offline vs online QAD, W3 failure
+# Research summary - W4 recovery, offline vs online QAD, W3 failure
 
 ## 1. What is established
 
@@ -9,8 +9,8 @@ matched Q1/Q2 prompt schedules; two seeds for the 0.6B W4 comparison.
 
 | Variant | Seed | Test PPL | GSM8K |
 |---|---:|---:|---:|
-| T0 BF16 | — | 25.52 | 39% |
-| Q0 W4 RTN | — | 36.79 | 17% |
+| T0 BF16 | - | 25.52 | 39% |
+| Q0 W4 RTN | - | 36.79 | 17% |
 | Q1-200 offline | 42 | 30.64 | 33% |
 | Q1-200 offline | 43 | 30.68 | 35% |
 | Q2-200 online | 42 | 29.92 | 35% |
@@ -47,8 +47,8 @@ same likelihood/task dissociation as at 0.6B/W3.
 
 | Run | Val PPL | Test PPL | GSM8K |
 |---|---:|---:|---:|
-| W3 Q0 RTN | 724 | — | ~0–1% |
-| W3 Q1-25 | 83.6 | — | 3% |
+| W3 Q0 RTN | 724 | - | ~0–1% |
+| W3 Q1-25 | 83.6 | - | 3% |
 | W3 Q1-200 (G128) | 62.4 | 88.2 | **0%** (99% truncation) |
 | W3-G32 Q1-200 | 40.8 | 51.4 | **0%** (31% completion) |
 
@@ -74,12 +74,12 @@ is the next lever.
 The unresolved question is how to make truly aggressive quantization preserve
 useful behavior. Candidates, in recommended order:
 
-1. **W3-G32** — tested: improves val PPL from 62.4 to 40.8 and test PPL from
+1. **W3-G32** - tested: improves val PPL from 62.4 to 40.8 and test PPL from
    88.2 to 51.4, but still 0% GSM with 31% completion. Granularity is real but
    insufficient.
-2. **GPTQ/AWQ W3 initialization** — data-aware rounding before QAD; now the
+2. **GPTQ/AWQ W3 initialization** - data-aware rounding before QAD; now the
    most promising next test.
-3. **Block-wise QAT initialization** — closest to the brief's Stage-1 idea, but
+3. **Block-wise QAT initialization** - closest to the brief's Stage-1 idea, but
    larger engineering cost; after GPTQ/AWQ.
 
 Evaluate with the same matched protocol: validation-selected checkpoint,
@@ -90,7 +90,7 @@ diagnostic. Do not add broad benchmarks before these comparisons.
 
 Completed as a controlled scaling check: tokenizer compatibility passed, 3-step
 memory/gradient probe passed at 28.6 GB peak, then offline Q1 only. Q1 restored
-test PPL to 19.47 (T0 19.53, Q0 25.41) but GSM was 42% vs Q0 44% / T0 58% —
+test PPL to 19.47 (T0 19.53, Q0 25.41) but GSM was 42% vs Q0 44% / T0 58% -
 likelihood recovery without task recovery. No online sweep was run.
 
 ## 5. Limitations

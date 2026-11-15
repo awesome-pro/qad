@@ -24,7 +24,7 @@ Symmetric weight-only quantization was evaluated with group sizes 128 and 32, us
 | Model | Quantization | RTN Test PPL ↓ | After QAD ↓ | GSM8K After QAD ↑ |
 |---|---|---:|---:|---:|
 | Qwen3-0.6B | W4-G128 | 36.79 | **30.64–30.68** | **33–35%** |
-| Qwen3-0.6B | W3-G128 | — | **88.24** | **0%** |
+| Qwen3-0.6B | W3-G128 | - | **88.24** | **0%** |
 | Qwen3-0.6B | W3-G32 | 112.49 | **51.43** | **0%** |
 | Qwen3-1.7B | W4-G128 | 25.41 | **19.47** | **42%** |
 

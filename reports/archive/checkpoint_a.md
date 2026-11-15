@@ -1,4 +1,4 @@
-# Checkpoint A — strict grader and corrected evaluation
+# Checkpoint A - strict grader and corrected evaluation
 
 > **Superseded metrics:** the numbers below use parser v1. See
 > `reports/checkpoint_a_patch.md` for parser v2 and the regraded results.

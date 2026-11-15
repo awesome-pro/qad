@@ -11,7 +11,7 @@ from transformers import AutoTokenizer
 
 SAMPLES = [
     "<think>", "</think>", "#### 42", "Answer:", "$233.00",
-    "Janet's ducks lay 16 eggs per day.", "é—ü—汉",
+    "Janet's ducks lay 16 eggs per day.", "é-ü-汉",
 ]
 
 

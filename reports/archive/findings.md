@@ -1,4 +1,4 @@
-# Findings — Qwen3-0.6B W4A16-G128 QAD pilot
+# Findings - Qwen3-0.6B W4A16-G128 QAD pilot
 
 **Status:** historical pilot report, 2026-11-15. Superseded in part by the audit
 corrections in `review.md` / `plan.md` §15. Not publication-ready.
@@ -210,7 +210,7 @@ imply no serving speedup.
   on NLL/KL but loses 3 GSM8K points; neither difference is decisive.
 - At the 200-step, ~819K-token budget, offline and on-policy are tied on
   held-out NLL/PPL in both seeds; offline is better on KL in both. GSM8K:
-  Q1 28%/28%, Q2 14%/22% — on-policy is below offline in both seeds and
+  Q1 28%/28%, Q2 14%/22% - on-policy is below offline in both seeds and
   unstable. There is no evidence that on-policy helps at this scale.
 - Q2-200 is the cleanest generation of the quantized arms (4-gram repetition
   0.050 vs 0.067 Q1, 0.117 Q0) while being the worst on GSM8K.

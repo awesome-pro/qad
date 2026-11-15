@@ -31,7 +31,7 @@ Some 1.7B Q0 outputs use:
 Parser v3 treats the first line as a malformed marker and returns `ambiguous`
 because it conflicts with the valid second marker. In 1.7B Q0 this affects
 **9/100** examples. If the second marker were accepted, at most 5 of those 9
-would be correct, moving Q0 from 44% to 49% — still below BF16 58% and above
+would be correct, moving Q0 from 44% to 49% - still below BF16 58% and above
 Q1 42%. The conclusion is unchanged.
 
 The same pattern is rare in the other runs: seed-42 Q2 1/100, seed-43 Q2 1/100.

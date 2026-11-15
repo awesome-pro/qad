@@ -1,4 +1,4 @@
-# Checkpoint A patch — parser v2, regrade, checkpoint verification
+# Checkpoint A patch - parser v2, regrade, checkpoint verification
 
 > **Superseded:** parser v3.0.0 and the final regrade are in
 > `reports/parser_v3_final.md`. This file is preserved as the v2 audit trail.
@@ -66,12 +66,12 @@ parser/completion sanity subset, **not** an accuracy benchmark.
 
 The evaluator and regrade artifacts now report separately:
 
-- **marker-present rate** — any explicit `####`/`\boxed{}`/`Answer:` marker was
+- **marker-present rate** - any explicit `####`/`\boxed{}`/`Answer:` marker was
   found, whether parseable or conflicting;
-- **parsed-answer rate** — marker parsed to a single numeric value (`ok`);
-- **completion rate** — model emitted EOS before the cap;
-- **truncation rate** — generation hit the cap;
-- **accuracy** — parsed value equals gold.
+- **parsed-answer rate** - marker parsed to a single numeric value (`ok`);
+- **completion rate** - model emitted EOS before the cap;
+- **truncation rate** - generation hit the cap;
+- **accuracy** - parsed value equals gold.
 
 `explicit_answer_rate` (which conflated ambiguous/malformed with parsed) is
 removed from new artifacts.

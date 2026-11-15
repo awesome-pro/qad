@@ -399,7 +399,7 @@ def main() -> None:
         f"- device `{device}`, dtype `{args.dtype}`, eval blocks {blocks.shape[0]} × {blocks.shape[1]}",
         f"- git `{git_commit()[:12]}`, created {payload['created_utc']}",
         "",
-        "| config | NLL | ppl | KL(T||S) | quantized params | eff bits | weight MSE | act L0 | act L13 | act L27 | cos L0 | cos L27 |",
+        "| config | NLL | ppl | KL(T‖S) | quantized params | eff bits | weight MSE | act L0 | act L13 | act L27 | cos L0 | cos L27 |",
         "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for name, result in results.items():
@@ -411,8 +411,8 @@ def main() -> None:
                 ppl=result["perplexity"],
                 kl=result["forward_kl_teacher_student"],
                 q=(coverage["fraction_of_model_parameters"] if coverage else 0.0),
-                bits=(f"{coverage['effective_bits_per_quantized_weight']:.3f}" if coverage else "—"),
-                mse=(f"{result['weight_diagnostics']['mse_weighted']:.2e}" if result["weight_diagnostics"] else "—"),
+                bits=(f"{coverage['effective_bits_per_quantized_weight']:.3f}" if coverage else "-"),
+                mse=(f"{result['weight_diagnostics']['mse_weighted']:.2e}" if result["weight_diagnostics"] else "-"),
                 a0=f"{result['activation_relative_error_mean'].get('0', 0):.2e}",
                 a13=f"{result['activation_relative_error_mean'].get('13', 0):.2e}",
                 a27=f"{result['activation_relative_error_mean'].get('27', 0):.2e}",

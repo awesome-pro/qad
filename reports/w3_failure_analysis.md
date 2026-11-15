@@ -24,16 +24,16 @@ not recovered generation.
 
 Method: each response may satisfy several categories; percentages are of 100.
 
-1. **Premature control-token termination — 30/100.** Finished naturally,
+1. **Premature control-token termination - 30/100.** Finished naturally,
    ≤10 tokens, only `<think>`/`</think>`/`<tool_call>` sequences.
-2. **Control-token loop after EOS-like close — 1/100.** A 21-token sequence of
+2. **Control-token loop after EOS-like close - 1/100.** A 21-token sequence of
    repeated `<think>`/`</think>`/`<tool_call>`.
-3. **Truncated without a final answer — 69/100.** Hit the 256-token cap; none
+3. **Truncated without a final answer - 69/100.** Hit the 256-token cap; none
    supplied a parsable final answer.
-4. **Repetitive/incoherent generation — 69/100 truncated; mean 4-gram
+4. **Repetitive/incoherent generation - 69/100 truncated; mean 4-gram
    repetition 9.3%.** Qualitative inspection shows circular restatement.
-5. **Malformed final-answer formatting — 1/100.**
-6. **No terminal answer — 99/100.**
+5. **Malformed final-answer formatting - 1/100.**
+6. **No terminal answer - 99/100.**
 
 Representative outputs (anonymized; not representative of all failures):
 

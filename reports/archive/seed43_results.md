@@ -1,4 +1,4 @@
-# Checkpoint B — matched seed 43
+# Checkpoint B - matched seed 43
 
 Protocol identical to seed 42: 200 steps, 32 prompts/step, 128-token continuation
 cap, same schedule seed/teacher/quantizer, validation-selected best checkpoint,

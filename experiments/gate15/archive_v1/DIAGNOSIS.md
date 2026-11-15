@@ -1,4 +1,4 @@
-# Gate 1.5 diagnosis — why is W3A16 RTN so degraded?
+# Gate 1.5 diagnosis - why is W3A16 RTN so degraded?
 
 Status: **diagnostic, local (MPS, bf16)**. Not the official Gate 2 evaluation.
 Machine-readable results: `gate15_diagnostics.json`. The run used the working tree committed as `a28ff1b90124` (the JSON records the HEAD at process start, `3afdd19`, plus `implementation_commit`). Command:
@@ -22,7 +22,7 @@ HF_HOME=.hf-cache .venv/bin/python scripts/gate15_diagnostics.py
 
 | config | NLL | ppl | KL(T‖S) | quantized params | eff. bits | weight MSE | act rel-err L0 | L13 | L27 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| BF16 | 3.1101 | 22.42 | 0.0000 | — | — | — | 0.00 | 0.00 | 0.00 |
+| BF16 | 3.1101 | 22.42 | 0.0000 | - | - | - | 0.00 | 0.00 | 0.00 |
 | W4A16-G128 | 3.4242 | 30.70 | 0.4050 | 73.9% | 4.125 | 1.21e-05 | 0.168 | 0.099 | 0.410 |
 | W3A16-G32 | 4.5690 | 96.45 | 1.7002 | 73.9% | 3.500 | 4.33e-05 | 0.313 | 0.221 | 0.659 |
 | W3A16-G64 | 5.4083 | 223.24 | 2.6142 | 73.9% | 3.250 | 5.40e-05 | 0.353 | 0.252 | 0.788 |
