@@ -7,7 +7,7 @@ The goal is to investigate two questions:
 1. **How much model quality can quantization-aware distillation (QAD) recover after aggressive W3/W4 weight quantization?**
 2. **Does training on the quantized student's own generated trajectories improve recovery compared with offline distillation?**
 
-We implemented a weight-only fake-quantization and distillation pipeline, evaluated multiple quantization granularities, ran matched offline/on-policy experiments across two seeds, and investigated cases where lower perplexity did not translate into better generation.
+A weight-only fake-quantization and distillation pipeline was implemented; multiple quantization granularities and matched offline/on-policy experiments across two seeds were evaluated; cases where lower perplexity did not translate into better generation were investigated.
 
 **Central finding:** QAD can recover substantial quantization-induced likelihood degradation, but recovering teacher-forced token distributions does not necessarily restore autoregressive reasoning or generation quality.
 
@@ -19,7 +19,7 @@ We implemented a weight-only fake-quantization and distillation pipeline, evalua
 
 ### 1. Low-Bit Quality Recovery
 
-We evaluated symmetric weight-only quantization with group sizes 128 and 32, using a frozen BF16 teacher and offline forward-KL distillation.
+Symmetric weight-only quantization was evaluated with group sizes 128 and 32, using a frozen BF16 teacher and offline forward-KL distillation.
 
 | Model | Quantization | RTN Test PPL ↓ | After QAD ↓ | GSM8K After QAD ↑ |
 |---|---|---:|---:|---:|
@@ -63,7 +63,7 @@ A deeper investigation of W3-G32 found:
 
 ### 3. Offline vs. On-Policy QAD
 
-We compared two distillation approaches:
+Two distillation approaches were compared:
 
 - **Offline QAD (Q1):** Forward KL on fixed gold continuations.
 - **On-policy QAD (Q2):** The current quantized student generates fresh rollouts after updates; the frozen teacher supervises the student on those same visited prefixes.
@@ -90,7 +90,7 @@ Held-out perplexity was nearly tied, while online QAD required additional comput
 
 ### 4. Scaling Check: Qwen3-1.7B
 
-We also tested whether W4 offline-QAD recovery transfers to a larger Qwen3 model.
+Whether W4 offline-QAD recovery transfers to a larger Qwen3 model was also tested.
 
 | Variant | Test PPL ↓ | GSM8K ↑ |
 |---|---:|---:|

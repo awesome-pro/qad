@@ -6,13 +6,13 @@ This project asked whether quantization-aware distillation (QAD) can recover
 useful behavior after aggressive weight quantization of Qwen3, and whether
 on-policy distillation beats a matched offline baseline.
 
-We implemented symmetric fake quantization for all quantizable linear
-projections, FP32 master weights with a straight-through estimator, and
-teacher-forced forward-KL distillation. We compared BF16, post-training
-round-to-nearest (RTN), offline QAD on gold completions, and on-policy QAD on
-fresh student rollouts under matched prompt schedules. We ran W4-G128 on
-Qwen3-0.6B with two seeds, W3-G128 and W3-G32 on 0.6B, and a controlled
-W4-G128 check on Qwen3-1.7B.
+Symmetric fake quantization was implemented for all quantizable linear
+projections, with FP32 master weights and a straight-through estimator, plus
+teacher-forced forward-KL distillation. The comparison covered BF16,
+post-training round-to-nearest (RTN), offline QAD on gold completions, and
+on-policy QAD on fresh student rollouts under matched prompt schedules.
+W4-G128 was run on Qwen3-0.6B with two seeds, W3-G128 and W3-G32 on 0.6B, and
+a controlled W4-G128 check on Qwen3-1.7B.
 
 Main findings:
 

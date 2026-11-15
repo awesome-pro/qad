@@ -154,7 +154,7 @@ A packing/execution benchmark requires an actual supported packed representation
 
 For input tokens `ids[:, :T]`, logit at position `t` predicts token `t+1`. Standard next-token NLL compares `logits[:, :-1, :]` with `ids[:, 1:]`, then applies the valid-token / training-target mask. Padding, EOS, and prompt masking must be handled consistently.
 
-For **on-policy rollouts** with prompt length `P` and generated continuation length `R`, the decision distribution for the first generated token comes from model logit index `P-1`; the distribution for generated token `j` (0-indexed) comes from logit index `P-1+j`. If we only score generated-token decisions, use indices `P-1` through `P+R-2` (inclusive), with per-example EOS/padding masks. Do not accidentally train on the logit after the final generated token unless deliberately included. Add a tiny deterministic unit test for these offsets.
+For **on-policy rollouts** with prompt length `P` and generated continuation length `R`, the decision distribution for the first generated token comes from model logit index `P-1`; the distribution for generated token `j` (0-indexed) comes from logit index `P-1+j`. If only generated-token decisions are scored, use indices `P-1` through `P+R-2` (inclusive), with per-example EOS/padding masks. Do not accidentally train on the logit after the final generated token unless deliberately included. Add a tiny deterministic unit test for these offsets.
 
 ---
 

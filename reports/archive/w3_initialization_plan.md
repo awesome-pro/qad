@@ -1,6 +1,6 @@
 # W3 initialization plan
 
-## What we learned
+## Findings
 
 - W3-G128 QAD: val 62.4 / test 88.2 PPL, 0% strict GSM8K.
 - W3-G32 QAD: val 40.8 / test 51.4 PPL, still 0% GSM8K (31% completion,

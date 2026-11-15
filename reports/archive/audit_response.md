@@ -35,7 +35,7 @@ intermediate number. The strict evaluator therefore reports truncation and
 completion separately rather than only accuracy.
 
 P6 says the report must not present whole-model size reductions as deployment
-memory savings. We never claimed such savings, but the new table makes the
+memory savings. No such savings were claimed, but the new table makes the
 distinction explicit; no packed artifact is produced.
 
 ## Checkpoint A outcome (seed 42, 0.6B)
