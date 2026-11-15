@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bits", type=int, default=3)
     parser.add_argument("--group-size", type=int, default=128)
     parser.add_argument("--self-kl-batches", type=int, default=4)
+    parser.add_argument("--checkpoint", default=None)
     parser.add_argument("--limit-batches", type=int, default=None)
     parser.add_argument("--out", required=True)
     return parser.parse_args()
@@ -78,6 +79,7 @@ def main() -> None:
 
     student = teacher
     quant_config = None
+    checkpoint_info = None
     if args.variant == "Q0":
         from qwen_qad.models import wrap_quantized_linears
 
@@ -87,6 +89,15 @@ def main() -> None:
         set_trainable_quantized_only(student)
         for parameter in student.parameters():
             parameter.requires_grad_(False)
+        if args.checkpoint:
+            from qwen_qad.checkpoint import load_checkpoint
+
+            payload = load_checkpoint(args.checkpoint, student, None, map_location="cpu")
+            checkpoint_info = {
+                "path": args.checkpoint,
+                "step": payload.get("step"),
+                "meta": payload.get("meta"),
+            }
         print(f"wrapped {len(replaced)} quantizable linear modules")
 
     teacher_lm = teacher.get_output_embeddings().weight.detach()
@@ -184,6 +195,7 @@ def main() -> None:
         "model": args.model,
         "revisions": revisions,
         "quantization": quant_config.to_dict() if quant_config else None,
+        "checkpoint": checkpoint_info,
         "eval_set": {
             "path": args.eval,
             "blocks_used": int(blocks.shape[0]),

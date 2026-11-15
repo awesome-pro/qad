@@ -73,6 +73,9 @@ def main() -> None:
     parser.add_argument("--min-new-tokens", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--configs", default="bf16,w3a16_g128,w3a16_g32,w4a16_g128")
+    parser.add_argument("--bits", type=int, default=None)
+    parser.add_argument("--group-size", type=int, default=None)
+    parser.add_argument("--checkpoint", default=None)
     parser.add_argument("--out", default="experiments/gate2/generation_diagnostics.json")
     args = parser.parse_args()
 
@@ -95,11 +98,19 @@ def main() -> None:
         spec = CONFIG_SPECS[name]
         model = load_model(args.model, args.revision, device=device, dtype=dtype)
         quant_config = None
+        checkpoint_info = None
         if spec is not None:
-            quant_config = QuantConfig(bits=spec["bits"], group_size=spec["group_size"])
+            bits = args.bits if args.bits is not None else spec["bits"]
+            group_size = args.group_size if args.group_size is not None else spec["group_size"]
+            quant_config = QuantConfig(bits=bits, group_size=group_size)
             wrap_quantized_linears(model, quant_config)
             set_trainable_quantized_only(model)
             set_quantization_enabled(model, True)
+            if args.checkpoint:
+                from qwen_qad.checkpoint import load_checkpoint
+
+                payload = load_checkpoint(args.checkpoint, model, None, map_location="cpu")
+                checkpoint_info = {"path": args.checkpoint, "step": payload.get("step")}
 
         records = []
         started = time.perf_counter()
@@ -142,6 +153,7 @@ def main() -> None:
 
         results[name] = {
             "quantization": quant_config.to_dict() if quant_config else None,
+            "checkpoint": checkpoint_info,
             "parameter_bytes": parameter_bytes(model),
             "records": records,
             "aggregate": {
@@ -172,7 +184,7 @@ def main() -> None:
     payload = {
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": git_commit(),
-        "model": {"id": args.model, "revisions": revisions},
+        "model": {"id": args.model, "revisions": revisions, "checkpoint": args.checkpoint},
         "tokenizer": {
             "id": args.model,
             "vocab_size": int(tokenizer.vocab_size),
