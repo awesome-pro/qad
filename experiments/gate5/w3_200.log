@@ -1,0 +1,239 @@
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4636.37it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 8316.62it/s]
+step 0 (Q0) validation: {'nll': 6.6221533715724945, 'perplexity': 751.5617475647969, 'kl': 3.908524975180626, 'tokens': 65472}
+step 1: loss=4.92243 lr=1.00e-06 grad=191.56 examples=4 tokens=4096 1.68s
+step 2: loss=3.13713 lr=1.50e-06 grad=84.80 examples=4 tokens=4096 1.44s
+step 3: loss=2.42518 lr=2.00e-06 grad=26.54 examples=4 tokens=4096 1.36s
+step 4: loss=1.80528 lr=2.50e-06 grad=20.12 examples=4 tokens=4096 1.43s
+step 5: loss=1.80263 lr=3.00e-06 grad=17.66 examples=4 tokens=4096 1.36s
+step 6: loss=1.53665 lr=3.50e-06 grad=17.12 examples=4 tokens=4096 1.36s
+step 7: loss=1.55184 lr=4.00e-06 grad=14.38 examples=4 tokens=4096 1.39s
+step 8: loss=1.44188 lr=4.50e-06 grad=15.18 examples=4 tokens=4096 1.40s
+step 9: loss=1.21856 lr=5.00e-06 grad=11.42 examples=4 tokens=4096 1.36s
+step 10: loss=1.24152 lr=5.50e-06 grad=13.13 examples=4 tokens=4096 1.42s
+step 11: loss=1.18826 lr=6.00e-06 grad=13.18 examples=4 tokens=4096 1.41s
+step 12: loss=1.14915 lr=6.50e-06 grad=11.67 examples=4 tokens=4096 1.38s
+step 13: loss=1.09298 lr=7.00e-06 grad=10.15 examples=4 tokens=4096 1.37s
+step 14: loss=1.04524 lr=7.50e-06 grad=9.87 examples=4 tokens=4096 1.42s
+step 15: loss=0.98636 lr=8.00e-06 grad=8.87 examples=4 tokens=4096 1.40s
+step 16: loss=1.06623 lr=8.50e-06 grad=9.78 examples=4 tokens=4096 1.37s
+step 17: loss=0.95970 lr=9.00e-06 grad=9.69 examples=4 tokens=3886 1.36s
+step 18: loss=0.96416 lr=9.50e-06 grad=8.92 examples=4 tokens=4096 1.39s
+step 19: loss=0.83955 lr=1.00e-05 grad=7.92 examples=4 tokens=4096 1.41s
+step 20: loss=0.84321 lr=1.00e-05 grad=8.23 examples=4 tokens=4096 1.37s
+step 21: loss=0.77712 lr=1.00e-05 grad=6.99 examples=4 tokens=4096 1.40s
+step 22: loss=0.76238 lr=1.00e-05 grad=6.47 examples=4 tokens=4096 1.38s
+step 23: loss=0.84716 lr=9.99e-06 grad=7.60 examples=4 tokens=4096 1.43s
+step 24: loss=0.76487 lr=9.99e-06 grad=6.83 examples=4 tokens=4096 1.40s
+step 25: loss=0.71854 lr=9.98e-06 grad=6.45 examples=4 tokens=4000 1.37s
+step 26: loss=0.78958 lr=9.97e-06 grad=7.14 examples=4 tokens=4096 1.37s
+step 27: loss=0.68720 lr=9.96e-06 grad=6.27 examples=4 tokens=4096 1.39s
+step 28: loss=0.68053 lr=9.95e-06 grad=5.70 examples=4 tokens=4096 1.36s
+step 29: loss=0.73233 lr=9.94e-06 grad=6.56 examples=4 tokens=4096 1.38s
+step 30: loss=0.70587 lr=9.92e-06 grad=6.37 examples=4 tokens=4096 1.37s
+step 31: loss=0.73900 lr=9.91e-06 grad=6.00 examples=4 tokens=4096 1.43s
+step 32: loss=0.68350 lr=9.89e-06 grad=6.62 examples=4 tokens=4096 1.42s
+step 33: loss=0.70995 lr=9.87e-06 grad=6.40 examples=4 tokens=4096 1.37s
+step 34: loss=0.65528 lr=9.85e-06 grad=5.49 examples=4 tokens=4096 1.38s
+step 35: loss=0.68540 lr=9.83e-06 grad=5.57 examples=4 tokens=4096 1.41s
+step 36: loss=0.60092 lr=9.81e-06 grad=5.32 examples=4 tokens=4096 1.43s
+step 37: loss=0.63412 lr=9.78e-06 grad=5.83 examples=4 tokens=4096 1.43s
+step 38: loss=0.62870 lr=9.76e-06 grad=5.78 examples=4 tokens=4096 1.39s
+step 39: loss=0.61796 lr=9.73e-06 grad=5.38 examples=4 tokens=4096 1.38s
+step 40: loss=0.63908 lr=9.70e-06 grad=6.33 examples=4 tokens=4096 1.43s
+step 41: loss=0.55721 lr=9.67e-06 grad=5.28 examples=4 tokens=4096 1.46s
+step 42: loss=0.63836 lr=9.64e-06 grad=5.89 examples=4 tokens=4096 1.34s
+step 43: loss=0.55947 lr=9.60e-06 grad=4.89 examples=4 tokens=4096 1.42s
+step 44: loss=0.56503 lr=9.57e-06 grad=5.64 examples=4 tokens=4096 1.40s
+step 45: loss=0.53538 lr=9.53e-06 grad=5.13 examples=4 tokens=4096 1.39s
+step 46: loss=0.57855 lr=9.49e-06 grad=5.15 examples=4 tokens=4096 1.41s
+step 47: loss=0.57883 lr=9.46e-06 grad=5.08 examples=4 tokens=4096 1.37s
+step 48: loss=0.59649 lr=9.41e-06 grad=5.08 examples=4 tokens=4096 1.43s
+step 49: loss=0.53803 lr=9.37e-06 grad=4.90 examples=4 tokens=4096 1.46s
+step 50: loss=0.60221 lr=9.33e-06 grad=5.00 examples=4 tokens=4096 1.50s
+step 50 validation: {'nll': 4.18355056643486, 'perplexity': 65.59835152451677, 'kl': 1.3362297341227531, 'tokens': 65472}
+step 51: loss=0.54326 lr=9.29e-06 grad=4.92 examples=4 tokens=4096 1.50s
+step 52: loss=0.54009 lr=9.24e-06 grad=4.70 examples=4 tokens=4096 1.39s
+step 53: loss=0.59141 lr=9.19e-06 grad=4.90 examples=4 tokens=4096 1.39s
+step 54: loss=0.58405 lr=9.15e-06 grad=5.11 examples=4 tokens=4096 1.44s
+step 55: loss=0.54008 lr=9.10e-06 grad=4.55 examples=4 tokens=4096 1.47s
+step 56: loss=0.54756 lr=9.05e-06 grad=29.71 examples=4 tokens=4096 1.42s
+step 57: loss=0.57385 lr=8.99e-06 grad=5.08 examples=4 tokens=4096 1.42s
+step 58: loss=0.51453 lr=8.94e-06 grad=5.10 examples=4 tokens=4096 1.44s
+step 59: loss=0.58315 lr=8.89e-06 grad=5.18 examples=4 tokens=4096 1.44s
+step 60: loss=0.57196 lr=8.83e-06 grad=5.08 examples=4 tokens=4096 1.41s
+step 61: loss=0.50722 lr=8.77e-06 grad=4.77 examples=4 tokens=4096 1.44s
+step 62: loss=0.52789 lr=8.72e-06 grad=4.75 examples=4 tokens=4096 1.37s
+step 63: loss=0.53305 lr=8.66e-06 grad=4.82 examples=4 tokens=4096 1.44s
+step 64: loss=0.50692 lr=8.60e-06 grad=4.62 examples=4 tokens=4096 1.44s
+step 65: loss=0.52012 lr=8.54e-06 grad=4.22 examples=4 tokens=4096 1.41s
+step 66: loss=0.51040 lr=8.47e-06 grad=4.21 examples=4 tokens=4096 1.48s
+step 67: loss=0.51774 lr=8.41e-06 grad=4.48 examples=4 tokens=4096 1.40s
+step 68: loss=0.55740 lr=8.35e-06 grad=5.06 examples=4 tokens=4096 1.45s
+step 69: loss=0.52511 lr=8.28e-06 grad=4.61 examples=4 tokens=4096 1.40s
+step 70: loss=0.53535 lr=8.21e-06 grad=4.60 examples=4 tokens=4096 1.42s
+step 71: loss=0.49060 lr=8.15e-06 grad=4.74 examples=4 tokens=4096 1.39s
+step 72: loss=0.48910 lr=8.08e-06 grad=4.36 examples=4 tokens=4096 1.43s
+step 73: loss=0.49979 lr=8.01e-06 grad=4.42 examples=4 tokens=4096 1.38s
+step 74: loss=0.50853 lr=7.94e-06 grad=4.71 examples=4 tokens=4096 1.45s
+step 75: loss=0.50797 lr=7.87e-06 grad=4.71 examples=4 tokens=4096 1.38s
+step 76: loss=0.55713 lr=7.80e-06 grad=5.01 examples=4 tokens=4096 1.41s
+step 77: loss=0.53326 lr=7.72e-06 grad=5.12 examples=4 tokens=4096 1.42s
+step 78: loss=0.47729 lr=7.65e-06 grad=4.41 examples=4 tokens=4096 1.40s
+step 79: loss=0.47295 lr=7.58e-06 grad=4.57 examples=4 tokens=4096 1.43s
+step 80: loss=0.42361 lr=7.50e-06 grad=4.05 examples=4 tokens=4015 1.39s
+step 81: loss=0.49922 lr=7.42e-06 grad=4.52 examples=4 tokens=4096 1.43s
+step 82: loss=0.49223 lr=7.35e-06 grad=4.46 examples=4 tokens=4096 1.39s
+step 83: loss=0.48048 lr=7.27e-06 grad=4.38 examples=4 tokens=4096 1.39s
+step 84: loss=0.49795 lr=7.19e-06 grad=4.58 examples=4 tokens=4096 1.41s
+step 85: loss=0.43845 lr=7.11e-06 grad=4.16 examples=4 tokens=4096 1.44s
+step 86: loss=0.44445 lr=7.03e-06 grad=4.10 examples=4 tokens=4096 1.43s
+step 87: loss=0.42315 lr=6.95e-06 grad=3.87 examples=4 tokens=4096 1.36s
+step 88: loss=0.51732 lr=6.87e-06 grad=4.69 examples=4 tokens=4096 1.42s
+step 89: loss=0.45520 lr=6.79e-06 grad=4.44 examples=4 tokens=4096 1.42s
+step 90: loss=0.44703 lr=6.71e-06 grad=4.18 examples=4 tokens=4096 1.44s
+step 91: loss=0.46463 lr=6.63e-06 grad=4.49 examples=4 tokens=4096 1.39s
+step 92: loss=0.46571 lr=6.55e-06 grad=4.20 examples=4 tokens=4096 1.41s
+step 93: loss=0.46674 lr=6.46e-06 grad=4.02 examples=4 tokens=4096 1.44s
+step 94: loss=0.50010 lr=6.38e-06 grad=4.36 examples=4 tokens=4096 1.38s
+step 95: loss=0.48030 lr=6.29e-06 grad=4.57 examples=4 tokens=4096 1.43s
+step 96: loss=0.48594 lr=6.21e-06 grad=4.46 examples=4 tokens=4096 1.46s
+step 97: loss=0.47519 lr=6.12e-06 grad=4.37 examples=4 tokens=4096 1.40s
+step 98: loss=0.45245 lr=6.04e-06 grad=4.17 examples=4 tokens=4096 1.42s
+step 99: loss=0.46604 lr=5.95e-06 grad=4.10 examples=4 tokens=4096 1.42s
+step 100: loss=0.42406 lr=5.87e-06 grad=4.06 examples=4 tokens=4096 1.40s
+step 100 validation: {'nll': 4.100902616977692, 'perplexity': 60.394776352924666, 'kl': 1.2263755053281784, 'tokens': 65472}
+step 101: loss=0.45190 lr=5.78e-06 grad=3.91 examples=4 tokens=4096 1.44s
+step 102: loss=0.47636 lr=5.70e-06 grad=4.86 examples=4 tokens=4096 1.40s
+step 103: loss=0.41861 lr=5.61e-06 grad=4.37 examples=4 tokens=4096 1.39s
+step 104: loss=0.44277 lr=5.52e-06 grad=4.33 examples=4 tokens=4096 1.43s
+step 105: loss=0.51836 lr=5.44e-06 grad=4.57 examples=4 tokens=4096 1.41s
+step 106: loss=0.48184 lr=5.35e-06 grad=4.40 examples=4 tokens=4096 1.45s
+step 107: loss=0.44911 lr=5.26e-06 grad=4.28 examples=4 tokens=4096 1.36s
+step 108: loss=0.41114 lr=5.17e-06 grad=4.14 examples=4 tokens=4096 1.44s
+step 109: loss=0.46366 lr=5.09e-06 grad=4.28 examples=4 tokens=4096 1.43s
+step 110: loss=0.46387 lr=5.00e-06 grad=4.16 examples=4 tokens=4096 1.48s
+step 111: loss=0.44538 lr=4.91e-06 grad=4.05 examples=4 tokens=4096 1.39s
+step 112: loss=0.42311 lr=4.83e-06 grad=4.17 examples=4 tokens=4096 1.40s
+step 113: loss=0.41489 lr=4.74e-06 grad=3.63 examples=4 tokens=4096 1.39s
+step 114: loss=0.45661 lr=4.65e-06 grad=4.18 examples=4 tokens=4096 1.46s
+step 115: loss=0.43178 lr=4.56e-06 grad=4.06 examples=4 tokens=4096 1.45s
+step 116: loss=0.39981 lr=4.48e-06 grad=3.83 examples=4 tokens=4096 1.41s
+step 117: loss=0.48396 lr=4.39e-06 grad=4.19 examples=4 tokens=4096 1.43s
+step 118: loss=0.45395 lr=4.30e-06 grad=4.36 examples=4 tokens=4096 1.40s
+step 119: loss=0.48229 lr=4.22e-06 grad=4.38 examples=4 tokens=4096 1.41s
+step 120: loss=0.48999 lr=4.13e-06 grad=4.87 examples=4 tokens=4096 1.42s
+step 121: loss=0.41607 lr=4.05e-06 grad=3.75 examples=4 tokens=4096 1.38s
+step 122: loss=0.39545 lr=3.96e-06 grad=3.80 examples=4 tokens=4096 1.41s
+step 123: loss=0.43720 lr=3.88e-06 grad=3.86 examples=4 tokens=4096 1.36s
+step 124: loss=0.39627 lr=3.79e-06 grad=3.66 examples=4 tokens=4096 1.37s
+step 125: loss=0.40552 lr=3.71e-06 grad=3.95 examples=4 tokens=4096 1.40s
+step 126: loss=0.44096 lr=3.62e-06 grad=4.11 examples=4 tokens=4096 1.45s
+step 127: loss=0.42617 lr=3.54e-06 grad=3.83 examples=4 tokens=4096 1.46s
+step 128: loss=0.42405 lr=3.45e-06 grad=4.00 examples=4 tokens=4096 1.39s
+step 129: loss=0.45932 lr=3.37e-06 grad=4.47 examples=4 tokens=4096 1.41s
+step 130: loss=0.37343 lr=3.29e-06 grad=3.36 examples=4 tokens=4096 1.41s
+step 131: loss=0.44079 lr=3.21e-06 grad=3.96 examples=4 tokens=4096 1.45s
+step 132: loss=0.43861 lr=3.13e-06 grad=4.03 examples=4 tokens=4096 1.41s
+step 133: loss=0.39859 lr=3.05e-06 grad=3.98 examples=4 tokens=4096 1.39s
+step 134: loss=0.43682 lr=2.97e-06 grad=4.02 examples=4 tokens=4096 1.40s
+step 135: loss=0.42492 lr=2.89e-06 grad=3.94 examples=4 tokens=4096 1.39s
+step 136: loss=0.48012 lr=2.81e-06 grad=4.38 examples=4 tokens=4096 1.37s
+step 137: loss=0.44890 lr=2.73e-06 grad=3.94 examples=4 tokens=4096 1.39s
+step 138: loss=0.39944 lr=2.65e-06 grad=3.82 examples=4 tokens=4096 1.42s
+step 139: loss=0.42285 lr=2.58e-06 grad=4.09 examples=4 tokens=4096 1.45s
+step 140: loss=0.42378 lr=2.50e-06 grad=3.84 examples=4 tokens=4096 1.43s
+step 141: loss=0.42219 lr=2.42e-06 grad=4.31 examples=4 tokens=4096 1.40s
+step 142: loss=0.41406 lr=2.35e-06 grad=3.99 examples=4 tokens=4096 1.45s
+step 143: loss=0.42959 lr=2.28e-06 grad=3.83 examples=4 tokens=4096 1.43s
+step 144: loss=0.42086 lr=2.20e-06 grad=3.72 examples=4 tokens=4096 1.45s
+step 145: loss=0.38550 lr=2.13e-06 grad=3.69 examples=4 tokens=4096 1.34s
+step 146: loss=0.44702 lr=2.06e-06 grad=4.04 examples=4 tokens=4096 1.45s
+step 147: loss=0.44309 lr=1.99e-06 grad=4.16 examples=4 tokens=4096 1.39s
+step 148: loss=0.43589 lr=1.92e-06 grad=3.73 examples=4 tokens=4075 1.39s
+step 149: loss=0.42122 lr=1.85e-06 grad=3.81 examples=4 tokens=4096 1.40s
+step 150: loss=0.38958 lr=1.79e-06 grad=4.48 examples=4 tokens=4096 1.45s
+step 150 validation: {'nll': 4.085220977663994, 'perplexity': 59.455074543206756, 'kl': 1.204178400337696, 'tokens': 65472}
+step 151: loss=0.37332 lr=1.72e-06 grad=3.45 examples=4 tokens=4096 1.40s
+step 152: loss=0.44096 lr=1.65e-06 grad=3.77 examples=4 tokens=4096 1.37s
+step 153: loss=0.41765 lr=1.59e-06 grad=4.06 examples=4 tokens=4096 1.39s
+step 154: loss=0.43194 lr=1.53e-06 grad=3.76 examples=4 tokens=4064 1.35s
+step 155: loss=0.45989 lr=1.46e-06 grad=4.17 examples=4 tokens=4096 1.40s
+step 156: loss=0.44125 lr=1.40e-06 grad=4.32 examples=4 tokens=4096 1.43s
+step 157: loss=0.42538 lr=1.34e-06 grad=4.02 examples=4 tokens=4096 1.45s
+step 158: loss=0.42298 lr=1.28e-06 grad=3.74 examples=4 tokens=4096 1.40s
+step 159: loss=0.39578 lr=1.23e-06 grad=3.75 examples=4 tokens=4096 1.39s
+step 160: loss=0.42975 lr=1.17e-06 grad=3.94 examples=4 tokens=4096 1.41s
+step 161: loss=0.40463 lr=1.11e-06 grad=3.55 examples=4 tokens=4096 1.40s
+step 162: loss=0.47231 lr=1.06e-06 grad=4.13 examples=4 tokens=4096 1.39s
+step 163: loss=0.37583 lr=1.01e-06 grad=3.34 examples=4 tokens=4096 1.43s
+step 164: loss=0.40466 lr=1.00e-06 grad=3.63 examples=4 tokens=4096 1.44s
+step 165: loss=0.38106 lr=1.00e-06 grad=3.63 examples=4 tokens=4096 1.45s
+step 166: loss=0.37970 lr=1.00e-06 grad=3.77 examples=4 tokens=4096 1.44s
+step 167: loss=0.42274 lr=1.00e-06 grad=4.26 examples=4 tokens=4096 1.41s
+step 168: loss=0.41368 lr=1.00e-06 grad=3.91 examples=4 tokens=4096 1.35s
+step 169: loss=0.41480 lr=1.00e-06 grad=3.88 examples=4 tokens=4096 1.40s
+step 170: loss=0.37635 lr=1.00e-06 grad=3.54 examples=4 tokens=4096 1.43s
+step 171: loss=0.39827 lr=1.00e-06 grad=4.18 examples=4 tokens=4096 1.43s
+step 172: loss=0.41457 lr=1.00e-06 grad=3.93 examples=4 tokens=4096 1.47s
+step 173: loss=0.41925 lr=1.00e-06 grad=3.95 examples=4 tokens=4096 1.40s
+step 174: loss=0.36326 lr=1.00e-06 grad=3.39 examples=4 tokens=4096 1.36s
+step 175: loss=0.41060 lr=1.00e-06 grad=3.90 examples=4 tokens=4096 1.43s
+step 176: loss=0.37939 lr=1.00e-06 grad=3.36 examples=4 tokens=4096 1.43s
+step 177: loss=0.36727 lr=1.00e-06 grad=3.59 examples=4 tokens=4096 1.38s
+step 178: loss=0.40040 lr=1.00e-06 grad=3.28 examples=4 tokens=4096 1.41s
+step 179: loss=0.44901 lr=1.00e-06 grad=4.54 examples=4 tokens=4096 1.43s
+step 180: loss=0.39651 lr=1.00e-06 grad=3.47 examples=4 tokens=4096 1.40s
+step 181: loss=0.39722 lr=1.00e-06 grad=3.90 examples=4 tokens=4096 1.40s
+step 182: loss=0.45983 lr=1.00e-06 grad=4.09 examples=4 tokens=4096 1.36s
+step 183: loss=0.41486 lr=1.00e-06 grad=3.99 examples=4 tokens=4096 1.46s
+step 184: loss=0.38956 lr=1.00e-06 grad=3.55 examples=4 tokens=4096 1.43s
+step 185: loss=0.41465 lr=1.00e-06 grad=3.77 examples=4 tokens=4096 1.42s
+step 186: loss=0.42580 lr=1.00e-06 grad=3.76 examples=4 tokens=4096 1.43s
+step 187: loss=0.39217 lr=1.00e-06 grad=3.40 examples=4 tokens=4096 1.39s
+step 188: loss=0.44790 lr=1.00e-06 grad=4.70 examples=4 tokens=4096 1.44s
+step 189: loss=0.39863 lr=1.00e-06 grad=3.87 examples=4 tokens=4096 1.43s
+step 190: loss=0.44267 lr=1.00e-06 grad=3.60 examples=4 tokens=4096 1.46s
+step 191: loss=0.44754 lr=1.00e-06 grad=3.75 examples=4 tokens=4096 1.47s
+step 192: loss=0.42198 lr=1.00e-06 grad=3.76 examples=4 tokens=4096 1.45s
+step 193: loss=0.44285 lr=1.00e-06 grad=4.12 examples=4 tokens=4096 1.44s
+step 194: loss=0.48563 lr=1.00e-06 grad=4.23 examples=4 tokens=4096 1.41s
+step 195: loss=0.41107 lr=1.00e-06 grad=3.64 examples=4 tokens=4096 1.45s
+step 196: loss=0.42952 lr=1.00e-06 grad=4.04 examples=4 tokens=4096 1.38s
+step 197: loss=0.40698 lr=1.00e-06 grad=3.86 examples=4 tokens=4096 1.35s
+step 198: loss=0.38640 lr=1.00e-06 grad=3.65 examples=4 tokens=4096 1.43s
+step 199: loss=0.43025 lr=1.00e-06 grad=3.71 examples=4 tokens=4096 1.39s
+step 200: loss=0.44954 lr=1.00e-06 grad=4.40 examples=4 tokens=4096 1.46s
+step 200 validation: {'nll': 4.077882185578346, 'perplexity': 59.020343265069116, 'kl': 1.1935256607830524, 'tokens': 65472}
+{
+  "teacher_gradients_absent": true,
+  "student_gradients_finite": true,
+  "quantized_forward_active": true,
+  "loss_finite": true,
+  "aborted": null
+}
+checkpoint: {'saved': True, 'path': 'checkpoints/w3g128_200_step200.pt', 'bytes': 5596427667, 'keys_match': True, 'sample_key': 'model.layers.0.self_attn.q_proj.weight', 'sample_max_abs_diff': 0.0, 'optimizer_state_present': True}
+written experiments/gate3/w3g128_200.json
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6093.61it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 7953.74it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 4.083446439355612,
+  "perplexity": 59.349662792059085,
+  "forward_kl_teacher_student": 1.2007926749065518
+}
+tokens=261,888 elapsed=23.4s (11174 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate5/eval_w3g128_200.json
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6642.00it/s]
+{
+  "accuracy": 0.0,
+  "correct": 0,
+  "parsed": 25,
+  "parse_rate": 0.25,
+  "mean_response_len": 344.17,
+  "elapsed_seconds": 69.58789452910423
+}
+written experiments/gate5/gsm8k_w3g128_200.json
+W3_200_DONE

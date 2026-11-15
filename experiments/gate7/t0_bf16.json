@@ -1,0 +1,63 @@
+{
+  "created_utc": "2026-11-15T07:04:31.653115+00:00",
+  "git_commit": "d34b5a1171d643480d001bf06d86ccd44cfd2733",
+  "variant": "T0",
+  "model": "Qwen/Qwen3-1.7B",
+  "revisions": {
+    "requested": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "resolved_model_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "resolved_tokenizer_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "last_modified": "2025-07-26T03:46:32+00:00",
+    "source": "huggingface_hub.model_info"
+  },
+  "quantization": null,
+  "checkpoint": null,
+  "eval_set": {
+    "path": "data/cache/eval/fineweb_eval_ids.npy",
+    "blocks_used": 256,
+    "blocks_available": 256,
+    "block_size": 1024,
+    "tokens_scored": 261888,
+    "ids_sha256": "8676a899c75bb6848519ce9b1f7332cbaa14cc9f6446832250f431292b53aa65",
+    "limited": false
+  },
+  "device": "cuda",
+  "dtype": "bfloat16",
+  "metrics": {
+    "nll": 2.8326699174940586,
+    "perplexity": 16.99076425814433,
+    "forward_kl_teacher_student": 0.0
+  },
+  "teacher_self_kl": {
+    "computed": true,
+    "two_pass_mean": 0.0,
+    "two_pass_max_batch": 0.0,
+    "batches": 4,
+    "tokens": 16368,
+    "note": "computed between two independent forward passes on the same batch"
+  },
+  "elapsed_seconds": 23.26029850798659,
+  "tokens_per_second": 11259.012858759266,
+  "memory": {
+    "device_type": "cuda",
+    "start_allocated_bytes": 3441689600,
+    "end_allocated_bytes": 3517423104,
+    "peak_bytes": 4606501376,
+    "peak_method": "torch.cuda.max_memory_allocated",
+    "driver_allocated_bytes_at_end": 4936695808,
+    "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead.",
+    "parameter_bytes": {
+      "teacher": 3441149952,
+      "student": 3441149952,
+      "note": "teacher and student are the same object for T0"
+    }
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "transformers": "5.23.0"
+  },
+  "gpu": "NVIDIA RTX A6000",
+  "warnings": []
+}

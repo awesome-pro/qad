@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** Gates 0–5 complete on Qwen3-0.6B W4A16-G128 (single seed): baseline, Q1 offline QAD, Q2 on-policy QAD at matched budget, checkpoint evaluation, and a 100-example GSM8K check. 109 tests collected (108 pass, 1 CUDA-only skip). See §6.4–6.6 and `reports/findings.md`; no publication claims yet.
+- **Status:** Gates 0–6 complete on Qwen3-0.6B W4A16-G128, including a second seed, a rollout-length ablation, a W3-G128 QAD probe, and an exploratory 1.7B arm. 109 tests collected (108 pass, 1 CUDA-only skip). See §6.4–6.7 and `reports/findings.md`; no publication claims yet.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -550,6 +550,51 @@ Held-out set (261,888 tokens), forward-KL QAD, no CE term:
 - Cost: Q1-200 313 s / 818,760 response tokens / 14.6 GiB; Q2-25 308 s /
   101,499 tokens / 14.0 GiB; checkpoints 5.3–5.6 GB each (not committed).
 Full write-up: `reports/findings.md`.
+
+---
+
+### 6.7 Replication and exploratory 1.7B
+
+**Second seed (43), 25-step matched arms (0.6B):** NLL/KL and the GSM8K ordering
+replicate. Q1-128: NLL 3.2938, PPL 26.95, KL 0.3015, GSM8K 16% (seed 42:
+3.2942 / 26.96 / 0.3009 / 13%). Q2: 3.2989 / 27.08 / 0.3083 / 18% (seed 42:
+3.3021 / 27.17 / 0.3124 / 16%). Offline remains slightly better on NLL/KL;
+on-policy remains 2–3 GSM8K points better.
+
+**Second seed, 200-step arms:** Q1 3.2634 / 26.14 / 0.2534 / 28% GSM;
+Q2 3.2645 / 26.17 / 0.2640 / 22% GSM. Compared with seed 42 (Q1 3.2688 / 26.28
+/ 0.2532 / 28%; Q2 3.2676 / 26.25 / 0.2646 / 14%): Q1/Q2 tied on NLL both seeds,
+Q1 better on KL both seeds, Q1 at least as good on GSM8K both seeds. On-policy
+is not better, and its GSM8K result is less stable (14% vs 22%).
+
+**Rollout-length ablation (25 steps, ~102,400 tokens):** 128 → 256-token
+responses raises Q1 from 26.96 PPL / 0.3009 KL / 13% GSM to 26.81 / 0.2895 /
+15%, and Q2 from 27.17 / 0.3124 / 16% to 27.11 / 0.3032 / 18%. The ordering is
+unchanged; the 128-token cap is not the whole explanation for Q2's 200-step
+GSM8K collapse.
+
+**W3A16-G128 QAD probe (offline):** PPL 723.98 → 83.56 after 25 steps
+(NLL 4.4256, KL 1.5954, GSM 3%) and → 59.35 after 200 steps (NLL 4.0834,
+KL 1.2008, GSM 0% with 25% parse). Likelihood recovers by an order of magnitude
+but generation remains unusable; W4 is still the only viable generative
+initialization in this pilot.
+
+**Exploratory 1.7B (A6000 48 GB, single seed):**
+
+| Variant | NLL | PPL | KL | GSM8K |
+|---|---:|---:|---:|---:|
+| T0 BF16 | 2.8327 | 16.99 | 0.0000 | 36% |
+| Q0 W4-G128 | 2.9935 | 19.96 | 0.2516 | 16% |
+| Q1-200 | 2.8812 | 17.84 | 0.1839 | 27% |
+| Q2-25 | 2.8947 | 18.08 | 0.2091 | 19% |
+
+- W4 RTN costs 2.97 PPL (17.5%, vs 37% at 0.6B); Q1-200 recovers 71% of the
+  PPL gap and 55% of the GSM8K gap.
+- Q2-25 (102,400 tokens, 14% of Q1's 725,916) improves over Q0 but trails Q1,
+  the same ordering as 0.6B.
+- Q1 training 572 s / 37.7 GiB peak / 17.5 GB checkpoint; Q2 36.2 GiB.
+- Q1 used max_seq_len 1536, so response tokens are fewer than the 0.6B run;
+  this is an exploratory arm, not a matched-budget 1.7B comparison.
 
 ---
 

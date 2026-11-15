@@ -1,0 +1,62 @@
+{
+  "created_utc": "2026-11-15T07:05:13.955019+00:00",
+  "git_commit": "d34b5a1171d643480d001bf06d86ccd44cfd2733",
+  "variant": "Q0",
+  "model": "Qwen/Qwen3-1.7B",
+  "revisions": {
+    "requested": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "resolved_model_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "resolved_tokenizer_sha": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "last_modified": "2025-07-26T03:46:32+00:00",
+    "source": "huggingface_hub.model_info"
+  },
+  "quantization": {
+    "bits": 4,
+    "group_size": 128,
+    "granularity": "per_group",
+    "scheme": "symmetric",
+    "scale_floor": 1e-08
+  },
+  "checkpoint": null,
+  "eval_set": {
+    "path": "data/cache/eval/fineweb_eval_ids.npy",
+    "blocks_used": 256,
+    "blocks_available": 256,
+    "block_size": 1024,
+    "tokens_scored": 261888,
+    "ids_sha256": "8676a899c75bb6848519ce9b1f7332cbaa14cc9f6446832250f431292b53aa65",
+    "limited": false
+  },
+  "device": "cuda",
+  "dtype": "bfloat16",
+  "metrics": {
+    "nll": 2.9935033544898033,
+    "perplexity": 19.955471262627256,
+    "forward_kl_teacher_student": 0.25159609387628734
+  },
+  "teacher_self_kl": null,
+  "elapsed_seconds": 34.801912454888225,
+  "tokens_per_second": 7525.103694788922,
+  "memory": {
+    "device_type": "cuda",
+    "start_allocated_bytes": 9701951488,
+    "end_allocated_bytes": 15414796288,
+    "peak_bytes": 16503874560,
+    "peak_method": "torch.cuda.max_memory_allocated",
+    "driver_allocated_bytes_at_end": 18150850560,
+    "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead.",
+    "parameter_bytes": {
+      "teacher": 3441149952,
+      "student": 6259722240,
+      "note": "teacher and quantized student are separate objects"
+    }
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "transformers": "5.23.0"
+  },
+  "gpu": "NVIDIA RTX A6000",
+  "warnings": []
+}

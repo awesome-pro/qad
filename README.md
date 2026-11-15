@@ -35,6 +35,7 @@ normalization layers, attention biases (none in Qwen3).
 | 3. Offline QAD on W4A16-G128, checkpoint round-trip | **done** (Q1-200: ppl 26.28, GSM8K 28%) |
 | 4. Rollouts + on-policy Q2 | **done** (200 steps: ppl 26.25, GSM8K 14%; matched 25-step arm ppl 27.17, GSM8K 16%) |
 | 5. Benchmark subset + report | **done** (100 GSM8K, `reports/findings.md`) |
+| 5b. Second seed + ablation + 1.7B + W3 probe | **done** (seed-43 replicates; 256-token ablation; 1.7B Q1-200 17.84 ppl / 27% GSM; W3 QAD 59.35 ppl but 0% GSM) |
 
 Gate 2 confirms the order on CUDA (A5000 24 GB, full 256-block held-out set):
 BF16 ppl 22.26, W4A16-G128 30.59, W3A16-G32 94.44, W3A16-G128 723.98.

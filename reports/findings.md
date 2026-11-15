@@ -53,7 +53,29 @@ Q1-200 closes about half of the RTN NLL gap (0.318 → 0.152 recovered). At the
 matched 25-step budget, offline is slightly better than on-policy on both NLL
 (3.2942 vs 3.3021) and KL (0.3009 vs 0.3124). At 200 steps and ~819K response
 tokens, the two are effectively tied on NLL/PPL (difference 0.001–0.003), with
-offline slightly better on teacher KL. Single seed.
+offline slightly better on teacher KL.
+
+**Second-seed replication (seed 43, 25-step matched arms):**
+
+| Arm | NLL seed 42 | NLL seed 43 | PPL 42/43 | KL 42/43 | GSM8K 42/43 |
+|---|---:|---:|---:|---:|---:|
+| Q1-128-m25 | 3.2942 | 3.2938 | 26.96 / 26.95 | 0.3009 / 0.3015 | 13% / 16% |
+| Q2-m25 | 3.3021 | 3.2989 | 27.17 / 27.08 | 0.3124 / 0.3083 | 16% / 18% |
+
+The NLL/KL ordering replicates (offline slightly better); the GSM8K ordering
+also replicates (on-policy +2–3 points). Both differences remain small and
+single-seed-per-arm, but they are consistent across seeds.
+
+**Second-seed replication (200-step arms, ~819K response tokens):**
+
+| Arm | NLL 42 / 43 | PPL 42 / 43 | KL 42 / 43 | GSM8K 42 / 43 |
+|---|---:|---:|---:|---:|
+| Q1-200 | 3.2688 / 3.2634 | 26.28 / 26.14 | 0.2532 / 0.2534 | 28% / 28% |
+| Q2-200 | 3.2676 / 3.2645 | 26.25 / 26.17 | 0.2646 / 0.2640 | 14% / 22% |
+
+At 200 steps Q1 and Q2 are tied on NLL/PPL in both seeds; Q1 is better on KL in
+both. Q1's GSM8K is 28% in both seeds; Q2 is unstable (14% / 22%) and below Q1
+in both. There is no evidence that on-policy helps here.
 
 ## 4. Generative quality
 
@@ -91,6 +113,56 @@ of the quantized students even though it is the worst on GSM8K. Repetition
 metrics and task accuracy dissociate here. No config emitted EOS within
 256 tokens, so premature-EOS is uninformative at this cap.
 
+### Rollout-length ablation (25 steps, ~102,400 response tokens)
+
+| Arm | 128-token rollouts (PPL / KL / GSM8K) | 256-token rollouts (PPL / KL / GSM8K) |
+|---|---|---|
+| Q1 (gold prefixes) | 26.96 / 0.3009 / 13% | 26.81 / 0.2895 / 15% |
+| Q2 (student rollouts) | 27.17 / 0.3124 / 16% | 27.11 / 0.3032 / 18% |
+
+Doubling the rollout length improves both arms slightly and does not change the
+ordering: Q1 still wins NLL/KL, Q2 still wins GSM8K by 3 points. The 200-step
+Q2 GSM8K collapse (14%) is therefore not explained by the 128-token cap alone;
+training duration on short self-generated rollouts matters.
+
+### Exploratory 1.7B (A6000 48 GB, single seed)
+
+Same data and W4A16-G128 recipe; Q1-200 uses `max_seq_len=1536` (responses
+truncated to fit), Q2 is a 25-step/102,400-token pipeline check.
+
+| Variant | NLL | PPL | KL | GSM8K |
+|---|---:|---:|---:|---:|
+| T0 BF16 | 2.8327 | 16.99 | 0.0000 | 36% |
+| Q0 W4-G128 | 2.9935 | 19.96 | 0.2516 | 16% |
+| Q1-200 | 2.8812 | 17.84 | 0.1839 | 27% |
+| Q2-25 | 2.8947 | 18.08 | 0.2091 | 19% |
+
+- W4 RTN costs 2.97 PPL (17.5%); Q1-200 recovers 71% of that gap and 55% of the
+  GSM8K gap (16% → 27%, T0 36%).
+- Q2-25 (14% of Q1's tokens) improves over Q0 but trails Q1, consistent with
+  the 0.6B ordering: longer offline recovery is stronger; short on-policy does
+  not beat it.
+- Training: Q1 572 s, 725,916 response tokens, 37.7 GiB peak, 17.5 GB
+  checkpoint; Q2-25 102,400 tokens, 36.2 GiB. All assertions passed.
+
+### W3A16-G128 QAD probe (0.6B, offline)
+
+The earlier diagnosis treated W3-G128 RTN as unrecoverable. A short QAD probe
+shows that likelihood recovers strongly, but generation does not:
+
+| Variant | NLL | PPL | KL | GSM8K |
+|---|---:|---:|---:|---:|
+| W3 Q0 RTN | 6.5848 | 723.98 | 3.8674 | 1% |
+| W3 Q1-25 (128-token gold) | 4.4256 | 83.56 | 1.5954 | 3% (parse 83%) |
+| W3 Q1-200 (1,024-token gold) | 4.0834 | 59.35 | 1.2008 | 0% (parse 25%) |
+
+- QAD cuts W3 PPL by an order of magnitude (724 → 59) but plateaus far above
+  W4 Q0 (30.6), and the 200-step student cannot produce parseable GSM8K answers
+  (25% parse, 0% correct).
+- W3-G128 is therefore **partially recoverable in likelihood but not a viable
+  generative initialization** with this recipe. W4 remains the tractable arm;
+  a stronger W3 init would need a separate decision.
+
 ## 5. Cost, memory, artifacts
 
 | Run | GPU time | Response tokens | Peak GPU | Checkpoint |
@@ -99,6 +171,9 @@ metrics and task accuracy dissociate here. No config emitted EOS within
 | Q2-m25 | 308 s | 101,499 | 14.0 GiB | 5.6 GB |
 | Q1-200 | 313 s | 818,760 | 14.6 GiB | 5.3 GB |
 | Q2-200 | 2,382 s | 818,374 | 14.0 GiB | 5.6 GB |
+| Q1-256-m25 | 95 s | 102,400 | 11.9 GiB | 5.6 GB |
+| Q2-len256-m25 | 328 s | 102,384 | 13.6 GiB | 5.6 GB |
+| W3 Q1-200 | 312 s | 818,760 | 14.6 GiB | 5.6 GB |
 
 Checkpoints stay on the pod and are not committed. The 24 GB card is sufficient
 for 0.6B QAD at 2,048-token sequences with microbatches of one.
@@ -115,33 +190,47 @@ for 0.6B QAD at 2,048-token sequences with microbatches of one.
 - At a matched ~102K-token, 128-token-response budget, offline beats on-policy
   on NLL/KL but loses 3 GSM8K points; neither difference is decisive.
 - At the 200-step, ~819K-token budget, offline and on-policy are tied on
-  held-out NLL/PPL (3.2688/26.28 vs 3.2676/26.25), offline is better on KL
-  (0.2532 vs 0.2646), and offline is twice as accurate on GSM8K (28% vs 14%).
+  held-out NLL/PPL in both seeds; offline is better on KL in both. GSM8K:
+  Q1 28%/28%, Q2 14%/22% — on-policy is below offline in both seeds and
+  unstable. There is no evidence that on-policy helps at this scale.
 - Q2-200 is the cleanest generation of the quantized arms (4-gram repetition
   0.050 vs 0.067 Q1, 0.117 Q0) while being the worst on GSM8K.
+- The 25-step ordering replicates across seeds: Q1 better on NLL/KL, Q2 better
+  on GSM8K by 2–3 points.
+- Doubling rollouts to 256 tokens at 25 steps raises Q1 to 26.81 PPL / 15% GSM
+  and Q2 to 27.11 / 18%; the ordering is unchanged, so the 128-token cap is not
+  the whole explanation for Q2's 200-step GSM8K collapse.
+- W3A16-G128 QAD recovers likelihood by an order of magnitude (PPL 724 → 59
+  after 200 steps) but remains unusable generatively (0% GSM8K, 25% parse).
+  W4 is still the only viable generative initialization in this pilot.
+- At 1.7B, W4 RTN is less damaging (17.5% PPL vs 37% at 0.6B), Q1-200 recovers
+  most of it, and short Q2 again trails Q1.
 
 **Hypothesis (not established):**
-- The 25-step on-policy GSM8K edge did not persist: with 200 steps, 128-token
-  rollouts appear to train short/truncated reasoning behaviour that helps
-  repetition and plain-text likelihood but hurts a 512-token thinking benchmark.
-  A rollout-length ablation (longer rollouts, fewer steps) would test this.
-- W3A16-G128 RTN is not recoverable by the same recipe; no QAD run was made at
-  W3 in this pilot.
-- A stronger initialization (GPTQ/AWQ, block-wise QAT) would close more of the
-  gap; outside this pilot's scope.
+- The 25-step on-policy GSM8K edge did not persist at 200 steps: short
+  self-generated rollouts may train behaviour that helps repetition and
+  plain-text likelihood but hurts a 512-token thinking benchmark. The 256-token
+  ablation helps slightly but does not reverse the ordering; longer rollouts
+  combined with longer training remain untested.
+- W3-G128 likelihood recovery plateaus around PPL 59 while generation collapses;
+  the bottleneck may be representational capacity, not the recovery objective.
+- A stronger initialization (GPTQ/AWQ, block-wise QAT) could close more of the
+  W3 gap; outside this pilot's scope.
 
 ## 7. Limitations
 
-- Single seed, one model size (0.6B), one quantization scheme (W4-G128).
+- One quantization scheme (W4-G128) for the main study; two seeds for the
+  0.6B arms, single seed for 1.7B and W3.
 - GSM8K subset is 100 examples with a 512-token thinking cap; ±4–5 point noise.
-- Q2 rollouts are 128 tokens because HF generation throughput on the A5000 was
-  the binding constraint; Q1-200 used 1,024-token gold completions, so the
-  200-step arms are token-matched but not length-matched.
+- Q2 rollouts are 128 tokens for the 200-step runs (256 only in the 25-step
+  ablation); Q1-200 used 1,024-token gold completions, so the 200-step arms are
+  token-matched but not length-matched.
+- 1.7B Q1 used `max_seq_len=1536` (725,916 response tokens) and Q2 only 25
+  steps/102,400 tokens; it is an exploratory arm, not matched to 0.6B.
 - Gold completions were truncated at 1,024 tokens (2,979/3,000); Q1 learns from
   prefixes, not full traces.
-- No MMLU/MATH/IFEval, no 1.7B run, no packed INT4 export, no vLLM/real speed
-  measurement. Fake quantization gives no serving speedup and must not be
-  presented as such.
+- No MMLU/MATH/IFEval, no packed INT4 export, no vLLM/real speed measurement.
+  Fake quantization gives no serving speedup and must not be presented as such.
 - Checkpoints are not retained in the repository.
 
 ## 8. Reproduction
@@ -177,10 +266,11 @@ Artifacts: `experiments/gate2` (baseline), `gate3` (offline), `gate4`
 
 ## 9. Follow-ups
 
-1. Run a rollout-length ablation at fixed response-token budget (e.g. 4 prompts
-   x 512 tokens x 25 steps) to test whether Q2's GSM8K collapse is caused by the
-   128-token rollout cap.
-2. Add a second seed for Q1-200 and Q2-200; the GSM8K 28% vs 14% gap is large
-   enough to justify replication before any claim.
-3. If more budget: 1.7B W4, W3 with a stronger initialization, and a real packed
-   INT4 export.
+1. Run Q2-200 with 256–512-token rollouts (longer training, not just the
+   25-step ablation) to test whether the GSM8K collapse is caused by rollout
+   length or by prolonged training on self-generated data.
+2. Decide whether a stronger W3 initialization (GPTQ/AWQ, block-wise QAT) is
+   worth pursuing; W3 QAD recovers likelihood but not generation, so the
+   deployment case for W3-G128 remains weak.
+3. If more budget: 1.7B Q2 matched budget, then a real packed INT4 export and
+   one objective benchmark beyond GSM8K (MMLU-Redux or MATH).
