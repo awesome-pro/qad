@@ -6,13 +6,13 @@
 
 | config | mean tokens | repetition(4g) | premature EOS | hit cap | empty | EOS rate |
 |---|---:|---:|---:|---:|---:|---:|
-| w4a16_g128 | 256 | 0.053 | 0/8 | 8/8 | 0/8 | 0.0% |
+| w4a16_g128 | 256 | 0.050 | 0/8 | 8/8 | 0/8 | 0.0% |
 
 ## Examples
 
 ### w4a16_g128
 - prompt: 'Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function a'
-  - "<think>\nOkay, let's try to figure out how to solve this problem. The task is to determine if the Chef, head server, and sous-chef can communicate with each other using the transceivers, even if they are too far apart. The key here is understanding the communication rules and then checking if the given positions satisfy the necessary conditions.\n\nFirst, let's restate the problem. The three people are at positions (X1, Y1), (X2, Y2), and (X3, Y3). They can communicate directly if their positions a"
+  - "<think>\nOkay, let's try to figure out how to solve this problem. The task is to determine if the Chef, head server, and sous-chef can communicate with each other using the transceivers, even if two are too far apart. \n\nFirst, I need to understand the problem. The key points are:\n\n- Each person has two transceivers. But they can communicate directly if they are within R meters. If they are too far apart, they need another one to act as an intermediate. But how do we check if such a scenario is po"
 - prompt: 'Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function a'
-  - "<think>\nOkay, let's see. The problem is to write a Python function that takes input lines of numbers A and B, computes their GCD, and prints the result. The function should be called after defining it. The function given is the Euclidean algorithm. \n\nFirst, I need to understand the problem. The task is to create an efficient code that can handle cases where A and B can be up to 40000 and B is up to 10^250, which is a huge number. So, the straightforward approach of using the Euclidean algorithm "
+  - "<think>\nOkay, let's see. The task is to write a Python function that reads input numbers A and B, computes their GCD, and prints the result for each pair. The input has two lines, and for each line, we need to output the GCD.\n\nFirst, I remember that the Euclidean algorithm is efficient, but when dealing with very large integers (like up to 250 digits), we can't just use the built-in GCD function because that's not efficient. Wait, but in Python, the built-in GCD function is implemented with the "
 

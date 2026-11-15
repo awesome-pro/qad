@@ -1,8 +1,8 @@
 # Findings — Qwen3-0.6B W4A16-G128 QAD pilot
 
-**Status:** first pilot result, single seed, 2026-11-15. Not a publication-ready
-claim. W4A16-G128 only; W3A16-G128 remains un-recovered and is the aggressive
-baseline.
+**Status:** complete first pilot, single seed, 2026-11-15. Not a
+publication-ready claim. W4A16-G128 only; W3A16-G128 remains un-recovered and
+is the aggressive baseline.
 
 ## 1. Question
 
@@ -32,7 +32,7 @@ Training arms:
 | Q1-200 | 200 | gold completions | 818,760 | 1,024 |
 | Q1-128-m25 | 25 | gold completions (capped) | 102,400 | 128 |
 | Q2-m25 | 25 | student rollouts | 101,499 | 128 |
-| Q2-200 | 200 | student rollouts | *in progress* | 128 |
+| Q2-200 | 200 | student rollouts | 818,374 | 128 |
 
 Q2 generation: temperature 0.6, top_p 0.95, top_k 20, 32 prompts/step, max 128
 new tokens, fresh rollouts every step. Q1/Q2 25-step arms are matched at
@@ -46,12 +46,14 @@ new tokens, fresh rollouts every step. Q1/Q2 25-step arms are matched at
 | Q0 W4A16-G128 (RTN) | 3.4207 | 30.59 | 0.4057 |
 | Q1-128-m25 (offline) | 3.2942 | 26.96 | 0.3009 |
 | Q2-m25 (on-policy) | 3.3021 | 27.17 | 0.3124 |
-| Q1-200 (offline) | **3.2688** | **26.28** | **0.2532** |
+| Q1-200 (offline) | 3.2688 | 26.28 | **0.2532** |
+| Q2-200 (on-policy) | **3.2676** | **26.25** | 0.2646 |
 
 Q1-200 closes about half of the RTN NLL gap (0.318 → 0.152 recovered). At the
 matched 25-step budget, offline is slightly better than on-policy on both NLL
-(3.2942 vs 3.3021) and KL (0.3009 vs 0.3124); the difference is small and
-single-seed.
+(3.2942 vs 3.3021) and KL (0.3009 vs 0.3124). At 200 steps and ~819K response
+tokens, the two are effectively tied on NLL/PPL (difference 0.001–0.003), with
+offline slightly better on teacher KL. Single seed.
 
 ## 4. Generative quality
 
@@ -64,11 +66,15 @@ single-seed.
 | Q1-128-m25 | 13% | 99% | 512 |
 | Q2-m25 | **16%** | 100% | 512 |
 | Q1-200 | **28%** | 98% | 506 |
+| Q2-200 | 14% | 97% | 506 |
 
-QAD recovers most of the generative damage (Q0 1% → Q1-200 28%, T0 33%). At the
-matched 25-step budget, on-policy is 3 points better than offline (16% vs 13%),
-the opposite ordering from NLL/KL. With 100 examples the standard error is about
-±4–5 points, so this is suggestive, not conclusive.
+QAD recovers most of the generative damage for offline Q1 (Q0 1% → Q1-200 28%,
+T0 33%). At the matched 25-step budget, on-policy is 3 points better than
+offline (16% vs 13%), the opposite ordering from NLL/KL. But at 200 steps this
+reverses sharply: Q1-200 28% vs Q2-200 14%, despite nearly identical held-out
+NLL/PPL. With 100 examples the standard error is about ±4–5 points, so the
+25-step difference is suggestive; the 200-step gap is large enough to matter.
+Q2's 200-step result is *worse* than its 25-step result (16% → 14%).
 
 ### Fixed-prompt repetition, 8 prompts, 256 tokens
 
@@ -78,8 +84,11 @@ the opposite ordering from NLL/KL. With 100 examples the standard error is about
 | Q0 W4A16-G128 | 0.117 | 0.697 | 8/8 |
 | Q1-200 | 0.067 | 0.780 | 8/8 |
 | Q2-m25 | 0.053 | 0.778 | 8/8 |
+| Q2-200 | **0.050** | **0.789** | 8/8 |
 
-Both QAD arms move generation back toward BF16. No config emitted EOS within
+Both QAD arms move generation back toward BF16; Q2-200 is the least repetitive
+of the quantized students even though it is the worst on GSM8K. Repetition
+metrics and task accuracy dissociate here. No config emitted EOS within
 256 tokens, so premature-EOS is uninformative at this cap.
 
 ## 5. Cost, memory, artifacts
@@ -89,7 +98,7 @@ Both QAD arms move generation back toward BF16. No config emitted EOS within
 | Q1-128-m25 | 164 s | 102,400 | 11.3 GiB | 5.6 GB |
 | Q2-m25 | 308 s | 101,499 | 14.0 GiB | 5.6 GB |
 | Q1-200 | 313 s | 818,760 | 14.6 GiB | 5.3 GB |
-| Q2-200 | *in progress* | ~819K | — | — |
+| Q2-200 | 2,382 s | 818,374 | 14.0 GiB | 5.6 GB |
 
 Checkpoints stay on the pod and are not committed. The 24 GB card is sufficient
 for 0.6B QAD at 2,048-token sequences with microbatches of one.
@@ -105,10 +114,17 @@ for 0.6B QAD at 2,048-token sequences with microbatches of one.
   refresh every step.
 - At a matched ~102K-token, 128-token-response budget, offline beats on-policy
   on NLL/KL but loses 3 GSM8K points; neither difference is decisive.
+- At the 200-step, ~819K-token budget, offline and on-policy are tied on
+  held-out NLL/PPL (3.2688/26.28 vs 3.2676/26.25), offline is better on KL
+  (0.2532 vs 0.2646), and offline is twice as accurate on GSM8K (28% vs 14%).
+- Q2-200 is the cleanest generation of the quantized arms (4-gram repetition
+  0.050 vs 0.067 Q1, 0.117 Q0) while being the worst on GSM8K.
 
 **Hypothesis (not established):**
-- On-policy data may help generative behavior more than likelihood at this
-  scale, but this needs multiple seeds and more examples.
+- The 25-step on-policy GSM8K edge did not persist: with 200 steps, 128-token
+  rollouts appear to train short/truncated reasoning behaviour that helps
+  repetition and plain-text likelihood but hurts a 512-token thinking benchmark.
+  A rollout-length ablation (longer rollouts, fewer steps) would test this.
 - W3A16-G128 RTN is not recoverable by the same recipe; no QAD run was made at
   W3 in this pilot.
 - A stronger initialization (GPTQ/AWQ, block-wise QAT) would close more of the
@@ -161,9 +177,10 @@ Artifacts: `experiments/gate2` (baseline), `gate3` (offline), `gate4`
 
 ## 9. Follow-ups
 
-1. Finish Q2-200; if it does not beat Q1-200, report on-policy as neutral to
-   negative at this scale.
-2. Add a second seed for Q1 and Q2 at the 25-step matched budget to size the
-   GSM8K difference.
+1. Run a rollout-length ablation at fixed response-token budget (e.g. 4 prompts
+   x 512 tokens x 25 steps) to test whether Q2's GSM8K collapse is caused by the
+   128-token rollout cap.
+2. Add a second seed for Q1-200 and Q2-200; the GSM8K 28% vs 14% gap is large
+   enough to justify replication before any claim.
 3. If more budget: 1.7B W4, W3 with a stronger initialization, and a real packed
    INT4 export.

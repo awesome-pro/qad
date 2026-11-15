@@ -1,0 +1,231 @@
+{
+  "created_utc": "2026-11-15T06:44:01.229843+00:00",
+  "git_commit": "48b3b6293abbc8b23167793cbe5ca5287c8b893c",
+  "model": {
+    "id": "Qwen/Qwen3-0.6B",
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    },
+    "checkpoint": "checkpoints/q2_w4a16_g128_200_step200.pt"
+  },
+  "tokenizer": {
+    "id": "Qwen/Qwen3-0.6B",
+    "vocab_size": 151643,
+    "eos_token_id": 151645,
+    "pad_token_id": 151643
+  },
+  "prompts": {
+    "path": "data/cache/prompts/openthoughts_prompts.jsonl",
+    "num_prompts": 8,
+    "ids_sha256": "a423d84a14467fe98bc52be345b7db23b34521da925f98d3c1b618a8cd0a00c3"
+  },
+  "generation": {
+    "do_sample": true,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_new_tokens": 256,
+    "min_new_tokens": 32,
+    "seed_per_prompt": "42+prompt_index (identical across configs)",
+    "note": "fixed seed does not guarantee identical trajectories across different models"
+  },
+  "environment": {
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "torch": "2.13.0+cu129",
+    "transformers": "5.23.0",
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+  },
+  "configs": {
+    "w4a16_g128": {
+      "quantization": {
+        "bits": 4,
+        "group_size": 128,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "checkpoint": {
+        "path": "checkpoints/q2_w4a16_g128_200_step200.pt",
+        "step": 200
+      },
+      "parameter_bytes": 2072903680,
+      "records": [
+        {
+          "prompt_index": 0,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way trans",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.055335968379446654,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.484375,
+            "distinct_2": 0.7803921568627451
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. The task is to determine if the Chef, head server, and sous-chef can communicate with each other using the transceivers, even if two are too far apart. \n\nFirst, I need to understand the problem. The key points are:\n\n- Each person has two transceivers. But they can communicate directly if they are within R meters. If they are too far apart, they need another one to act as an intermediate. But how do we check if such a scenario is possible?\n\nThe input gives T test cases. Each test case has R, followed by the positions of the three people. For each test case, I need to check if all three can communicate with each other, possibly through a third person.\n\nSo the approach would be:\n\n1. For each test case, check if there exists a third person (the head server and sous-chef) such that the distance between the head server and the third person is <= R, and the distance between the sous-chef and the third person is <= R. If this is "
+        },
+        {
+          "prompt_index": 1,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Frank explained its friend Felman the algorithm of Euclides to calculate the GCD \nof two numbers. Then Felman implements",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.04743083003952564,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.4609375,
+            "distinct_2": 0.796078431372549
+          },
+          "text": "<think>\nOkay, let's see. The task is to write a Python function that reads input numbers A and B, computes their GCD, and prints the result for each pair. The input has two lines, and for each line, we need to output the GCD.\n\nFirst, I remember that the Euclidean algorithm is efficient, but when dealing with very large integers (like up to 250 digits), we can't just use the built-in GCD function because that's not efficient. Wait, but in Python, the built-in GCD function is implemented with the Euclidean algorithm, right? So maybe we don't need to worry about handling very large numbers here. Let me check the example given.\n\nIn the example, the input is two lines: 2 6 and 10 11. The output is 2 and 1. The built-in GCD function should handle those numbers correctly. But wait, the problem says that Felman's algorithm is supposed to be modified. However, since Python's built-in functions handle big integers efficiently, maybe the solution is to just use the built-in GCD function.\n\nBut the"
+        },
+        {
+          "prompt_index": 2,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.A Little Elephant from the Zoo of Lviv likes lucky strings, i.e., the strings that consist only of the lucky digits 4 an",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.07905138339920947,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.4453125,
+            "distinct_2": 0.796078431372549
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. The task is to find the number of balanced substrings in a given lucky string S. A balanced substring is one where there's at least one integer X (1 \u2264 X \u2264 length of substring) such that the number of 4s in the prefix up to X-1 equals the number of 7s in the suffix starting from X to the end.\n\nFirst, I need to understand the problem thoroughly. Let me rephrase the condition. For a substring S[L, R], there exists some X (1 \u2264 X \u2264 R-L+1) such that the number of 4s in the substring S[1, X-1] equals the number of 7s in S[X, R]. \n\nWait, the substring S[L, R] would have length R-L+1, and X must be between 1 and that length. So for example, if the substring is from index L to R, then X can be any integer from 1 to (R-L+1). For each possible substring, we need to check if there's any X that satisfies the 4 and 7 count condition.\n\nBut checking all possible substrings directly would be O(N^"
+        },
+        {
+          "prompt_index": 3,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Given a string s. Can you make it a palindrome by deleting exactly one character? Note that size of the string after del",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.02371541501976282,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.47265625,
+            "distinct_2": 0.8313725490196079
+          },
+          "text": "<think>\nOkay, let's see. I need to create a Python function that takes a string and checks if deleting exactly one character results in a palindrome. The input has multiple test cases, and for each, I have to output YES or NO.\n\nFirst, I need to understand the problem correctly. The function should process each test case by checking all possible deletions of one character and seeing if the resulting string is a palindrome. But how do I check that efficiently?\n\nWait, for each test case, I can iterate through each possible position to delete. For each deletion, I check if the remaining string is a palindrome. But checking each possibility might be time-consuming if there are many test cases. However, considering that the constraints allow up to T test cases, and each test case has a string of size up to 2000, maybe a brute-force approach is manageable here.\n\nSo, the plan is:\n\nFor each test case:\n1. Iterate through each character in the string to consider a deletion at each position.\n2. Fo"
+        },
+        {
+          "prompt_index": 4,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An established group of scientists are working on finding solution to NP hard problems. They claim Subset Sum  as an NP-",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.02766798418972327,
+            "max_repeated_4gram": 3,
+            "distinct_1": 0.54296875,
+            "distinct_2": 0.8549019607843137
+          },
+          "text": "<think>\nOkay, let's see. I need to write a Python function that checks if there's a subset of a given set of non-negative integers whose sum equals a target K. The function should take stdin as input and output 0 or 1 for each test case. \n\nFirst, I remember that subset sum problems are similar to the classic problem of checking if a subset equals a target. But since the input size can be up to N=1000 and T=1000, I need an efficient solution. The brute force approach of checking all subsets would be O(2^N), which is way too slow for N=1000. So I need a better way.\n\nWait, what's the standard approach here? Oh right, using dynamic programming. For each element in the set, we can decide to include it or not. The key is to track whether a subset sum up to K has been achieved. \n\nLet me think. Let's say we have a boolean array dp where dp[i] is True if a subset sum of exactly i can be achieved. The initial state would be dp[0] = True because an empty subset sums to 0. Then, for each number in"
+        },
+        {
+          "prompt_index": 5,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.Let's call a string a phone number if it has length 11 and fits the pattern \"8xxxxxxxxxx\", where each \"x\" is replaced by",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.02371541501976282,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.40234375,
+            "distinct_2": 0.7607843137254902
+          },
+          "text": "<think>\nOkay, let's see. I need to write a Python function that takes a string of digits and determines how many phone numbers can be made. The phone number has to be 11 digits long, and the pattern is \"8xxxxxxxxxx\", where each x is a digit. So each phone number must start with 8 and then have 6 more digits, each being a digit. But the problem is that we need to use the digits from the cards exactly once, right? Wait, no, the input is n cards, each with digits. So the cards are the digits we have. So the function needs to use all of them to make as many phone numbers as possible. But if there are not enough digits, like if n is less than 11, then we can't make any phone numbers. Wait, no. Wait, the phone numbers have 11 digits. So the total number of digits needed for the phone numbers is 11 * k, where k is the number of phone numbers. But since we have n digits, the maximum k is min(ceil(n / 11), 1). Because if n is 11, then 1 phone number. If n is 10, then "
+        },
+        {
+          "prompt_index": 6,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.You are given q queries in the following form:\n\nGiven three integers l_i, r_i and d_i, find minimum positive integer x_i",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.011857707509881465,
+            "max_repeated_4gram": 2,
+            "distinct_1": 0.4296875,
+            "distinct_2": 0.803921568627451
+          },
+          "text": "<think>\nOkay, let's see. I need to generate a Python function that takes stdin and outputs the minimum positive integer x_i for each query. The function should check if x_i is divisible by d_i and not in the segment [l_i, r_i]. And there are q queries.\n\nFirst, I need to understand the problem. For each query, given l, r, d, find the smallest x divisible by d_i that's not in [l, r]. But wait, if there's no such x, then maybe the answer is 0? But the problem says x must be positive, so if none exists, maybe the answer is something else. Let's check the sample input.\n\nLooking at the sample input:\n\nFor example, the first query is l=2, r=4, d=2. The possible x divisible by 2 are 2, 4. The segment [2,4] includes 2 and 4. So the answer is 6, which is 2*3. But why is 6 the answer? Because 2 is in the segment, 4 is also. So 6 is the next multiple. So the output is 6. That makes sense.\n\nSo how do I compute this"
+        },
+        {
+          "prompt_index": 7,
+          "question": "Generate an executable Python function generated from the given prompt. The function should take stdin as input and print the output. Simply call the function after the definition.An array of integers p_{1},p_{2}, \u2026,p_{n} is called a permutation if it contains each number from 1 to n exactly once. F",
+          "summary": {
+            "generated_tokens": 256,
+            "content_tokens": 256,
+            "eos_generated": false,
+            "eos_position": null,
+            "premature_eos": false,
+            "hit_max_tokens": true,
+            "empty": false,
+            "repetition_4gram": 0.13438735177865613,
+            "max_repeated_4gram": 4,
+            "distinct_1": 0.3828125,
+            "distinct_2": 0.6862745098039216
+          },
+          "text": "<think>\nOkay, let's try to figure out how to solve this problem. The task is to restore a permutation of integers from the given array of s_i values. The permutation has each number from 1 to n exactly once. \n\nFirst, I need to understand what the s_i values represent. The problem says that s_i is the sum of all elements p_j before i that are smaller than p_i. So for each position i, we have to find the sum of elements in the previous positions that are less than p_i. \n\nThe challenge is to reconstruct the original array given these s values. Let's think about how to approach this. \n\nLet me start by considering the properties of the permutation. Since each element is unique and from 1 to n, the sum of all elements is fixed. The sum of s_i values should be equal to the sum of all p_j for j < i, plus the sum of p_i's for each i. Wait, no. Wait, for each i, s_i is the sum of elements before i that are smaller than p_i. So for each i, s_i is the sum of all elements in positions 1 to i-1 that"
+        }
+      ],
+      "aggregate": {
+        "mean_generated_tokens": 256.0,
+        "mean_content_tokens": 256.0,
+        "mean_repetition_4gram": 0.050395256916996034,
+        "mean_max_repeated_4gram": 3.125,
+        "mean_distinct_2": 0.7887254901960784,
+        "premature_eos_count": 0,
+        "hit_max_tokens_count": 8,
+        "empty_count": 0,
+        "eos_rate": 0.0
+      },
+      "elapsed_seconds": 62.15974970301613,
+      "memory": {
+        "device_type": "cuda",
+        "start_allocated_bytes": 2072919040,
+        "end_allocated_bytes": 3843061760,
+        "peak_bytes": 3986378752,
+        "peak_method": "torch.cuda.max_memory_allocated",
+        "driver_allocated_bytes_at_end": 4156555264,
+        "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+      }
+    }
+  },
+  "notes": [
+    "Descriptive only: 8 prompts, one seed, stochastic sampling.",
+    "Prompts are the first N rows of the pinned OpenThoughts pool; identical for all configs."
+  ]
+}

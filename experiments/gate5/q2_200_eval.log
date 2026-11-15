@@ -1,0 +1,28 @@
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 5497.59it/s]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 6338.55it/s]
+wrapped 196 quantizable linear modules
+{
+  "nll": 3.267631448805332,
+  "perplexity": 26.249093334560417,
+  "forward_kl_teacher_student": 0.2645514931064099
+}
+tokens=261,888 elapsed=23.4s (11190 tok/s)
+memory: 6157906944 bytes peak (torch.cuda.max_memory_allocated)
+written to experiments/gate5/eval_q2_200.json
+EVAL_DONE
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  65%|██████▌   | 203/311 [00:00<00:00, 2021.74it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 1757.50it/s]
+{
+  "accuracy": 0.14,
+  "correct": 14,
+  "parsed": 97,
+  "parse_rate": 0.97,
+  "mean_response_len": 505.69,
+  "elapsed_seconds": 71.7536156871356
+}
+written experiments/gate5/gsm8k_q2_200.json
+GSM_DONE
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 4608.65it/s]
+w4a16_g128       len=256 rep4=0.050 premature=0 cap=8 time=62s
+written experiments/gate5/gen_q2_200.json
+ALL_DONE

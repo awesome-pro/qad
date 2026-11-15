@@ -20,7 +20,7 @@ Everything below marked **ESTIMATE** is a planning number. Nothing marked *measu
 - **Question:** does on-policy QAD recover a pure-RTN W3A16 Qwen3 student better than offline QAD, and which factor (prefix source vs loss estimator) matters?
 - **Design (primary):** T0 (BF16) / Q0 (RTN) / Q1 (offline forward KL on gold completions) / Q2 (on-policy forward KL). Q1 vs Q2 isolates the prefix source at matched loss, prompts and budget. Q3 (on-policy sampled reverse KL) is an optional third arm, decided after Q1/Q2.
 - **Scope:** W3A16 only, no Stage-1 initialization, Qwen3-0.6B first, 1.7B conditional on a pre-registered compute threshold. Estimated 6–9.5 GPU-hours for the primary 0.6B answer; the first paid session is ~1 h on a 24 GB card.
-- **Status:** Gates 0–5 executed on Qwen3-0.6B W4A16-G128 (single seed): baseline, Q1 offline QAD, Q2 on-policy QAD at matched budget, checkpoint evaluation and a 100-example GSM8K check. A longer Q2 run is in flight. 109 tests collected (108 pass, 1 CUDA-only skip). See §6.4–6.6 and `reports/findings.md`; no publication claims yet.
+- **Status:** Gates 0–5 complete on Qwen3-0.6B W4A16-G128 (single seed): baseline, Q1 offline QAD, Q2 on-policy QAD at matched budget, checkpoint evaluation, and a 100-example GSM8K check. 109 tests collected (108 pass, 1 CUDA-only skip). See §6.4–6.6 and `reports/findings.md`; no publication claims yet.
 - **Decisions I most want checked:** §13 items 1 (Q1 definition), 2 (loss temperature), 6 (budget matching), 7 (promotion criterion), 10 (whether the resulting claim is strong enough for the trial).
 - **Deliberate deviations / judgment calls:** Q1 uses the same prompts with gold completions rather than arbitrary fixed text; generative benchmarks use Qwen3's recommended sampling (no greedy decoding in thinking mode); sampled RKL is an optional third arm, not part of the primary scope.
 
@@ -532,19 +532,23 @@ Held-out set (261,888 tokens), forward-KL QAD, no CE term:
 | Q1-128, 25 steps (offline) | 3.2942 | 26.96 | 0.3009 | 13% |
 | Q2, 25 steps (on-policy) | 3.3021 | 27.17 | 0.3124 | 16% |
 | Q1, 200 steps (offline) | 3.2688 | 26.28 | 0.2532 | 28% |
+| Q2, 200 steps (on-policy) | 3.2676 | 26.25 | 0.2646 | 14% |
 
 - Q1-200 closes about half of the RTN NLL gap; GSM8K recovers from 1% to 28%
   against 33% BF16.
 - The 25-step arms are matched at ~102K response tokens and 128-token responses:
   offline is slightly better on NLL/KL, on-policy is 3 GSM8K points better.
   Single seed, 100 examples: suggestive, not decisive.
+- At 200 steps / ~819K response tokens, Q1 and Q2 are tied on NLL/PPL, offline
+  is better on KL, and offline is twice as accurate on GSM8K (28% vs 14%).
+  Q2-200 has the least repetitive generation of the quantized arms (4-gram
+  0.050), so repetition and task accuracy dissociate. The 128-token rollout cap
+  is the leading hypothesis for Q2's task-quality collapse; replication and a
+  rollout-length ablation are required before interpretation.
 - Generation repetition returns toward BF16 (4-gram 0.117 Q0 → 0.067 Q1-200 /
   0.053 Q2, BF16 0.047); all configs hit the 256-token cap.
 - Cost: Q1-200 313 s / 818,760 response tokens / 14.6 GiB; Q2-25 308 s /
   101,499 tokens / 14.0 GiB; checkpoints 5.3–5.6 GB each (not committed).
-- Q2-200 (819K tokens) is running at the time of writing; its result is added
-  when complete.
-
 Full write-up: `reports/findings.md`.
 
 ---
@@ -808,22 +812,19 @@ rule, not a correctness gate). Still open:
 
 ---
 
-## 14. Immediate next step (Gate 3, QAD on W4A16-G128)
+## 14. Next steps after the pilot
 
-Gate 2 is complete and the artifacts are verified. The next session, only after
-explicit approval, is a short matched-budget offline QAD run (Q1) on
-**W4A16-G128**, not W3-G128:
+The pilot is complete. The highest-value follow-ups, in order:
 
-1. Reuse the pinned data, teacher and quantization config; save a fresh Q0
-   checkpoint for W4.
-2. Offline forward KL on fixed gold completions, identical prompt pool and
-   response-token budget as the future on-policy arm; no CE term.
-3. Start with a short probe-scale run (e.g. 20–30 steps) to confirm loss
-   behaviour and memory, then extend only if the probe is clean.
-4. Fixed validation NLL/KL every N steps; checkpoint/reload check; no full
-   QAD run until the run card and budget are reviewed.
-5. W3-G128 remains the aggressive baseline; W3-G32 and a stronger W3
-   initialization stay as separate, pre-registered options.
+1. **Replicate Q1-200 vs Q2-200** with a second seed; the GSM8K 28% vs 14% gap
+   is large but single-run.
+2. **Rollout-length ablation** for Q2 at fixed token budget (e.g. 4 prompts x
+   512 tokens x 25 steps) to test whether 128-token rollouts cause the GSM8K
+   collapse while held-out NLL stays flat.
+3. **W3 initialization** remains open: either a stronger init (GPTQ/AWQ or
+   block-wise QAT) or accept W3-G128 as an unrecoverable baseline; do not
+   silently substitute.
+4. Only then consider 1.7B, label corruption, or packed INT4 export.
 
-No GPU session should start without a reviewed run card; terminate the pod
-after artifacts are copied.
+Artifacts are in `experiments/gate2`–`gate5` and `reports/findings.md`.
+Checkpoints (5.3–5.6 GB each) remain on the pod and are not committed.
