@@ -44,6 +44,12 @@
   },
   "changed_examples": [],
   "changed_count": 0,
+  "provenance": {
+    "generated_from": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s42_think10.json",
+    "artifact_sha256": "4240f6986f0ea71970c435e3ba04d8338bc17cfc08bbb5881c32e984115b3695",
+    "parser_version": "3.0.0",
+    "source_sha256": "558675559b308c327bd229b94cb0c20148d905e5c5d089ab7efbd2c2943443ea"
+  },
   "checkpoint": {
     "path": "checkpoints/m_q2_w4_s42_best.pt",
     "sha256": "23c15270278e482d336691653931dc3df27f82850a0de079662404eca7fd49a6",

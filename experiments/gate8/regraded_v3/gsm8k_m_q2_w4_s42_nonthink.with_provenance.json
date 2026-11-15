@@ -13,14 +13,14 @@
     "count": 100,
     "marker_present_rate": 0.73,
     "terminal_marker_present_rate": 0.72,
-    "parsed_answer_rate": 0.69,
+    "parsed_answer_rate": 0.7,
     "completion_rate": 0.72,
     "truncation_rate": 0.28,
     "thinking_closed_rate": 1.0,
     "parse_status_counts": {
-      "ok": 69,
+      "ok": 70,
       "missing": 28,
-      "ambiguous": 2,
+      "ambiguous": 1,
       "malformed": 1
     },
     "mean_response_tokens": 192.42
@@ -47,14 +47,6 @@
   },
   "changed_examples": [
     {
-      "example_id": "gsm8k-test-7",
-      "old_status": "ok",
-      "new_status": "ambiguous",
-      "old_value": "120",
-      "new_value": null,
-      "final_line": "#### 120"
-    },
-    {
       "example_id": "gsm8k-test-9",
       "old_status": "ok",
       "new_status": "ambiguous",
@@ -79,7 +71,13 @@
       "final_line": "#### **700**"
     }
   ],
-  "changed_count": 4,
+  "changed_count": 3,
+  "provenance": {
+    "generated_from": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s42_nonthink.json",
+    "artifact_sha256": "2edcbb4cd5b5585223a04cfff356f280fbfb7ac2683dab386c7770b60cd38610",
+    "parser_version": "3.0.0",
+    "source_sha256": "5f81a7cbe9b9de4e710b7e2c6a061e94ac4f725ffe9a279e7f9aa8519b20b8f2"
+  },
   "checkpoint": {
     "path": "checkpoints/m_q2_w4_s42_best.pt",
     "sha256": "23c15270278e482d336691653931dc3df27f82850a0de079662404eca7fd49a6",

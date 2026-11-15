@@ -1,0 +1,108 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q2_w4_s42_nonthink.generations.jsonl",
+  "source_sha256": "5f81a7cbe9b9de4e710b7e2c6a061e94ac4f725ffe9a279e7f9aa8519b20b8f2",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.35,
+    "accuracy_ci95": [
+      0.26,
+      0.45
+    ],
+    "correct": 35,
+    "count": 100,
+    "marker_present_rate": 0.73,
+    "terminal_marker_present_rate": 0.72,
+    "parsed_answer_rate": 0.69,
+    "completion_rate": 0.72,
+    "truncation_rate": 0.28,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 69,
+      "missing": 28,
+      "ambiguous": 2,
+      "malformed": 1
+    },
+    "mean_response_tokens": 192.42
+  },
+  "old_metrics": {
+    "accuracy": 0.36,
+    "accuracy_ci95": [
+      0.27,
+      0.46
+    ],
+    "correct": 36,
+    "count": 100,
+    "explicit_answer_rate": 0.73,
+    "completion_rate": 0.72,
+    "truncation_rate": 0.28,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 70,
+      "missing": 27,
+      "malformed": 3
+    },
+    "mean_response_tokens": 192.42,
+    "elapsed_seconds": 35.12196340993978
+  },
+  "changed_examples": [
+    {
+      "example_id": "gsm8k-test-7",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "120",
+      "new_value": null,
+      "final_line": "#### 120"
+    },
+    {
+      "example_id": "gsm8k-test-9",
+      "old_status": "ok",
+      "new_status": "ambiguous",
+      "old_value": "460",
+      "new_value": null,
+      "final_line": "Final answer: $ \\boxed{460} $ ####."
+    },
+    {
+      "example_id": "gsm8k-test-15",
+      "old_status": "malformed",
+      "new_status": "missing",
+      "old_value": null,
+      "new_value": null,
+      "final_line": "Profit = $8,096.80 - $8,000 = **"
+    },
+    {
+      "example_id": "gsm8k-test-77",
+      "old_status": "malformed",
+      "new_status": "ok",
+      "old_value": null,
+      "new_value": "700",
+      "final_line": "#### **700**"
+    }
+  ],
+  "changed_count": 4,
+  "checkpoint": {
+    "path": "checkpoints/m_q2_w4_s42_best.pt",
+    "sha256": "23c15270278e482d336691653931dc3df27f82850a0de079662404eca7fd49a6",
+    "step": 150,
+    "val_nll": 3.279189445078373,
+    "inference_weights": "checkpoints/m_q2_w4_s42_best.safetensors",
+    "inference_sha256": "c7b6a27a6d3df488184f0a6598adb81f22e54a1363e6dd8fad3119a74ba84fc3",
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  }
+}

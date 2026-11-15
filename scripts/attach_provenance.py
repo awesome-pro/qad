@@ -6,6 +6,8 @@ import argparse
 import json
 from pathlib import Path
 
+from qwen_qad.checkpoint import file_sha256
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -16,6 +18,12 @@ def main() -> None:
     artifact = json.loads(Path(args.artifact).read_text())
     run = json.loads(Path(args.run_json).read_text())
     best = run["best_checkpoint"]
+    artifact["provenance"] = {
+        "generated_from": str(args.artifact),
+        "artifact_sha256": file_sha256(args.artifact),
+        "parser_version": artifact.get("parser_version"),
+        "source_sha256": artifact.get("source_sha256"),
+    }
     artifact["checkpoint"] = {
         "path": best["path"],
         "sha256": best["sha256"],

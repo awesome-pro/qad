@@ -1,0 +1,76 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q1_w4_s42_think10.generations.jsonl",
+  "source_sha256": "2e41e94716633f16b45d06c62a3625f43feb93011a01c208af3a1bf64e409575",
+  "parser_version": "3.0.0",
+  "mode": "thinking",
+  "metrics": {
+    "accuracy": 0.1,
+    "accuracy_ci95": [
+      0.0,
+      0.3
+    ],
+    "correct": 1,
+    "count": 10,
+    "marker_present_rate": 0.3,
+    "terminal_marker_present_rate": 0.3,
+    "parsed_answer_rate": 0.2,
+    "completion_rate": 0.3,
+    "truncation_rate": 0.7,
+    "thinking_closed_rate": 0.4,
+    "parse_status_counts": {
+      "missing": 1,
+      "malformed": 1,
+      "incomplete_thinking": 6,
+      "ok": 2
+    },
+    "mean_response_tokens": 1341.8
+  },
+  "old_metrics": {
+    "accuracy": 0.1,
+    "accuracy_ci95": [
+      0.0,
+      0.3
+    ],
+    "correct": 1,
+    "count": 10,
+    "explicit_answer_rate": 0.3,
+    "completion_rate": 0.3,
+    "truncation_rate": 0.7,
+    "thinking_closed_rate": 0.4,
+    "parse_status_counts": {
+      "missing": 1,
+      "malformed": 1,
+      "incomplete_thinking": 6,
+      "ok": 2
+    },
+    "mean_response_tokens": 1341.8,
+    "elapsed_seconds": 51.37264833902009
+  },
+  "changed_examples": [],
+  "changed_count": 0,
+  "checkpoint": {
+    "path": "checkpoints/m_q1_w4_s42_best.pt",
+    "sha256": "3fc424d2e64c38102d2d714842a5db9e2e5589ee8f5e233bc66997a84eaf1930",
+    "step": 150,
+    "val_nll": 3.28010593354702,
+    "inference_weights": "checkpoints/m_q1_w4_s42_best.safetensors",
+    "inference_sha256": "a907fb93bc415fbbf98aff18e460c1f98e7f6e212815e9208f6534aba24d5f65",
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  }
+}

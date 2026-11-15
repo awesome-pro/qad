@@ -21,7 +21,7 @@ generations were **not** regenerated or retrained.
 
 ## 2. Tests
 
-**169 collected, 167 passed, 2 environment skips** (CUDA-only quantizer test;
+**172 collected, 170 passed, 2 environment skips** (CUDA-only quantizer test;
 pinned-tokenizer test when not in the local cache). New regression tests cover
 all of the above.
 
@@ -64,7 +64,35 @@ rejected.
 - T0/Q0 diffs: `regraded_v3/diff_gsm8k_{t0,q0_w4}_nonthink.json`
 - Previous v1/v2 summaries and generation JSONLs are untouched.
 
-## 5. Checkpoint provenance
+## 5. Consistency audit and provenance regeneration
+
+The first v3 provenance files were generated from an **intermediate** v3 pass,
+before the nested-`Answer:` and units fixes. The canonical v3 summaries were
+then regenerated, but the provenance files were not, producing the reviewer's
+mismatch (Q1 33/62 vs 32/61; Q2 35/70 vs 35/69).
+
+Actions:
+
+- Archived the stale files under
+  `experiments/gate8/regraded_v3/archive_stale_provenance/`.
+- Regenerated all four Q1/Q2 provenance summaries from the canonical v3
+  generation records; Q1 is now 33 correct/62 parsed, Q2 35 correct/70 parsed.
+- Added `src/qwen_qad/eval_integrity.py` and
+  `scripts/check_eval_integrity.py`. The check recomputes metrics from the
+  per-example records and verifies:
+  - summary metrics, status counts and correct flags against records;
+  - parser version 3.0.0 and source hash against `regraded_from`;
+  - provenance metrics/parser/source/checkpoint SHA against canonical + run;
+  - paired accuracy, counts, McNemar p, parser versions and source hashes.
+- Manifest: `experiments/gate8/regraded_v3/integrity_manifest.json`.
+- Report: `experiments/gate8/regraded_v3/integrity_report.json` — **passed**
+  for all six seed-42 summaries/provenance files and the paired comparison.
+  The regenerated paired output is `paired_integrity.json`; the old
+  `gsm8k_m_q1_vs_q2_s42_nonthink.json` is preserved.
+
+No seed-42 retraining and no parser-semantic changes were made for this fix.
+
+## 6. Checkpoint provenance
 
 The regraded Q1/Q2 summaries have checkpoint provenance attached:
 Q1 `.pt` `3fc424d2…eaf1930`, Q2 `.pt` `23c15270…7fd49a6`; best safetensors are
@@ -72,7 +100,7 @@ in `checkpoints/gate8/` and verified byte-for-byte. Clean-process tensor
 restoration max diff 0.0; on-pod logits/held-out metrics identical. See
 `experiments/gate8/BACKUP_VERIFICATION.md`.
 
-## 6. Seed 43
+## 7. Seed 43
 
 Seed-43 matched training is proceeding independently with the approved seed-42
 protocol (same 32 prompts/step, 128-token cap, 200 steps, schedule seed 43,
@@ -80,7 +108,7 @@ teacher/quantizer). Evaluations will use frozen parser v3.0.0 and the disjoint
 validation/test sets; configuration equality will be checked with
 `check_matched.py`.
 
-## 7. Remaining limitations
+## 8. Remaining limitations
 
 - One corrected seed per arm until seed 43 completes; 100 non-thinking
   questions; bootstrap/McNemar uncertainty remains wide.

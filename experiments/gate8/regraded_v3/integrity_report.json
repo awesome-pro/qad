@@ -1,0 +1,42 @@
+{
+  "manifest": "experiments/gate8/regraded_v3/integrity_manifest.json",
+  "parser_version": "3.0.0",
+  "passed": true,
+  "results": [
+    {
+      "name": "q1_nonthink",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q2_nonthink",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q1_think10",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q2_think10",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "t0_nonthink",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q0_nonthink",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "name": "q1_vs_q2_nonthink",
+      "passed": true,
+      "problems": []
+    }
+  ]
+}

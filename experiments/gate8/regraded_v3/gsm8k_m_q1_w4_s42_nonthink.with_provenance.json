@@ -4,23 +4,22 @@
   "parser_version": "3.0.0",
   "mode": "nonthinking",
   "metrics": {
-    "accuracy": 0.32,
+    "accuracy": 0.33,
     "accuracy_ci95": [
-      0.23,
+      0.24,
       0.42
     ],
-    "correct": 32,
+    "correct": 33,
     "count": 100,
     "marker_present_rate": 0.66,
     "terminal_marker_present_rate": 0.63,
-    "parsed_answer_rate": 0.61,
+    "parsed_answer_rate": 0.62,
     "completion_rate": 0.64,
     "truncation_rate": 0.36,
     "thinking_closed_rate": 1.0,
     "parse_status_counts": {
-      "ok": 61,
+      "ok": 62,
       "missing": 37,
-      "ambiguous": 1,
       "malformed": 1
     },
     "mean_response_tokens": 205.35
@@ -55,14 +54,6 @@
       "final_line": "- Profit from"
     },
     {
-      "example_id": "gsm8k-test-55",
-      "old_status": "ok",
-      "new_status": "ambiguous",
-      "old_value": "14",
-      "new_value": null,
-      "final_line": "Final answer: #### 14."
-    },
-    {
       "example_id": "gsm8k-test-71",
       "old_status": "ok",
       "new_status": "missing",
@@ -79,7 +70,13 @@
       "final_line": "- The better price is buying"
     }
   ],
-  "changed_count": 4,
+  "changed_count": 3,
+  "provenance": {
+    "generated_from": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s42_nonthink.json",
+    "artifact_sha256": "841fab9c2a10a872bba6c998de3cbb47d61fe0338aa623ebaa3d7bd48b9f65ed",
+    "parser_version": "3.0.0",
+    "source_sha256": "cde7cd8d2066d24585d184b33c557e8f00e4350829c5a2d490e16717b2a343f2"
+  },
   "checkpoint": {
     "path": "checkpoints/m_q1_w4_s42_best.pt",
     "sha256": "3fc424d2e64c38102d2d714842a5db9e2e5589ee8f5e233bc66997a84eaf1930",
