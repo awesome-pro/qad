@@ -1,4 +1,4 @@
-# GPU runbook — Gate 2 (official T0 + Q0)
+# GPU runbook — Gate 2 (official T0 + Q0 at W3 and W4)
 
 One session, **no training**. Expected ~1–1.5 h; hard timeout 3 h. Terminate the
 pod as soon as the artifacts are copied back.
@@ -55,8 +55,11 @@ Sanity checks before copying back:
 
 - inventory totals match `experiments/gate1/inventory_qwen3_0p6b.json`;
 - T0 forward KL is exactly 0; Q0 KL is positive;
-- Q0 NLL > T0 NLL, both finite;
-- peak memory and GPU type/driver are present in both JSON files.
+- Q0 NLL > T0 NLL, both finite; W4 Q0 is much closer to T0 than W3 Q0;
+- T0 `teacher_self_kl.two_pass_mean` is ~0 (computed, not assigned);
+- `memory.peak_bytes` is the CUDA true peak, and `memory.parameter_bytes` is
+  reported separately (do not compare across processes with different models);
+- GPU type/driver and resolved revisions are present in every JSON.
 
 ```bash
 mkdir -p /workspace/artifacts/gate2

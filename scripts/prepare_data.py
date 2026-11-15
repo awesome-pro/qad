@@ -28,6 +28,8 @@ import numpy as np
 import pyarrow.parquet as pq
 from transformers import AutoTokenizer
 
+from qwen_qad.data import truncate_response
+
 FINEWEB_DATASET = "HuggingFaceFW/fineweb-edu"
 FINEWEB_CONFIG = "sample-10BT"
 FINEWEB_REVISION = "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9"
@@ -150,15 +152,11 @@ def build_prompt_pool(
                 skipped_prompt += 1
                 continue
 
-            response_ids = tokenizer(
-                assistant,
-                add_special_tokens=False,
-                truncation=True,
-                max_length=max_response_tokens,
-            ).input_ids
-            is_truncated = len(response_ids) == max_response_tokens
+            full_response_ids = tokenizer(assistant, add_special_tokens=False).input_ids
+            response_ids, is_truncated = truncate_response(
+                full_response_ids, max_response_tokens, tokenizer.eos_token_id
+            )
             truncated += int(is_truncated)
-            response_ids = response_ids + [tokenizer.eos_token_id]
 
             records.append(
                 {
@@ -189,6 +187,9 @@ def build_prompt_pool(
         "max_prompt_tokens": max_prompt_tokens,
         "max_response_tokens": max_response_tokens,
         "truncated_responses": truncated,
+        "complete_responses": len(records) - truncated,
+        "eos_appended_to_complete_responses": len(records) - truncated,
+        "truncated_responses_without_eos": truncated,
         "skipped_prompt_too_long": skipped_prompt,
         "prompt_token_stats": {
             "min": min(len(r["prompt_ids"]) for r in records),
@@ -210,6 +211,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--n-prompts", type=int, default=3000)
     parser.add_argument("--max-prompt-tokens", type=int, default=1024)
     parser.add_argument("--max-response-tokens", type=int, default=1024)
+    parser.add_argument("--skip-eval", action="store_true", help="reuse the existing held-out eval set")
     return parser.parse_args()
 
 
@@ -224,10 +226,17 @@ def main() -> None:
 
     tokenizer = AutoTokenizer.from_pretrained(TOKENIZER_ID, revision=TOKENIZER_REVISION)
 
-    eval_ids, fineweb_manifest = build_fineweb_eval(
-        tokenizer, args.n_eval_blocks, args.block_size, args.eval_docs
-    )
-    np.save(cache / "eval" / "fineweb_eval_ids.npy", eval_ids)
+    if args.skip_eval:
+        eval_path = cache / "eval" / "fineweb_eval_ids.npy"
+        eval_ids = np.load(eval_path)
+        previous = json.loads((manifests / "gate1_data_manifest.json").read_text())
+        fineweb_manifest = previous["fineweb_eval"]
+        print(f"reusing {eval_path} ({eval_ids.shape[0]} x {eval_ids.shape[1]})")
+    else:
+        eval_ids, fineweb_manifest = build_fineweb_eval(
+            tokenizer, args.n_eval_blocks, args.block_size, args.eval_docs
+        )
+        np.save(cache / "eval" / "fineweb_eval_ids.npy", eval_ids)
 
     parquet_path = cache / "openthoughts" / OT_PARQUET
     records, ot_manifest = build_prompt_pool(

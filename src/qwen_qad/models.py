@@ -279,3 +279,44 @@ def count_fake_quant_modules(model: nn.Module) -> int:
     from .quantization import FakeQuantLinear
 
     return sum(1 for module in model.modules() if isinstance(module, FakeQuantLinear))
+
+
+def set_quantization_enabled(model: nn.Module, enabled: bool) -> int:
+    """Toggle fake quantization on all wrapped modules; returns the count.
+
+    With quantization disabled, a wrapped model must reproduce the source
+    model's logits exactly (the fp32 master is a lossless upcast of the source
+    weight). This is the Gate 1.5 equivalence check.
+    """
+    from .quantization import FakeQuantLinear
+
+    count = 0
+    for module in model.modules():
+        if isinstance(module, FakeQuantLinear):
+            module.quantized = bool(enabled)
+            module.invalidate_cache()
+            count += 1
+    return count
+
+
+def resolve_revisions(model_id: str, revision: str | None) -> dict[str, Any]:
+    """Resolve the requested revision to a commit hash, recording provenance."""
+    try:
+        from huggingface_hub import HfApi
+
+        info = HfApi().model_info(model_id, revision=revision)
+        return {
+            "requested": revision,
+            "resolved_model_sha": info.sha,
+            "resolved_tokenizer_sha": info.sha,
+            "last_modified": info.last_modified.isoformat() if info.last_modified else None,
+            "source": "huggingface_hub.model_info",
+        }
+    except Exception as exc:  # network offline / cache only
+        return {
+            "requested": revision,
+            "resolved_model_sha": None,
+            "resolved_tokenizer_sha": None,
+            "source": "unresolved",
+            "error": str(exc),
+        }

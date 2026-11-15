@@ -8,6 +8,7 @@ from transformers import Qwen3Config, Qwen3ForCausalLM
 
 from qwen_qad.models import (
     count_fake_quant_modules,
+    set_quantization_enabled,
     set_trainable_quantized_only,
     wrap_quantized_linears,
 )
@@ -132,3 +133,19 @@ def test_wrapping_is_idempotent_on_quantizable_modules():
     second = wrap_quantized_linears(model, CFG)
     assert len(first) == 14
     assert second == []  # FakeQuantLinear is not nn.Linear
+
+def test_quantization_disabled_reproduces_original_logits():
+    torch.manual_seed(2)
+    model = tiny_model()
+    ids = torch.tensor([[1, 2, 3, 4, 5]])
+    with torch.no_grad():
+        before = model(ids).logits.clone()
+
+    wrap_quantized_linears(model, CFG)
+    disabled = set_quantization_enabled(model, False)
+    assert disabled == 14
+    with torch.no_grad():
+        after = model(ids).logits
+
+    max_diff = float((after - before).abs().max())
+    assert max_diff == 0.0, f"disabled quantization changed logits by {max_diff}"

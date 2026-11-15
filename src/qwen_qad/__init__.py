@@ -3,6 +3,8 @@
 from .models import (
     build_inventory,
     count_fake_quant_modules,
+    resolve_revisions,
+    set_quantization_enabled,
     is_quantizable_name,
     load_model,
     load_tokenizer,
@@ -26,6 +28,8 @@ from .quantization import (
 __all__ = [
     "build_inventory",
     "count_fake_quant_modules",
+    "resolve_revisions",
+    "set_quantization_enabled",
     "is_quantizable_name",
     "load_model",
     "load_tokenizer",

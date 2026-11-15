@@ -28,16 +28,20 @@ normalization layers, attention biases (none in Qwen3).
 
 | Increment | State |
 |---|---|
-| 0. Reference quantizer, losses, wrapping + tests | **done locally** (76 collected, 75 pass + 1 CUDA-only skip) |
+| 0. Reference quantizer, losses, wrapping + tests | **done locally** (89 collected, 88 pass + 1 CUDA-only skip) |
 | 1. Checkpoint inventory, fixed eval data, T0/Q0 smoke | **done locally** (not reportable) |
+| 1.5. W3A16 degradation diagnosis (BF16/W4/W3-G32/G64/G128, attn vs MLP) | **done locally** — see [diagnosis](experiments/gate15/DIAGNOSIS.md) |
 | 2. Official T0 + Q0 on the held-out set, memory accounting | **next** (first GPU session) |
 | 3. Offline QAD, checkpoint round-trip | needs GPU |
 | 4. Rollouts + on-policy Q2 | needs GPU |
 | 5. Benchmark subsets, report | needs GPU |
 
-Local Gate 1 results and the one open concern (pure-RTN W3A16 is severely
-degraded: local smoke ppl 727 vs 23 for BF16) are recorded in `plan.md` §6.4.
-No model-quality number from the Mac is reportable.
+Local Gate 1.5 establishes that the W3A16-G128 degradation is intrinsic to
+pure RTN, not a wrapper bug: BF16 ppl 22.4, W4A16 ppl 30.7, W3A16-G32 96.5,
+G64 223.2, G128 754.4 on 65,472 held-out tokens. Recommendation: keep W3 as the
+primary arm and add W4A16-G128 as a separate variant. Details in
+`experiments/gate15/DIAGNOSIS.md`; no model-quality number from the Mac is
+reportable.
 
 ## Environment
 
@@ -65,7 +69,9 @@ overwritten. It also covers exact tail-group bit accounting, the distinction
 between endpoint occupancy and clipping, device-preserving conversion,
 dequantized-weight cache invalidation, checkpoint-derived inventories,
 quantization wrapping, causal token alignment, and chunked-loss equivalence
-(losses and gradients) against a naive full-logits reference.
+(losses and gradients) against a naive full-logits reference, plus the
+EOS-after-truncation policy, sampled memory measurement, quantization-disabled
+equivalence, and the Gate 1.5 diagnostic helpers.
 
 ## References
 

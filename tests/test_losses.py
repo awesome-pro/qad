@@ -249,3 +249,15 @@ def test_tiny_model_gradients_reach_transformer_through_chunked_loss():
     grads = [p.grad for p in model.parameters() if p.requires_grad]
     assert any(g is not None and g.abs().sum() > 0 for g in grads)
     assert all(g is None or torch.isfinite(g).all() for g in grads)
+
+
+def test_self_kl_is_numerically_computed_not_assigned():
+    # Same tensors -> exactly zero; perturbed teacher -> positive. Guards against
+    # replacing a computed teacher self-KL with a literal zero.
+    h, _, w, _ = make_batch()
+    with torch.no_grad():
+        identical = chunked_forward_kl(h.detach(), h.detach(), w)
+        perturbed = h.detach() + 0.05 * torch.randn_like(h)
+        different = chunked_forward_kl(perturbed, h.detach(), w)
+    assert identical.item() == pytest.approx(0.0, abs=1e-9)
+    assert different.item() > 0.0
