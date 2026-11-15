@@ -1,9 +1,9 @@
 # GPU runbook — audit corrections (review.md)
 
 **Status (Checkpoint A, 2026-11-15):** the A5000 pod is running and holds the
-matched seed-42 Q1/Q2 checkpoints; the A6000 is stopped. Checkpoint A is
-complete and under reviewer verification. Seed 43, W3 and corrected 1.7B runs
-are intentionally paused until approval.
+matched seed-42 Q1/Q2 checkpoints; the A6000 is stopped. Checkpoint A and parser v3.0.0 are
+frozen. Seed-43 matched training is running; W3 and corrected 1.7B remain
+paused until seed-43 review.
 
 Historical pilot checkpoints were deleted after evaluation and are gone; the
 seed-42 matched checkpoints are preserved on the A5000 and backed up to the Mac

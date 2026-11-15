@@ -898,8 +898,8 @@ Old artifacts (`experiments/gate2`–`gate7`, old `reports/findings.md` tables) 
 preserved and labelled historical. New corrected runs use `experiments/gate8`.
 
 **Status:** parser v3.0.0 is frozen (`docs/parser_spec_v3.md`); final seed-42
-regrade is in `reports/parser_v3_final.md`. Seed-43 matched training is running
-under the approved protocol; W3 and corrected 1.7B remain paused.
+regrade is in `reports/parser_v3_final.md`. Seed-43 matched training is running under the approved protocol; W3 and
+corrected 1.7B remain paused.
 
 ---
 
