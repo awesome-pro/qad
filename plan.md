@@ -901,8 +901,11 @@ preserved and labelled historical. New corrected runs use `experiments/gate8`.
 regrade is in `reports/parser_v3_final.md`. Seed-43 matched results are in
 `reports/seed43_results.md` (Q1 35%, Q2 43%, paired p=0.17; integrity passed).
 Matched W3 Q1 is complete (`reports/w3_matched_results.md`): validation PPL
-62.42, test PPL 88.24, strict GSM8K 0%; not generative. Corrected 1.7B is
-pending on a 48 GB pod.
+62.42, test PPL 88.24, strict GSM8K 0%; not generative. Corrected 1.7B is pending on a 48 GB pod; handoff checklist in
+`GPU_RUNBOOK_1P7B.md`. Next main research effort: stronger W3 initialization
+(W3-G32 / GPTQ-AWQ / block-wise QAT), see `reports/research_summary.md`.
+Seed-43/W3 checkpoint backup is **blocked**: A5000 became unreachable before
+verification; see `reports/checkpoint_backup_status.md`.
 
 ---
 

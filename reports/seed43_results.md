@@ -33,8 +33,8 @@ the two thinking subsets, and the paired comparison (parser 3.0.0, source
 hashes, records, provenance and checkpoint SHA all consistent).
 
 Thinking-mode 10-question subset (same cap/settings as seed 42): Q1 30%
-(4/10 parsed, 50% completed), Q2 20% (3/10, 40% completed). Underpowered; this
-is a parser/completion sanity subset, not an accuracy benchmark.
+(4/10 parsed, 50% completed), Q2 20% (3/10, 40% completed). **Optional diagnostic
+only**; underpowered, not an accuracy benchmark and not used for conclusions.
 
 Raw evaluation summaries are preserved; canonical analysis uses the v3
 regrades (which had zero changed examples versus the evaluator output).

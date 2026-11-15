@@ -10,8 +10,8 @@ offline distillation?**
 > strict evaluator in `scripts/eval_gsm8k_strict.py`, and Q1/Q2 are being rerun
 > with matched schedules (`scripts/train_matched.py`). See `review.md`,
 > `GPU_RUNBOOK_AUDIT.md`, and `plan.md` §15. The frozen strict parser is
-> `docs/parser_spec_v3.md`; final seed-42 results are in
-> `reports/parser_v3_final.md` and `reports/checkpoint_a.md`.
+> `docs/parser_spec_v3.md`; final results are summarised in
+> `reports/research_summary.md`. 1.7B handoff: `GPU_RUNBOOK_1P7B.md`.
 
 This repository follows `QWEN_LOW_BIT_QAD_RESEARCH_BRIEF.md`. Where the brief
 and the published *OnlineQAT* paper (arXiv:2610.09346) differ, **the brief

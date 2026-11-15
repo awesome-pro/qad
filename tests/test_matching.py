@@ -48,7 +48,33 @@ def test_token_budget_mismatch_is_reported():
         run("q1", [["a"]], tokens=4096), run("q2", [["a"]], tokens=3500)
     )
     assert not result["checks"]["token_budget_within_5pct"]
+    assert not result["matched"]
     assert result["token_ratio"] > 1.05
+    assert any("token budget" in item for item in result["mismatches"])
+
+
+def test_missing_required_field_fails_matched():
+    q1 = run("q1", [["a"]])
+    del q1["schedule"]["seed"]
+    result = compare_matched_runs(q1, run("q2", [["a"]]))
+    assert not result["matched"]
+    assert not result["checks"]["schedule.seed"]
+    assert any("schedule.seed" in item for item in result["mismatches"])
+
+
+def test_missing_steps_log_fails_matched():
+    q1 = run("q1", [["a"]])
+    q1["steps_log"] = []
+    result = compare_matched_runs(q1, run("q2", [["a"]]))
+    assert not result["matched"]
+    assert not result["checks"]["same_step_count"]
+
+
+def test_missing_step_field_fails_matched():
+    q1 = run("q1", [["a"]])
+    del q1["steps_log"][0]["response_tokens"]
+    result = compare_matched_runs(q1, run("q2", [["a"]]))
+    assert not result["matched"]
 
 
 def test_wrong_arm_is_reported():
