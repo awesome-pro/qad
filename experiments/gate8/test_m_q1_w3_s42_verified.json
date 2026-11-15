@@ -1,0 +1,88 @@
+{
+  "created_utc": "2026-11-15T12:36:28.968610+00:00",
+  "git_commit": "2316e3d0769c0012aa5241db14b24908e04460d9",
+  "variant": "Q0",
+  "model": "Qwen/Qwen3-0.6B",
+  "revisions": {
+    "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "last_modified": "2025-07-26T03:46:27+00:00",
+    "source": "huggingface_hub.model_info"
+  },
+  "quantization": {
+    "bits": 3,
+    "group_size": 128,
+    "granularity": "per_group",
+    "scheme": "symmetric",
+    "scale_floor": 1e-08
+  },
+  "checkpoint": {
+    "path": "checkpoints/m_q1_w3_s42_best.pt",
+    "sha256": "b9c3827a9533c2d25b1731dc9140bb019c9c07fdb7d93a8108cfb0a6b20f242b",
+    "meta": {
+      "arm": "q1",
+      "run_name": "m_q1_w3_s42",
+      "step": 150,
+      "val_nll": 4.133848384022713,
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      },
+      "quantization": {
+        "bits": 3,
+        "group_size": 128,
+        "granularity": "per_group",
+        "scheme": "symmetric",
+        "scale_floor": 1e-08
+      },
+      "schedule_seed": 42,
+      "prompts_per_step": 32,
+      "continuation_cap": 128
+    }
+  },
+  "eval_set": {
+    "path": "data/cache/eval/wikitext_test_ids.npy",
+    "blocks_used": 128,
+    "blocks_available": 128,
+    "block_size": 1024,
+    "tokens_scored": 130944,
+    "ids_sha256": "c38909d04503cb50a1c8c38e463f29bba729343cc88b5f8f99b5179698cdca0f",
+    "limited": false
+  },
+  "device": "cuda",
+  "dtype": "bfloat16",
+  "metrics": {
+    "nll": 4.480039946734905,
+    "perplexity": 88.2381974331311,
+    "forward_kl_teacher_student": 1.4430731013417244
+  },
+  "teacher_self_kl": null,
+  "elapsed_seconds": 11.394891839940101,
+  "tokens_per_second": 11491.464933526593,
+  "memory": {
+    "device_type": "cuda",
+    "start_allocated_bytes": 3265034240,
+    "end_allocated_bytes": 5068820480,
+    "peak_bytes": 6157906944,
+    "peak_method": "torch.cuda.max_memory_allocated",
+    "driver_allocated_bytes_at_end": 6390022144,
+    "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead.",
+    "parameter_bytes": {
+      "teacher": 1192099840,
+      "student": 2072903680,
+      "note": "teacher and quantized student are separate objects"
+    }
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "transformers": "5.23.0"
+  },
+  "gpu": "NVIDIA RTX A5000",
+  "warnings": []
+}

@@ -898,8 +898,11 @@ Old artifacts (`experiments/gate2`–`gate7`, old `reports/findings.md` tables) 
 preserved and labelled historical. New corrected runs use `experiments/gate8`.
 
 **Status:** parser v3.0.0 is frozen (`docs/parser_spec_v3.md`); final seed-42
-regrade is in `reports/parser_v3_final.md`. Seed-43 matched training is running under the approved protocol; W3 and
-corrected 1.7B remain paused.
+regrade is in `reports/parser_v3_final.md`. Seed-43 matched results are in
+`reports/seed43_results.md` (Q1 35%, Q2 43%, paired p=0.17; integrity passed).
+Matched W3 Q1 is complete (`reports/w3_matched_results.md`): validation PPL
+62.42, test PPL 88.24, strict GSM8K 0%; not generative. Corrected 1.7B is
+pending on a 48 GB pod.
 
 ---
 

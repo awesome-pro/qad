@@ -1,0 +1,47 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q1_w3_s42_nonthink.generations.jsonl",
+  "source_sha256": "c101496567fef6836c6cb6eb690ae4e16da9d1159ee93c42cbfa5d1c0cc2e90a",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.0,
+    "accuracy_ci95": [
+      0.0,
+      0.0
+    ],
+    "correct": 0,
+    "count": 100,
+    "marker_present_rate": 0.04,
+    "terminal_marker_present_rate": 0.0,
+    "parsed_answer_rate": 0.0,
+    "completion_rate": 0.01,
+    "truncation_rate": 0.99,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 100
+    },
+    "mean_response_tokens": 253.47
+  },
+  "old_metrics": {
+    "accuracy": 0.0,
+    "accuracy_ci95": [
+      0.0,
+      0.0
+    ],
+    "correct": 0,
+    "count": 100,
+    "marker_present_rate": 0.04,
+    "terminal_marker_present_rate": 0.0,
+    "parsed_answer_rate": 0.0,
+    "completion_rate": 0.01,
+    "truncation_rate": 0.99,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 100
+    },
+    "mean_response_tokens": 253.47,
+    "elapsed_seconds": 37.45479784603231
+  },
+  "changed_examples": [],
+  "changed_count": 0
+}
