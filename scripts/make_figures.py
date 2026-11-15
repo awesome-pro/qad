@@ -33,7 +33,7 @@ def bars_with_labels(ax, labels, values, colors, ylabel, fmt="{:.1f}", ylim=None
 
 def two_panel(labels, ppl, gsm, title, filename, colors):
     fig, (a, b) = plt.subplots(1, 2, figsize=(8.2, 3.2))
-    bars_with_labels(a, labels, ppl, colors, "WikiText test PPL (lower is better)")
+    bars_with_labels(a, labels, ppl, colors, "WikiText test PPL (lower is better)", fmt="{:.2f}")
     bars_with_labels(b, labels, gsm, colors, "Strict GSM8K accuracy (%)", ylim=65)
     a.set_title("Test perplexity")
     b.set_title("GSM8K")
