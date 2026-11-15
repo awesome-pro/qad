@@ -11,7 +11,10 @@ A weight-only fake-quantization and distillation pipeline was implemented; multi
 
 **Central finding:** QAD can recover substantial quantization-induced likelihood degradation, but recovering teacher-forced token distributions does not necessarily restore autoregressive reasoning or generation quality.
 
-[**Full Research Report**](reports/FINAL_RESEARCH_REPORT.md) · [W3 Failure Analysis](reports/w3_failure_analysis.md) · [Experiment Registry](experiments/index.md) · [Correctness Audit](reports/final_audit.md) · [Research Brief](docs/research_brief.md)
+- [**Full Research Report**](reports/FINAL_RESEARCH_REPORT.md)
+- [PDF](QwenQAD.pdf) · [PPT](QwenQAD.pptx)
+- [W3 Failure Analysis](reports/w3_failure_analysis.md) · [Experiment Registry](experiments/index.md) · [Correctness Audit](reports/final_audit.md)
+- [Research Brief](docs/research_brief.md) 
 
 ---
 
