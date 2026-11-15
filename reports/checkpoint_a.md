@@ -1,5 +1,8 @@
 # Checkpoint A — strict grader and corrected evaluation
 
+> **Superseded metrics:** the numbers below use parser v1. See
+> `reports/checkpoint_a_patch.md` for parser v2 and the regraded results.
+
 **Purpose:** let the parent reviewer verify the GSM8K grader, Qwen3 thinking-mode
 handling, and evaluation artifacts before any further 200-step training.
 

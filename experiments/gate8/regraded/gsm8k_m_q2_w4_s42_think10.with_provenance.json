@@ -1,0 +1,71 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q2_w4_s42_think10.generations.jsonl",
+  "source_sha256": "558675559b308c327bd229b94cb0c20148d905e5c5d089ab7efbd2c2943443ea",
+  "parser_version": "2",
+  "mode": "thinking",
+  "metrics": {
+    "accuracy": 0.0,
+    "accuracy_ci95": [
+      0.0,
+      0.0
+    ],
+    "correct": 0,
+    "count": 10,
+    "marker_present_rate": 0.1,
+    "parsed_answer_rate": 0.1,
+    "completion_rate": 0.1,
+    "truncation_rate": 0.9,
+    "thinking_closed_rate": 0.1,
+    "parse_status_counts": {
+      "incomplete_thinking": 9,
+      "ok": 1
+    },
+    "mean_response_tokens": 1439.9
+  },
+  "old_metrics": {
+    "accuracy": 0.0,
+    "accuracy_ci95": [
+      0.0,
+      0.0
+    ],
+    "correct": 0,
+    "count": 10,
+    "explicit_answer_rate": 0.1,
+    "completion_rate": 0.1,
+    "truncation_rate": 0.9,
+    "thinking_closed_rate": 0.1,
+    "parse_status_counts": {
+      "incomplete_thinking": 9,
+      "ok": 1
+    },
+    "mean_response_tokens": 1439.9,
+    "elapsed_seconds": 52.43766356993001
+  },
+  "changed_examples": [],
+  "changed_count": 0,
+  "checkpoint": {
+    "path": "checkpoints/m_q2_w4_s42_best.pt",
+    "sha256": "23c15270278e482d336691653931dc3df27f82850a0de079662404eca7fd49a6",
+    "step": 150,
+    "val_nll": 3.279189445078373,
+    "inference_weights": "checkpoints/m_q2_w4_s42_best.safetensors",
+    "inference_sha256": "c7b6a27a6d3df488184f0a6598adb81f22e54a1363e6dd8fad3119a74ba84fc3",
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  }
+}

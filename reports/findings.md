@@ -11,8 +11,9 @@ corrections in `review.md` / `plan.md` §15. Not publication-ready.
 > first, thinking subset with completion/truncation tracked) and
 > `scripts/train_matched.py` for matched Q1/Q2 schedules. See
 > `GPU_RUNBOOK_AUDIT.md` for the rerun plan. The first corrected results are in
-> `reports/checkpoint_a.md` (strict non-thinking: T0 38%, Q0 13%, matched Q1 34%,
-> matched Q2 36%; paired difference not significant).
+> `reports/checkpoint_a.md` and `reports/checkpoint_a_patch.md` (parser v2 strict
+> non-thinking: T0 37%, Q0 13%, matched Q1 33%, matched Q2 31%; paired difference
+> not significant).
 
 ## 1. Question
 

@@ -883,12 +883,12 @@ run on a GPU; **blocked** = cannot be completed with available artifacts.
 
 | Priority | Issue | Status |
 |---|---|---|
-| P0A/B/C | strict GSM8K parser, non-thinking and thinking evaluators, lossless token/text records | **verified at Checkpoint A**: `answer_parsing.py`, `eval_gsm8k_strict.py`, tests (Qwen3 ids 151667/151668 verified) |
+| P0A/B/C | strict GSM8K parser, non-thinking and thinking evaluators, lossless token/text records | **verified + parser v2**: edge cases fixed, offline regrade done; see `reports/checkpoint_a_patch.md` |
 | P0D/E | regrade old checkpoints / matched 25-step pair | **blocked for old checkpoints** (deleted); corrected matched seed-42 pair evaluated at Checkpoint A |
 | P1 | matched Q1/Q2 schedule, tokens, context | **verified at Checkpoint A** (seed 42): `check_matched.py` passes, 0 prompt-hash mismatches, token ratio 1.0012 |
 | P2 | disjoint validation vs final test | **verified at Checkpoint A**: `fineweb_val_ids.npy`, `wikitext_test_ids.npy`, zero block overlap |
 | P3 | best/final checkpoint selection with reload | **verified at Checkpoint A**: best step 150 for both arms, best/final saved and hashed |
-| P4 | durable checkpoints | **partial**: Q1/Q2 best portable `.safetensors` copied to `checkpoints/gate8/`; `.pt` best/final on pod; old checkpoints lost |
+| P4 | durable checkpoints | **in progress**: best `.pt` + best/final `.safetensors` copying to `checkpoints/gate8/`; remote hashes captured; old checkpoints lost |
 | P5 | API-correctness tests (sampling uses current weights, modes, masks, EOS) | **done (Mac)**: `test_generation_correctness.py`, existing training/freeze tests |
 | P6 | realistic memory accounting | **done (Mac)**: `reports/memory_accounting.md`; no packed artifact claimed |
 | P7 | statistics | **done (Mac) in evaluator**: bootstrap CI, paired difference CI, McNemar |
@@ -897,8 +897,9 @@ run on a GPU; **blocked** = cannot be completed with available artifacts.
 Old artifacts (`experiments/gate2`–`gate7`, old `reports/findings.md` tables) are
 preserved and labelled historical. New corrected runs use `experiments/gate8`.
 
-**Pause point:** Checkpoint A (`reports/checkpoint_a.md`) is ready for reviewer
-verification. Seed 43, W3 and corrected 1.7B runs have **not** been started.
+**Pause point:** Checkpoint A is verified. Parser v2/regrade/checkpoint verification are in
+`reports/checkpoint_a_patch.md`. Seed 43, W3 and corrected 1.7B runs have **not**
+been started and remain paused until reviewer approval of the patch.
 
 ---
 

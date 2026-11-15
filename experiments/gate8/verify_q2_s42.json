@@ -1,0 +1,51 @@
+{
+  "checkpoint": "checkpoints/m_q2_w4_s42_best.pt",
+  "checkpoint_sha256": "23c15270278e482d336691653931dc3df27f82850a0de079662404eca7fd49a6",
+  "safetensors": "checkpoints/m_q2_w4_s42_best.safetensors",
+  "safetensors_sha256": "c7b6a27a6d3df488184f0a6598adb81f22e54a1363e6dd8fad3119a74ba84fc3",
+  "checkpoint_meta": {
+    "arm": "q2",
+    "run_name": "m_q2_w4_s42",
+    "step": 150,
+    "val_nll": 3.279189445078373,
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    },
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "schedule_seed": 42,
+    "prompts_per_step": 32,
+    "continuation_cap": 128
+  },
+  "missing_safetensors_keys": [
+    "lm_head.weight"
+  ],
+  "logits": {
+    "max_abs_diff": 0.0,
+    "argmax_match_fraction": 1.0
+  },
+  "heldout_checkpoint": {
+    "nll": 3.2940073013305664,
+    "perplexity": 26.950646914905583,
+    "kl": 0.26717177778482437,
+    "tokens": 16368
+  },
+  "heldout_safetensors": {
+    "nll": 3.2940073013305664,
+    "perplexity": 26.950646914905583,
+    "kl": 0.26717177778482437,
+    "tokens": 16368
+  },
+  "nll_abs_diff": 0.0,
+  "kl_abs_diff": 0.0,
+  "passed": true
+}

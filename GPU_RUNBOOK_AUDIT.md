@@ -1,9 +1,14 @@
 # GPU runbook — audit corrections (review.md)
 
-**No pod is currently running.** This is the corrected protocol to execute once
-a GPU is available. Reuse the pinned model/data; the old checkpoints are gone
-and must be retrained (they were deleted after evaluation). Do not overwrite
-`experiments/gate2`–`gate7`; write to `gate8`/`gate9`.
+**Status (Checkpoint A, 2026-11-15):** the A5000 pod is running and holds the
+matched seed-42 Q1/Q2 checkpoints; the A6000 is stopped. Checkpoint A is
+complete and under reviewer verification. Seed 43, W3 and corrected 1.7B runs
+are intentionally paused until approval.
+
+Historical pilot checkpoints were deleted after evaluation and are gone; the
+seed-42 matched checkpoints are preserved on the A5000 and backed up to the Mac
+(`checkpoints/gate8/`, gitignored). Do not overwrite `experiments/gate2`–`gate7`;
+write to `gate8`/`gate9`.
 
 ## 0. Environment
 
@@ -79,11 +84,9 @@ done; done
 # T0 and Q0 on the same final test
 $P scripts/baseline.py --variant T0 --eval data/cache/eval/wikitext_test_ids.npy \
   --out experiments/gate8/test_t0.json
-$P scripts/baseline.py --variant Q0 --bits 4 --evals data/cache/eval/wikitext_test_ids.npy \
+$P scripts/baseline.py --variant Q0 --bits 4 --eval data/cache/eval/wikitext_test_ids.npy \
   --out experiments/gate8/test_q0_w4.json
 ```
-
-(`--evals` is a typo guard: use `--eval`.)
 
 ## 5. Strict GSM8K, non-thinking, corrected checkpoints
 

@@ -43,10 +43,11 @@ distinction explicit; no packed artifact is produced.
 The first corrected matched pair is complete and written up in
 `reports/checkpoint_a.md`.
 
-- Strict non-thinking GSM8K (100 questions): T0 38%, Q0 13%, Q1 34%, Q2 36%.
-  Paired Q2−Q1 = +2 points, 95% CI [−4,+9], McNemar p = 0.77.
-- The old Q1 28%/Q2 14% gap is not reproduced; it was substantially a
-  parser/cap and unmatched-protocol artifact.
+- Strict non-thinking GSM8K (100 questions, parser v2 regrade): T0 37%, Q0 13%,
+  Q1 33%, Q2 31%. Paired Q2−Q1 = −2 points, 95% CI [−9,+5], McNemar p = 0.77.
+- The old Q1 28%/Q2 14% gap is not reproduced; parser, decoding, checkpoint
+  selection and matching all changed, so their independent contributions are
+  not isolated.
 - Disjoint WikiText test PPL: Q1 30.64, Q2 29.92; matched prompt hashes and
   token budget check clean (ratio 1.0012).
 - Thinking subset (10 questions, 1,536 cap): mostly truncated/incomplete;
@@ -57,6 +58,6 @@ final report rewrite are **paused** until Checkpoint A is verified.
 
 ## What remains
 
-- Reviewer verification of Checkpoint A.
+- Reviewer verification of Checkpoint A / parser v2 patch (`reports/checkpoint_a_patch.md`).
 - Then seed 43 matched pair, W3 matched pair, corrected 1.7B baseline/Q1,
   a larger thinking benchmark, and the final report rewrite.
