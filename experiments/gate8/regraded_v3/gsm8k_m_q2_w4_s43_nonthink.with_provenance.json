@@ -1,0 +1,84 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q2_w4_s43_nonthink.generations.jsonl",
+  "source_sha256": "d21d22c497a51cba3eb8c42732309fae7b51c1789d4090a68ed34b2354846664",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.43,
+    "accuracy_ci95": [
+      0.33,
+      0.52
+    ],
+    "correct": 43,
+    "count": 100,
+    "marker_present_rate": 0.68,
+    "terminal_marker_present_rate": 0.66,
+    "parsed_answer_rate": 0.64,
+    "completion_rate": 0.66,
+    "truncation_rate": 0.34,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 34,
+      "ok": 64,
+      "malformed": 1,
+      "ambiguous": 1
+    },
+    "mean_response_tokens": 202.12
+  },
+  "old_metrics": {
+    "accuracy": 0.43,
+    "accuracy_ci95": [
+      0.33,
+      0.52
+    ],
+    "correct": 43,
+    "count": 100,
+    "marker_present_rate": 0.68,
+    "terminal_marker_present_rate": 0.66,
+    "parsed_answer_rate": 0.64,
+    "completion_rate": 0.66,
+    "truncation_rate": 0.34,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 34,
+      "ok": 64,
+      "malformed": 1,
+      "ambiguous": 1
+    },
+    "mean_response_tokens": 202.12,
+    "elapsed_seconds": 35.36846125102602
+  },
+  "changed_examples": [],
+  "changed_count": 0,
+  "provenance": {
+    "generated_from": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.json",
+    "artifact_sha256": "e70d300a4755f2e95ae57bbc3fdfcd20227e8bdebbee95607861719a1389d6b6",
+    "parser_version": "3.0.0",
+    "source_sha256": "d21d22c497a51cba3eb8c42732309fae7b51c1789d4090a68ed34b2354846664"
+  },
+  "checkpoint": {
+    "path": "checkpoints/m_q2_w4_s43_best.pt",
+    "sha256": "4ce45e978793c4bba775601c44fba63a692099397a13ceafbac209aeb28aed59",
+    "step": 200,
+    "val_nll": 3.282215900719166,
+    "inference_weights": "checkpoints/m_q2_w4_s43_best.safetensors",
+    "inference_sha256": "2c40eba0bd2efbc6ae13ff5d50ed37178f23435cc5aceb96340101da9d20dc24",
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q2_w4_s43_nonthink.generations.jsonl",
+  "source_sha256": "d21d22c497a51cba3eb8c42732309fae7b51c1789d4090a68ed34b2354846664",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.43,
+    "accuracy_ci95": [
+      0.33,
+      0.52
+    ],
+    "correct": 43,
+    "count": 100,
+    "marker_present_rate": 0.68,
+    "terminal_marker_present_rate": 0.66,
+    "parsed_answer_rate": 0.64,
+    "completion_rate": 0.66,
+    "truncation_rate": 0.34,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 34,
+      "ok": 64,
+      "malformed": 1,
+      "ambiguous": 1
+    },
+    "mean_response_tokens": 202.12
+  },
+  "old_metrics": {
+    "accuracy": 0.43,
+    "accuracy_ci95": [
+      0.33,
+      0.52
+    ],
+    "correct": 43,
+    "count": 100,
+    "marker_present_rate": 0.68,
+    "terminal_marker_present_rate": 0.66,
+    "parsed_answer_rate": 0.64,
+    "completion_rate": 0.66,
+    "truncation_rate": 0.34,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "missing": 34,
+      "ok": 64,
+      "malformed": 1,
+      "ambiguous": 1
+    },
+    "mean_response_tokens": 202.12,
+    "elapsed_seconds": 35.36846125102602
+  },
+  "changed_examples": [],
+  "changed_count": 0
+}

@@ -41,3 +41,5 @@ corrected protocol is `GPU_RUNBOOK_AUDIT.md`; new runs write to `experiments/gat
 | final test on WikiText-103 | disjoint test metrics | **done seed 42**: Q1 30.64 PPL, Q2 29.92 (`gate8/test_m_q*`) |
 | thinking subset, 10 questions, 1536 tokens | completion/truncation/thinking-closed rates | **done (pilot)**: low completion; not an accuracy benchmark (`gate8/gsm8k_*_think10.*`) |
 | 1.7B T0/Q0/Q1 | exploratory corrected arm | **T0/Q0 baselines done; Q1 stopped for Checkpoint A** (`gate8/test_1p7b_*`) |
+| 2026-11-15 | 8 | seed-43 matched Q1/Q2 | `scripts/train_matched.py --seed 43` | `experiments/gate8/m_q*_s43.*`, `regraded_v3/*s43*` | prompt hashes match; Q1 30.68 PPL / 35% GSM; Q2 30.72 / 43%; paired +8 pts, p=0.17 |
+| 2026-11-15 | 8 | W3 matched Q1 | `scripts/train_matched.py --bits 3 --arm q1` | `experiments/gate8/m_q1_w3_s42.*` | running |

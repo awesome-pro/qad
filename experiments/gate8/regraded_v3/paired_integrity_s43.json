@@ -1,0 +1,35 @@
+{
+  "count": 100,
+  "q1_accuracy": 0.35,
+  "q1_ci95": [
+    0.26,
+    0.44
+  ],
+  "q2_accuracy": 0.43,
+  "q2_ci95": [
+    0.33,
+    0.53
+  ],
+  "difference_q2_minus_q1": 0.08000000000000002,
+  "difference_ci95": [
+    -0.019999999999999962,
+    0.19
+  ],
+  "paired_counts": {
+    "q1_only": 9,
+    "q2_only": 17,
+    "both": 26,
+    "neither": 48
+  },
+  "mcnemar_p": 0.16863754391670227,
+  "parser_versions": [
+    "3.0.0",
+    "3.0.0"
+  ],
+  "q1_source_sha256": "9e948b0baa8b2d4c67e1b1acf2f44cd8fdac9d1206d722b365782f262d7ab792",
+  "q2_source_sha256": "d21d22c497a51cba3eb8c42732309fae7b51c1789d4090a68ed34b2354846664",
+  "canonical_summaries": [
+    "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_nonthink.json",
+    "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.json"
+  ]
+}

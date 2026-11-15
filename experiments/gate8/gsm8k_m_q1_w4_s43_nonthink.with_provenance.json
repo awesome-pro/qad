@@ -1,0 +1,144 @@
+{
+  "created_utc": "2026-11-15T11:59:38.426005+00:00",
+  "git_commit": "2316e3d0769c0012aa5241db14b24908e04460d9",
+  "config_name": "m_q1_w4_s43",
+  "mode": "nonthinking",
+  "model": {
+    "id": "Qwen/Qwen3-0.6B",
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    }
+  },
+  "checkpoint": {
+    "path": "checkpoints/m_q1_w4_s43_best.pt",
+    "sha256": "1652e5e11b134a7c18c68e6a3150ce38708ddd788b1947df3dc9c97df1cd56b0",
+    "step": 150,
+    "val_nll": 3.2795480042696,
+    "inference_weights": "checkpoints/m_q1_w4_s43_best.safetensors",
+    "inference_sha256": "b23cca33e6281296e3d039cd0a3840550e56b6ae5bef67c7145576c24468bfbe",
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revisions": {
+        "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "last_modified": "2025-07-26T03:46:27+00:00",
+        "source": "huggingface_hub.model_info"
+      }
+    }
+  },
+  "checkpoint_sha256": "1652e5e11b134a7c18c68e6a3150ce38708ddd788b1947df3dc9c97df1cd56b0",
+  "checkpoint_meta": {
+    "arm": "q1",
+    "run_name": "m_q1_w4_s43",
+    "step": 150,
+    "val_nll": 3.2795480042696,
+    "revisions": {
+      "requested": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_model_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "resolved_tokenizer_sha": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "last_modified": "2025-07-26T03:46:27+00:00",
+      "source": "huggingface_hub.model_info"
+    },
+    "quantization": {
+      "bits": 4,
+      "group_size": 128,
+      "granularity": "per_group",
+      "scheme": "symmetric",
+      "scale_floor": 1e-08
+    },
+    "schedule_seed": 43,
+    "prompts_per_step": 32,
+    "continuation_cap": 128
+  },
+  "quantization": {
+    "bits": 4,
+    "group_size": 128,
+    "granularity": "per_group",
+    "scheme": "symmetric",
+    "scale_floor": 1e-08
+  },
+  "dataset": {
+    "name": "openai/gsm8k",
+    "config": "main",
+    "split": "test",
+    "revision": "740312add88f781978c0658806c59bc2815b9866",
+    "offset": 0,
+    "count": 100,
+    "license": "mit"
+  },
+  "generation": {
+    "enable_thinking": false,
+    "max_new_tokens": 256,
+    "batch_size": 32,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "seed": 1234,
+    "instruction": "Solve the problem step by step. Put the final numeric answer on its own line exactly as: #### <number>"
+  },
+  "metrics": {
+    "accuracy": 0.35,
+    "accuracy_ci95": [
+      0.25,
+      0.44
+    ],
+    "correct": 35,
+    "count": 100,
+    "marker_present_rate": 0.64,
+    "terminal_marker_present_rate": 0.63,
+    "parsed_answer_rate": 0.61,
+    "completion_rate": 0.64,
+    "truncation_rate": 0.36,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 61,
+      "missing": 37,
+      "malformed": 2
+    },
+    "mean_response_tokens": 203.72,
+    "elapsed_seconds": 34.77813993091695
+  },
+  "memory": {
+    "device_type": "cuda",
+    "start_allocated_bytes": 2072919040,
+    "end_allocated_bytes": 3845667840,
+    "peak_bytes": 5689853440,
+    "peak_method": "torch.cuda.max_memory_allocated",
+    "driver_allocated_bytes_at_end": 7306477568,
+    "note": "Process-level number. CUDA is a true peak; MPS is a sampled lower bound. Processes holding teacher+student are not comparable to single-model runs; compare parameter_bytes instead."
+  },
+  "parameter_bytes": 2072903680,
+  "environment": {
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "torch": "2.13.0+cu129",
+    "cuda": "12.9",
+    "transformers": "5.23.0"
+  },
+  "gpu": "NVIDIA RTX A5000",
+  "notes": [
+    "Strict grading: only an explicit final-line ####, one-line \\boxed{}, or Answer: marker counts.",
+    "Marker-present, parsed-answer, completion and accuracy rates are separate.",
+    "Thinking mode requires a closed </think>; unfinished reasoning is never graded.",
+    "Full prompt/response token ids and decoded text are saved for regrading.",
+    "Parser version: 3.0.0."
+  ],
+  "provenance": {
+    "generated_from": "experiments/gate8/gsm8k_m_q1_w4_s43_nonthink.json",
+    "artifact_sha256": "92486f46f7e338e589d1f8ef9ee6021ef99ef48147b9e02c003e86a10e604db1",
+    "parser_version": null,
+    "source_sha256": null
+  }
+}

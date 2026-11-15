@@ -1,0 +1,31 @@
+{
+  "parser_version": "3.0.0",
+  "entries": [
+    {
+      "name": "q1_s43_nonthink",
+      "mode": "nonthinking",
+      "summary": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_nonthink.json",
+      "generations": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_nonthink.generations.jsonl",
+      "provenance": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_nonthink.with_provenance.json",
+      "run_json": "experiments/gate8/m_q1_w4_s43.json"
+    },
+    {
+      "name": "q2_s43_nonthink",
+      "mode": "nonthinking",
+      "summary": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.json",
+      "generations": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.generations.jsonl",
+      "provenance": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.with_provenance.json",
+      "run_json": "experiments/gate8/m_q2_w4_s43.json"
+    }
+  ],
+  "paired": [
+    {
+      "name": "q1_vs_q2_s43",
+      "summary": "experiments/gate8/regraded_v3/paired_integrity_s43.json",
+      "q1_generations": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_nonthink.generations.jsonl",
+      "q2_generations": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.generations.jsonl",
+      "q1_summary": "experiments/gate8/regraded_v3/gsm8k_m_q1_w4_s43_nonthink.json",
+      "q2_summary": "experiments/gate8/regraded_v3/gsm8k_m_q2_w4_s43_nonthink.json"
+    }
+  ]
+}

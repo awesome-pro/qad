@@ -1,0 +1,51 @@
+{
+  "regraded_from": "experiments/gate8/gsm8k_m_q1_w4_s43_nonthink.generations.jsonl",
+  "source_sha256": "9e948b0baa8b2d4c67e1b1acf2f44cd8fdac9d1206d722b365782f262d7ab792",
+  "parser_version": "3.0.0",
+  "mode": "nonthinking",
+  "metrics": {
+    "accuracy": 0.35,
+    "accuracy_ci95": [
+      0.25,
+      0.44
+    ],
+    "correct": 35,
+    "count": 100,
+    "marker_present_rate": 0.64,
+    "terminal_marker_present_rate": 0.63,
+    "parsed_answer_rate": 0.61,
+    "completion_rate": 0.64,
+    "truncation_rate": 0.36,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 61,
+      "missing": 37,
+      "malformed": 2
+    },
+    "mean_response_tokens": 203.72
+  },
+  "old_metrics": {
+    "accuracy": 0.35,
+    "accuracy_ci95": [
+      0.25,
+      0.44
+    ],
+    "correct": 35,
+    "count": 100,
+    "marker_present_rate": 0.64,
+    "terminal_marker_present_rate": 0.63,
+    "parsed_answer_rate": 0.61,
+    "completion_rate": 0.64,
+    "truncation_rate": 0.36,
+    "thinking_closed_rate": 1.0,
+    "parse_status_counts": {
+      "ok": 61,
+      "missing": 37,
+      "malformed": 2
+    },
+    "mean_response_tokens": 203.72,
+    "elapsed_seconds": 34.77813993091695
+  },
+  "changed_examples": [],
+  "changed_count": 0
+}
