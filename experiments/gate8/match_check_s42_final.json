@@ -1,0 +1,29 @@
+{
+  "matched": true,
+  "mismatches": [],
+  "checks": {
+    "arms": true,
+    "model.id": true,
+    "model.revisions.resolved_model_sha": true,
+    "quantization": true,
+    "schedule.seed": true,
+    "schedule.prompts_per_step": true,
+    "schedule.continuation_cap": true,
+    "schedule.prompt_instances": true,
+    "schedule.unique_prompts_seen": true,
+    "optimizer.lr": true,
+    "optimizer.warmup_steps": true,
+    "optimizer.steps": true,
+    "data.val_sha256": true,
+    "same_step_count": true,
+    "prompt_hashes_match": true,
+    "token_budget_within_5pct": true,
+    "prompt_instances_match": true
+  },
+  "prompt_hash_mismatch_steps": [],
+  "q1_response_tokens": 819200,
+  "q2_response_tokens": 818232,
+  "token_ratio": 1.0011830385514133,
+  "q1_unique_prompts": 3000,
+  "q2_unique_prompts": 3000
+}
